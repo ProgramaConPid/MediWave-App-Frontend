@@ -1,6 +1,6 @@
 .dashboard__nav {
   padding-block: 20px;
-  border: 1px solid var(--border);
+  border-bottom: 1px solid hsl(var(--border));
 }
 
 .dashboard__navContainer {
