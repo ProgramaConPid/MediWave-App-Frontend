@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --background: 220 30% 8%;
+  --foreground: 200 20% 98%;
+  --card: 220 25% 12%;
+  --primary: 190 95% 55%;
+  --secondary: 220 40% 18%;
+  --muted: 220 25% 15%;
+  --muted-foreground: 200 15% 65%;
+  --accent: 180 100% 60%;
+  --destructive: 0 70% 55%;
+  --border: 220 25% 20%;
+  --radius-base: 0.75rem;
+  --temp-optimal: 170 80% 50%;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+}
