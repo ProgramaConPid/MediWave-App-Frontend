@@ -4,8 +4,10 @@ import CardItemInfo from "@/src/components/ui/CardItemInfo/CardItemInfo";
 import { LuPackage } from "react-icons/lu";
 import { FaTemperatureArrowUp } from "react-icons/fa6";
 import { SlGraph } from "react-icons/sl";
-import CardProductDetails from "@/src/components/ui/CardProductDetails/CardProductDetails";
+import CardBlockchain from "@/src/components/ui/CardBlockchain/CardBlockchain";
+import TraceCard from "@/src/components/ui/TraceCard/TraceCard";
 import CardCurrentTemp from "@/src/components/ui/CardCurrentTemp/CardCurrentTemp";
+import CardProductDetails from "@/src/components/ui/CardProductDetails/CardProductDetails";
 
 const DashboardPage = () => {
   return (
@@ -45,7 +47,46 @@ const DashboardPage = () => {
       </div>
 
       <div className={`container ${styles.dashboard__cardsContainer}`}>
+        <div className={styles.dashboard__cardsContainerLeft}>
+          <CardCurrentTemp currentTemp="-18.5" />
 
+          <CardProductDetails
+            currentTemp="-18.5"
+            productId="MED-2024-001"
+            productName="Vacuna COVID-19"
+            productTag="Óptimo"
+          />
+        </div>
+
+        <div className={styles.dashboard__cardsContainerAside}>
+          <TraceCard
+            timeline={[
+              {
+                type: "origin",
+                place: "Laboratorio Pfizer",
+                city: "Puurs",
+                country: "Bélgica",
+                datetime: "2024-01-15T08:00:00Z",
+                temperature: -20.2,
+              },
+              {
+                type: "transit",
+                place: "Centro de Distribución",
+                city: "París",
+                country: "Francia",
+                datetime: "2024-01-16T16:45:00Z",
+                temperature: -18.5,
+              },
+              {
+                type: "destination",
+                place: "Hospital Central",
+                city: "Madrid",
+                country: "España",
+                datetime: "2024-01-18T14:00:00Z",
+              },
+            ]}
+          />
+        </div>
       </div>
     </div>
   );

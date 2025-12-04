@@ -14,3 +14,21 @@ export interface CardProductDetailsProps {
   productTag: string;
   currentTemp: string;
 }
+
+export interface CardBlockchainProps {
+  transactionId: string;
+  blockId: string;
+}
+
+export interface TraceCardProps {
+  timeline: TraceStep[];
+}
+
+export interface TraceStep {
+  type: "origin" | "transit" | "destination";
+  place: string;     
+  city?: string;
+  country: string;
+  datetime: string;
+  temperature?: number;
+}

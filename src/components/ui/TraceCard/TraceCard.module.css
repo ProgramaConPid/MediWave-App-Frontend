@@ -1,0 +1,77 @@
+.card__trace {
+  padding: 20px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-base);
+  background-color: hsl(var(--card) / .4);
+  backdrop-filter: blur(24px);
+}
+
+.card__traceTitle {
+  color: hsl(var(--primary));
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1.4rem;
+}
+
+.card__traceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.card__iconContainer {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.icon__containerOrigin {
+  background-color: hsl(var(--primary));
+}
+
+.icon__containerTransit {
+  background-color: hsl(var(--temp-optimal));
+}
+
+.icon__containerDestination {
+  background-color: hsl(var(--glacier));
+}
+
+.card__traceStep {
+  display: flex;
+  gap: 1rem;
+}
+
+.card__traceInfoTitle {
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.card__traceInfoTitleModified {
+  color: hsl(var(--accent));
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.card__traceInfoPlace {
+  color: hsl(var(--foreground));
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: .3rem;
+}
+
+.card__traceInfoDatetime {
+  font-size: .8rem;
+  font-weight: 400;
+  color: hsl(var(--muted-foreground));
+}
+
+.card__traceInfoTemp {
+  color: hsl(var(--temp-optimal));
+  font-size: .8rem;
+}

@@ -2,15 +2,18 @@
   padding: 20px;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius-base);
-  background-color: hsl(var(--card));
+  background-color: hsl(var(--card) / .4);
+  backdrop-filter: blur(24px);
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .card__tempHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.3rem;
 }
 
 .card__tempHeaderTitle {
@@ -30,7 +33,6 @@
   border-radius: 999px;
   overflow: hidden;
   box-shadow: inset 0 0 4px rgba(0,0,0,.5);
-  margin-bottom: .7rem;
 }
 
 .progress__bar {

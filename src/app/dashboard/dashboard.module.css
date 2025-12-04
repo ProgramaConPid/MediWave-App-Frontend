@@ -32,7 +32,6 @@
   overflow: hidden;
 }
 
-/* Base glow */
 .glow {
   position: absolute;
   border-radius: 50%;
@@ -42,7 +41,6 @@
              float 26s ease-in-out infinite alternate;
 }
 
-/* Glow individuales */
 .glow1 {
   top: 12%;
   left: 14%;
@@ -115,4 +113,24 @@
   100% {
     transform: translate(0,0);
   }
+}
+
+.dashboard__cardsContainer {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.dashboard__cardsContainerLeft {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+
+.dashboard__cardsContainerLeft > * {
+  flex: 1;
+}
+
+.dashboard__cardsContainerAside {
+  flex: 1;
 }

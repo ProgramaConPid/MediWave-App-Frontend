@@ -1,8 +1,9 @@
 .card__product {
-  background-color: hsl(var(--card));
+  padding: 20px;
+  background-color: hsl(var(--card) / .4);
   border-radius: var(--radius-base);
   border: 1px solid hsl(var(--border));
-  padding: 20px;
+  backdrop-filter: blur(24px)
 }
 
 .card__productHeader {

@@ -1,9 +1,10 @@
 .card {
-  background-color: hsl(var(--card));
+  background-color: hsl(var(--card) / .4);
   border-radius: var(--radius-base);
   padding: 25px;
   flex: 1;
   border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(24px);
 }
 
 .card__header {
