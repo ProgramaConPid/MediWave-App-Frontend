@@ -1,1 +1,63 @@
-  
+.card {
+  background-color: hsl(var(--card));
+  border-radius: var(--radius-base);
+  padding: 25px;
+  flex: 1;
+  border: 1px solid hsl(var(--border));
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.card__headerIcon {
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: var(--radius-base);
+}
+
+.icon__green {
+  background-color: hsl(var(--temp-optimal) / .2);
+}
+
+.icon__blue {
+  background-color: hsl(var(--primary) / .2);
+}
+
+.icon__glacier {
+  background-color: hsl(var(--glacier) / .2);
+}
+
+.card__headerTitle {
+  color: hsl(var(--muted-foreground));
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.card__infoValue {
+  font-size: 1.6rem;
+  color: hsl(var(--foreground));
+  font-weight: 700;
+}
+
+.card__details {
+  font-size: .8rem;
+}
+
+.card__details.temp {
+  color: hsl(var(--temp-optimal));
+}
+
+.card__details.muted {
+  color: hsl(var(--muted-foreground));
+}
+
+.card__details.glacier {
+  color: hsl(var(--glacier));
+}

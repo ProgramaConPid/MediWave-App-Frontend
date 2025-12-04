@@ -1,0 +1,76 @@
+.card__temp {
+  padding: 20px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-base);
+  background-color: hsl(var(--card));
+  margin-bottom: 2rem;
+}
+
+.card__tempHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.3rem;
+}
+
+.card__tempHeaderTitle {
+  color: hsl(var(--muted-foreground));
+}
+
+.card__tempHeaderValue {
+  font-size: 1.4rem;
+  color: hsl(var(--temp-optimal));
+  font-weight: 700;
+}
+
+.progress__container {
+  width: 100%;
+  height: 16px;
+  background: #0f2a34;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 0 4px rgba(0,0,0,.5);
+  margin-bottom: .7rem;
+}
+
+.progress__bar {
+  height: 100%;
+  width: 45%; 
+  border-radius: inherit;
+
+  background: linear-gradient(
+    120deg,
+    #00f7ff 10%,
+    #00ffee 20%,
+    #00c8ff 30%,
+    #00f7ff 40%
+  );
+
+  background-size: 200% 100%;
+  animation: moveBackground 2s linear infinite;
+
+  box-shadow: 0 0 8px rgba(0,255,255,.7);
+}
+
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.card__tempInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card__tempSpan {
+  color: hsl(var(--muted-foreground));
+}
+
+.card__recommendedTemp {
+  color: hsl(var(--temp-optimal));
+}
