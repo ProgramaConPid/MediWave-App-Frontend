@@ -4,13 +4,15 @@
   border-radius: var(--radius-base);
   background-color: hsl(var(--card) / .4);
   backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card__blockchainHeader {
   display: flex;
   align-items: center;
   gap: .7rem;
-  margin-bottom: 1rem;
 }
 
 .card__blockchainIconContainer {

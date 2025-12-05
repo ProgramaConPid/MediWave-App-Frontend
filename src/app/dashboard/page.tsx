@@ -9,6 +9,7 @@ import TraceCard from "@/src/components/ui/TraceCard/TraceCard";
 import CardCurrentTemp from "@/src/components/ui/CardCurrentTemp/CardCurrentTemp";
 import CardProductDetails from "@/src/components/ui/CardProductDetails/CardProductDetails";
 import { Particles } from "@/src/components/ui/particles";
+import { Globe } from "@/src/components/ui/globe";
 
 const DashboardPage = () => {
   return (
@@ -94,6 +95,8 @@ const DashboardPage = () => {
       
       <div className={`container ${styles.dashboard__cardBlockchainContainer}`}>
         <CardBlockchain transactionId="0x8f7a3b2c4e1d6a9b5c8f2e7d4a1b6c9e3f8a2b5c7d4e1a6b9c2f5e8d1a4b7c" blockId="18942156" />
+
+        <Globe className={styles.globe} />
       </div>
 
       <p className={styles.footer__text}>
