@@ -41,7 +41,7 @@
 .nav__textsSpan {
   color: hsl(var(--muted-foreground));
   font-size: .8rem;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 .nav__links {
@@ -63,15 +63,11 @@
 
 .nav__systemStatus {
   color: hsl(var(--muted-foreground));
-  font-weight: 200;
+  font-weight: 300;
 }
 
 .nav__linksHistory {
-  color: hsl(var(--foreground));
-  border: 1px solid hsl(var(--border));
   padding: 7px 12px;
-  border-radius: var(--radius-base);
-  cursor: pointer;
 }
 
 .nav__homeIcon {

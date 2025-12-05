@@ -1,6 +1,6 @@
 .card__blockchain {
   padding: 20px;
-  border: 1px solid hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / .3);
   border-radius: var(--radius-base);
   background-color: hsl(var(--card) / .4);
   backdrop-filter: blur(24px);
@@ -83,4 +83,11 @@
 
 .card__blockchainBlockIdId {
   color: hsl(var(--glacier));
+}
+
+.card__blockchainButton {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
 }

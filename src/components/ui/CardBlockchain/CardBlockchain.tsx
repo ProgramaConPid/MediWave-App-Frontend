@@ -3,6 +3,8 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
 import { FaHashtag } from "react-icons/fa";
 import { CardBlockchainProps } from "@/src/interfaces/main";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { ShimmerButton } from "../shimmer-button";
 
 const CardBlockchain = ({transactionId, blockId}:CardBlockchainProps) => {
   return (
@@ -32,6 +34,12 @@ const CardBlockchain = ({transactionId, blockId}:CardBlockchainProps) => {
         <span className={styles.card__blockchainBlockIdTitle}>Bloque</span>
         <h4 className={styles.card__blockchainBlockIdId}>#{blockId}</h4>
       </div>
+
+      <ShimmerButton className={styles.card__blockchainButton}>
+        <span className={styles.card__buttonText}>Ver en el explorador</span>
+        <FaExternalLinkAlt className={styles.card__buttonIcon} />
+      </ShimmerButton>
+
     </div>
   )
 }

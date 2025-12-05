@@ -1,8 +1,3 @@
-.dashboard__section {
-  min-height: 100vh;
-  background-color: hsl(var(--background));
-}
-
 .dashboard__itemsContainer {
   display: flex;
   align-items: center;
@@ -24,78 +19,71 @@
   color: hsl(var(--glacier));
 }
 
-.dashboard__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
+
 
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.3;
+  filter: blur(100px);
+  opacity: 0.32;
   animation: pulse 12s ease-in-out infinite alternate,
-             float 26s ease-in-out infinite alternate;
+             float 22s ease-in-out infinite alternate;
 }
 
 .glow1 {
-  top: 12%;
-  left: 14%;
-  width: 420px;
-  height: 420px;
+  top: 8%;
+  left: 10%;
+  width: 360px;
+  height: 360px;
   background: hsl(var(--primary));
-  animation-duration: 14s, 36s;
+  animation-duration: 14s, 32s;
 }
 
 .glow2 {
-  top: 65%;
-  left: 10%;
-  width: 350px;
-  height: 350px;
+  bottom: 12%;
+  left: 6%;
+  width: 300px;
+  height: 300px;
   background: hsl(var(--temp-optimal));
-  animation-duration: 11s, 30s;
+  animation-duration: 11s, 28s;
 }
 
 .glow3 {
-  top: 18%;
-  right: 12%;
-  width: 520px;
-  height: 520px;
+  top: 10%;
+  right: 10%;
+  width: 450px;
+  height: 450px;
   background: hsl(var(--glacier));
-  animation-duration: 16s, 40s;
+  animation-duration: 16s, 36s;
 }
 
 .glow4 {
-  bottom: 10%;
-  right: 20%;
-  width: 300px;
-  height: 300px;
+  bottom: 8%;
+  right: 14%;
+  width: 260px;
+  height: 260px;
   background: hsl(var(--accent));
-  animation-duration: 10s, 28s;
+  animation-duration: 10s, 26s;
 }
 
 .glow5 {
-  top: 42%;
-  left: 45%;
-  width: 650px;
-  height: 650px;
+  top: 35%;
+  left: 40%;
+  width: 520px;
+  height: 520px;
   background: hsl(var(--primary));
-  opacity: 0.15;
-  animation-duration: 20s, 48s;
+  opacity: 0.18;
+  animation-duration: 20s, 44s;
 }
 
-/* Animación principal */
 @keyframes pulse {
   0% {
     transform: scale(1);
-    opacity: 0.2;
+    opacity: 0.22;
   }
   60% {
-    transform: scale(1.12);
-    opacity: 0.45;
+    transform: scale(1.10);
+    opacity: 0.40;
   }
   100% {
     transform: scale(1);
@@ -108,7 +96,7 @@
     transform: translate(0,0);
   }
   50% {
-    transform: translate(25px,-30px);
+    transform: translate(18px,-22px);
   }
   100% {
     transform: translate(0,0);
@@ -133,4 +121,100 @@
 
 .dashboard__cardsContainerAside {
   flex: 1;
+}
+
+.dashboard__cardBlockchainContainer {
+  margin-block: 2rem;
+}
+
+
+.footer__text {
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+  margin: auto;
+  padding: 1rem 0 2rem 0;
+}
+
+@media (max-width: 1024px) {
+  .dashboard__cardsContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .dashboard__cardsContainerLeft {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .dashboard__cardsContainerAside {
+    width: 100%;
+  }
+
+  .dashboard__itemsContainer {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .glow1 { left: 5%; width: 320px; height: 320px; }
+  .glow2 { left: 4%; width: 260px; height: 260px; }
+  .glow3 { right: 6%; width: 400px; height: 400px; }
+  .glow4 { right: 10%; width: 230px; height: 230px; }
+  .glow5 { left: 35%; width: 480px; height: 480px; }
+}
+
+@media (max-width: 768px) {
+  .dashboard__cardsContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .dashboard__itemsContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .dashboard__cardsContainerLeft > * {
+    flex: none;
+  }
+
+  .dashboard__cardBlockchainContainer {
+    margin-block: 1.5rem;
+  }
+
+  .glow {
+    filter: blur(80px);
+  }
+
+  .glow1 { top: 6%; left: -5%; width: 260px; height: 260px; }
+  .glow2 { bottom: 8%; left: -10%; width: 220px; height: 220px; }
+  .glow3 { top: 8%; right: -8%; width: 300px; height: 300px; }
+  .glow4 { bottom: 6%; right: -4%; width: 200px; height: 200px; }
+  .glow5 { top: 32%; left: 20%; width: 380px; height: 380px; }
+}
+
+@media (max-width: 480px) {
+  .dashboard__cardsContainer {
+    padding-inline: 0.75rem;
+  }
+
+  .dashboard__itemsContainer {
+    gap: 0.8rem;
+  }
+
+  .footer__text {
+    font-size: 0.85rem;
+  }
+
+  .glow {
+    filter: blur(70px);
+    opacity: 0.28;
+  }
+
+  .glow1 { top: 10%; left: -20%; width: 200px; height: 200px; }
+  .glow2 { bottom: 10%; left: -20%; width: 180px; height: 180px; }
+  .glow3 { top: 5%; right: -20%; width: 240px; height: 240px; }
+  .glow4 { bottom: 6%; right: -12%; width: 160px; height: 160px; }
+  .glow5 { top: 40%; left: 10%; width: 300px; height: 300px; }
 }

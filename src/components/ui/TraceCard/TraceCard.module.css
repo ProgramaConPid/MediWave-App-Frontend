@@ -1,4 +1,5 @@
 .card__trace {
+  width: 100%;
   padding: 20px;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius-base);
@@ -22,6 +23,7 @@
 .card__iconContainer {
   width: 60px;
   height: 60px;
+  aspect-ratio: 1/1;
   border-radius: 100%;
   display: flex;
   justify-content: center;

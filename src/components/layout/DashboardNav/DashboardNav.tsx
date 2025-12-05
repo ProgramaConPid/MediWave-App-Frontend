@@ -4,6 +4,7 @@ import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import Link from "next/link";
 import { FiHome } from "react-icons/fi";
+import { ShimmerButton } from "../../ui/shimmer-button";
 
 const DashboardNav = () => {
   return (
@@ -27,11 +28,11 @@ const DashboardNav = () => {
             <span className={styles.nav__systemStatus}>Sistema Activo</span>
           </div>
 
-          <Link href={"/history"} className={styles.nav__linksHistory}>
+          <ShimmerButton className={styles.nav__linksHistory}>
             <FaClockRotateLeft className={styles.nav__historyIcon} />
             <span className={styles.nav__historyText}>Historial</span>
-          </Link>
-
+          </ShimmerButton>
+          
           <Link href={"/"} className={styles.nav__linksHome}>
             <FiHome className={styles.nav__homeIcon} />
           </Link>

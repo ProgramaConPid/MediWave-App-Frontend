@@ -1,4 +1,5 @@
 .card {
+  width: 100%;
   background-color: hsl(var(--card) / .4);
   border-radius: var(--radius-base);
   padding: 25px;

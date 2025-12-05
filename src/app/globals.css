@@ -1,24 +1,193 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: 220 30% 8%;
-  --foreground: 200 20% 98%;
-  --card: 220 25% 12%;
-  --primary: 190 95% 55%;
-  --secondary: 220 40% 18%;
-  --muted: 220 25% 15%;
-  --muted-foreground: 200 15% 65%;
-  --accent: 180 100% 60%;
-  --destructive: 0 70% 55%;
-  --border: 220 25% 20%;
-  --radius-base: 0.75rem;
-  --temp-optimal: 170 80% 50%;
-  --glacier: 195 80% 45%;
-}
+    /* Deep space blue background */
+    --background: 220 30% 8%;
+    --foreground: 200 20% 98%;
+
+    /* Frosted glass cards */
+    --card: 220 25% 12%;
+    --card-foreground: 200 20% 98%;
+
+    --popover: 220 25% 12%;
+    --popover-foreground: 200 20% 98%;
+
+    /* Cyan accent as primary */
+    --primary: 190 95% 55%;
+    --primary-foreground: 220 30% 8%;
+
+    /* Deep blue secondary */
+    --secondary: 220 40% 18%;
+    --secondary-foreground: 200 20% 98%;
+
+    /* Muted ice blue */
+    --muted: 220 25% 15%;
+    --muted-foreground: 200 15% 65%;
+
+    /* Electric cyan accent */
+    --accent: 180 100% 60%;
+    --accent-foreground: 220 30% 8%;
+
+    /* Cold red for warnings */
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 200 20% 98%;
+
+    /* Subtle borders */
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+    --ring: 190 95% 55%;
+
+    --radius-base: 0.75rem;
+
+    /* Custom theme tokens */
+    --ice-blue: 200 100% 85%;
+    --glacier: 195 80% 45%;
+    --frost: 200 60% 95%;
+    --cold-gradient-start: 220 30% 8%;
+    --cold-gradient-end: 195 80% 20%;
+
+    /* Temperature colors */
+    --temp-cold: 200 100% 50%;
+    --temp-optimal: 170 80% 50%;
+    --temp-warm: 40 100% 60%;
+    --temp-hot: 0 85% 55%;
+
+    --sidebar-background: 220 30% 10%;
+    --sidebar-foreground: 200 20% 95%;
+    --sidebar-primary: 190 95% 55%;
+    --sidebar-primary-foreground: 220 30% 8%;
+    --sidebar-accent: 220 35% 15%;
+    --sidebar-accent-foreground: 200 20% 95%;
+    --sidebar-border: 220 25% 18%;
+    --sidebar-ring: 190 95% 55%;
+  }
 
 .container {
   width: 90%;
   max-width: 1200px;
   margin: auto;
   overflow: hidden;
+}
+
+body {
+  background-color: hsl(var(--background));
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --animate-meteor: meteor 5s linear infinite;
+  @keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;
+    }
+  70% {
+    opacity: 1;
+    }
+  100% {
+    transform: rotate(var(--angle)) translateX(-500px);
+    opacity: 0;
+    }
+  }
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear
+;
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+        }
+    }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+        }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+        }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+        }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+        }
+    }}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
