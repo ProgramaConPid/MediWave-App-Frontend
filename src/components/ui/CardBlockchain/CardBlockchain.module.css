@@ -1,6 +1,6 @@
 .card__blockchain {
   padding: 20px;
-  border: 1px solid hsl(var(--primary) / .3);
+  border: 1px solid hsl(var(--border));
   border-radius: var(--radius-base);
   background-color: hsl(var(--card) / .4);
   backdrop-filter: blur(24px);

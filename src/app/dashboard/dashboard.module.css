@@ -126,7 +126,7 @@
 .dashboard__cardBlockchainContainer {
   margin-block: 2rem;
   display: flex;
-  gap: 1.2rem;
+  gap: 2.3rem;
 }
 
 .dashboard__cardBlockchainContainer > * {
@@ -134,7 +134,10 @@
 }
 
 .globe {
-  left: 15px;
+  background-color: hsl(var(--background) / .4);
+  border-radius: var(--radius-base);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(24px);
 }
 
 .footer__text {

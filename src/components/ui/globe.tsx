@@ -11,18 +11,21 @@ const MOVEMENT_DAMPING = 1400
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
-  onRender: () => {},
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
-  dark: 0,
-  diffuse: 0.4,
-  mapSamples: 16000,
-  mapBrightness: 1.2,
-  baseColor: [1, 1, 1],
-  markerColor: [251 / 255, 100 / 255, 21 / 255],
-  glowColor: [1, 1, 1],
+
+  dark: 1,                 
+  diffuse: 1,             
+  mapSamples: 18000,         
+  mapBrightness: 1.45,       
+
+  baseColor: [0.75, 0.85, 1],      
+  glowColor: [0.3, 0.85, 1],       
+  markerColor: [0.4, 0.95, 1],       
+
   markers: [
+
     { location: [14.5995, 120.9842], size: 0.03 },
     { location: [19.076, 72.8777], size: 0.1 },
     { location: [23.8103, 90.4125], size: 0.05 },
@@ -33,7 +36,18 @@ const GLOBE_CONFIG: COBEOptions = {
     { location: [40.7128, -74.006], size: 0.1 },
     { location: [34.6937, 135.5022], size: 0.05 },
     { location: [41.0082, 28.9784], size: 0.06 },
+
+    { location: [37.7749, -122.4194], size: 0.08 }, 
+    { location: [51.5074, -0.1278], size: 0.07 },   
+    { location: [52.5200, 13.4050], size: 0.06 },   
+    { location: [-23.5505, -46.6333], size: 0.10 }, 
+    { location: [-33.8688, 151.2093], size: 0.07 }, 
+    { location: [-26.2041, 28.0473], size: 0.07 },  
+    { location: [43.6532, -79.3832], size: 0.07 }, 
+    { location: [-34.6037, -58.3816], size: 0.08 }, 
   ],
+
+  onRender: () => {},
 }
 
 export function Globe({
@@ -103,13 +117,13 @@ export function Globe({
   return (
     <div
       className={cn(
-        "relative inset-0 mx-auto aspect-[1/1] w-full max-w-[350px]",
+        "relative inset-0 mx-auto aspect-square w-full max-w-[385px]",
         className
       )}
     >
       <canvas
         className={cn(
-          "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
+          "size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]"
         )}
         ref={canvasRef}
         onPointerDown={(e) => {
