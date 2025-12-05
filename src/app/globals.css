@@ -21,3 +21,8 @@
   margin: auto;
   overflow: hidden;
 }
+
+
+body {
+  background-color: hsl(var(--background));
+}

@@ -1,11 +1,3 @@
-.container {
-  padding: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
-  background: #0a1929;
-  min-height: 100vh;
-}
-
 .exportButtons {
   display: flex;
   gap: 12px;

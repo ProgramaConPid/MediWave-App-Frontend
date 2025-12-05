@@ -147,7 +147,7 @@ export default function HistorialPage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`container ${styles.container}`}>
       {/* Botones de exportación */}
       <div className={styles.exportButtons}>
         <button onClick={handleGenerateVisualPDF} className={styles.exportBtn}>
