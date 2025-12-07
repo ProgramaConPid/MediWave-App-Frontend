@@ -6,7 +6,8 @@
   backdrop-filter: blur(24px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  gap: 1rem;
 }
 
 .card__blockchainHeader {

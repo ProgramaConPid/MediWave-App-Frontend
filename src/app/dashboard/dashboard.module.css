@@ -19,8 +19,6 @@
   color: hsl(var(--glacier));
 }
 
-
-
 .glow {
   position: absolute;
   border-radius: 50%;
@@ -126,6 +124,7 @@
 .dashboard__cardBlockchainContainer {
   margin-block: 2rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 2.3rem;
 }
 
@@ -134,6 +133,8 @@
 }
 
 .globe {
+  min-width: 300px;
+  flex-shrink: 0;
   background-color: hsl(var(--background) / .4);
   border-radius: var(--radius-base);
   border: 1px solid hsl(var(--border));
@@ -175,6 +176,10 @@
 }
 
 @media (max-width: 768px) {
+  .globe {
+    display: none;
+  }
+
   .dashboard__cardsContainer {
     flex-direction: column;
     gap: 2rem;
