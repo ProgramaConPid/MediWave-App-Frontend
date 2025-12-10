@@ -15,6 +15,7 @@ import {
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import FeatureCard from "@/components/FeatureCard";
+import ParticlesBackground from "@/components/ParticlesBackground";
 
 const Index = () => {
   const features = [
@@ -59,6 +60,7 @@ const Index = () => {
   return (
     <div className="min-h-screen gradient-cold overflow-hidden relative">
       {/* Animated Background Elements */}
+      <ParticlesBackground />
       <BlockchainNetwork />
       <FloatingHexagons />
 
@@ -78,7 +80,7 @@ const Index = () => {
                 <Droplets className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">MedChain</h1>
+                <h1 className="text-2xl font-bold text-foreground">MediWave</h1>
                 <p className="text-xs text-muted-foreground">Pharmaceutical Traceability</p>
               </div>
             </div>
@@ -95,7 +97,7 @@ const Index = () => {
                   Historial
                 </Button>
               </Link>
-              <Link href="/docs">
+              <Link href="/documentation">
                 <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                   Documentación
                 </Button>
@@ -135,7 +137,7 @@ const Index = () => {
                 <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
               </Button>
             </Link>
-            <Link href="/docs">
+            <Link href="/documentation">
               <Button 
                 size="lg" 
                 variant="outline" 
