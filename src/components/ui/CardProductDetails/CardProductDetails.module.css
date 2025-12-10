@@ -91,3 +91,70 @@
 .card__rangeSpan {
   color: hsl(var(--glacier));
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSoft {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes floatSoft {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.card__product {
+  animation: fadeIn 0.4s ease-out forwards,
+             floatSoft 4s ease-in-out infinite;
+}
+
+.card__productHeader {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+.card__bodyTemp {
+  animation: slideUp 0.55s ease-out forwards;
+}
+
+.card__bodyRange {
+  animation: slideUp 0.7s ease-out forwards;
+}
+
+.card__headerIcon,
+.card__tempIcon,
+.card__rangeIcon {
+  animation: pulseSoft 2.8s ease-in-out infinite;
+}

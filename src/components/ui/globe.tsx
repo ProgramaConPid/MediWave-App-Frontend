@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import createGlobe, { COBEOptions } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
-
+import { motion } from "framer-motion";
 import { cn } from "@/src/lib/utils";
 
 const MOVEMENT_DAMPING = 1400;
@@ -35,7 +35,6 @@ const GLOBE_CONFIG: COBEOptions = {
     { location: [40.7128, -74.006], size: 0.1 },
     { location: [34.6937, 135.5022], size: 0.05 },
     { location: [41.0082, 28.9784], size: 0.06 },
-
     { location: [37.7749, -122.4194], size: 0.08 },
     { location: [51.5074, -0.1278], size: 0.07 },
     { location: [52.52, 13.405], size: 0.06 },
@@ -56,11 +55,14 @@ export function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
-  let phi = 0;
-  let width = 0;
+  const phiRef = useRef(0);
+  const widthRef = useRef(0);
+  const zoomRef = useRef(1.8);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointerInteracting = useRef<number | null>(null);
-  const pointerInteractionMovement = useRef(0);
+
+  const rotationSpeed = useRef(0.005);
 
   const r = useMotionValue(0);
   const rs = useSpring(r, {
@@ -79,7 +81,6 @@ export function Globe({
   const updateMovement = (clientX: number) => {
     if (pointerInteracting.current !== null) {
       const delta = clientX - pointerInteracting.current;
-      pointerInteractionMovement.current = delta;
       r.set(r.get() + delta / MOVEMENT_DAMPING);
     }
   };
@@ -87,23 +88,50 @@ export function Globe({
   useEffect(() => {
     const onResize = () => {
       if (canvasRef.current) {
-        width = canvasRef.current.offsetWidth;
+        widthRef.current = canvasRef.current.offsetWidth;
       }
     };
 
     window.addEventListener("resize", onResize);
     onResize();
 
+    let tick = 0;
+
+    const baseMarkers = config.markers?.map((m) => ({ ...m })) || [];
+
     const globe = createGlobe(canvasRef.current!, {
       ...config,
-      width: width * 2,
-      height: width * 2,
+      width: widthRef.current * 2,
+      height: widthRef.current * 2,
       onRender: (state) => {
-        // eslint-disable-next-line react-hooks/immutability
-        if (!pointerInteracting.current) phi += 0.005;
-        state.phi = phi + rs.get();
-        state.width = width * 2;
-        state.height = width * 2;
+        tick += 0.05;
+
+        if (!pointerInteracting.current) {
+          phiRef.current += rotationSpeed.current;
+        }
+
+        state.phi = phiRef.current + rs.get();
+        state.width = widthRef.current * 2;
+        state.height = widthRef.current * 2;
+
+        if (zoomRef.current > 1) zoomRef.current -= 0.01;
+        state.zoom = zoomRef.current;
+
+        
+        const glowPulse = (Math.sin(Date.now() / 2500) + 1) / 20; 
+        state.glowColor = [
+          0.3 + glowPulse, 
+          0.85,
+          1,
+        ];
+
+        state.markers = baseMarkers.map((m, i) => {
+          const beat = Math.sin(tick + i * 0.5) * 0.015;
+          return {
+            ...m,
+            size: m.size + beat,
+          };
+        });
       },
     });
 
@@ -115,11 +143,16 @@ export function Globe({
   }, [rs, config]);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, scale: 0.75 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className={cn(
         "relative inset-0 mx-auto aspect-square w-full max-w-[387px]",
         className
       )}
+      onHoverStart={() => (rotationSpeed.current = 0.02)}
+      onHoverEnd={() => (rotationSpeed.current = 0.005)}
     >
       <canvas
         className={cn(
@@ -137,6 +170,6 @@ export function Globe({
           e.touches[0] && updateMovement(e.touches[0].clientX)
         }
       />
-    </div>
+    </motion.div>
   );
 }

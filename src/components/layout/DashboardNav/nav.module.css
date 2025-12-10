@@ -75,3 +75,95 @@
   color: hsl(var(--muted-foreground));
   cursor: pointer;
 }
+
+/* ========================= */
+/* ANIMACIÓN GLOBAL DE ENTRADA */
+/* ========================= */
+.fadeInScale {
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================= */
+/* SLIDE IZQUIERDA Y DERECHA */
+/* ========================= */
+.fadeSlideLeft {
+  animation: slideLeft 0.7s ease-out forwards;
+}
+
+.fadeSlideRight {
+  animation: slideRight 0.7s ease-out forwards;
+}
+
+@keyframes slideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================= */
+/* PULSO SUAVE DEL ICONO */
+/* ========================= */
+.iconPulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ========================= */
+/* ZOOM DINÁMICO AL HOVER */
+/* ========================= */
+.hoverZoom {
+  transition: transform 0.25s ease;
+}
+
+.hoverZoom:hover {
+  transform: scale(1.08);
+}
+
+/* ========================= */
+/* ROTACIÓN RÁPIDA AL HOVER */
+/* ========================= */
+.hoverSpinFast {
+  transition: transform 0.2s ease-out;
+}
+
+.hoverSpinFast:hover {
+  transform: rotate(12deg) scale(1.1);
+}

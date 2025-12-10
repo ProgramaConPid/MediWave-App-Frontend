@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import styles from "./CardBlockchain.module.css";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
@@ -6,15 +9,22 @@ import { CardBlockchainProps } from "@/src/interfaces/main";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { ShimmerButton } from "../shimmer-button";
 
-const CardBlockchain = ({transactionId, blockId}:CardBlockchainProps) => {
+const CardBlockchain = ({ transactionId, blockId }: CardBlockchainProps) => {
   return (
-    <div className={styles.card__blockchain}>
+    <motion.div
+      className={styles.card__blockchain}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className={styles.card__blockchainHeader}>
         <div className={styles.card__blockchainIconContainer}>
           <FaRegCircleCheck className={styles.card__blockchainIcon} />
         </div>
         <div className={styles.card__blockchainHeaderTexts}>
-          <h3 className={styles.card__blockchainTextsTitle}>Verificación Blockchain</h3>
+          <h3 className={styles.card__blockchainTextsTitle}>
+            Verificación Blockchain
+          </h3>
           <span className={styles.card__blockchainTextsInfo}>
             <FaCheck />
             Verificado en la cadena
@@ -39,9 +49,8 @@ const CardBlockchain = ({transactionId, blockId}:CardBlockchainProps) => {
         <span className={styles.card__buttonText}>Ver en el explorador</span>
         <FaExternalLinkAlt className={styles.card__buttonIcon} />
       </ShimmerButton>
+    </motion.div>
+  );
+};
 
-    </div>
-  )
-}
-
-export default CardBlockchain
+export default CardBlockchain;
