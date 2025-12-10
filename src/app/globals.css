@@ -1,23 +1,172 @@
 @import "tailwindcss";
 
-:root {
-  --background: 220 30% 8%;
-  --foreground: 200 20% 98%;
-  --card: 220 25% 12%;
-  --primary: 190 95% 55%;
-  --secondary: 220 40% 18%;
-  --muted: 220 25% 15%;
-  --muted-foreground: 200 15% 65%;
-  --accent: 180 100% 60%;
-  --destructive: 0 70% 55%;
-  --border: 220 25% 20%;
-  --radius-base: 0.75rem;
-  --temp-optimal: 170 80% 50%;
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-glacier: hsl(var(--glacier));
+  --color-temperature-optimal: hsl(var(--temperature-optimal));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-pulse-glow: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-gradient: gradient 8s linear infinite;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+
+  @keyframes accordion-down {
+    from { height: 0 }
+    to { height: var(--radix-accordion-content-height) }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height) }
+    to { height: 0 }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: auto;
-  overflow: hidden;
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= --theme(--breakpoint-md)) {
+    max-width: 61rem;
+  }
+  @media (width >= --theme(--breakpoint-lg)) {
+    max-width: 80rem;
+  }
+  @media (width >= --theme(--breakpoint-xl)) {
+    max-width: 90rem;
+  }
+  @media (width >= --theme(--breakpoint-2xl)) {
+    max-width: 96rem;
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer base {
+  :root {
+    --background: 220 30% 8%;
+    --foreground: 200 20% 98%;
+    
+    --card: 220 25% 12%;
+    --card-foreground: 200 20% 98%;
+    
+    --popover: 220 25% 12%;
+    --popover-foreground: 200 20% 98%;
+    
+    --primary: 190 95% 55%;
+    --primary-foreground: 220 30% 8%;
+    
+    --secondary: 220 40% 18%;
+    --secondary-foreground: 200 20% 98%;
+    
+    --muted: 220 25% 15%;
+    --muted-foreground: 200 15% 65%;
+    
+    --accent: 180 100% 60%;
+    --accent-foreground: 220 30% 8%;
+    
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 200 20% 98%;
+    
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+    --ring: 190 95% 55%;
+    
+    --radius: 0.75rem;
+    
+    --glacier: 200 80% 85%;
+    --temperature-optimal: 150 80% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+  
+  .glass-strong {
+    @apply bg-background/80 backdrop-blur-xl border border-white/10;
+  }
+  
+  .gradient-ice {
+    @apply bg-gradient-to-br from-primary/20 to-glacier/20;
+  }
+  
+  .gradient-cold {
+    @apply bg-gradient-to-br from-background to-secondary;
+  }
 }

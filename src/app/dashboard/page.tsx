@@ -1,4 +1,4 @@
-import DashboardNav from "@/src/components/layout/DashboardNav.tsx/DashboardNav";
+import DashboardNav from "@/components/layout/DashboardNav.tsx/DashboardNav";
 import styles from "./dashboard.module.css";
 
 const DashboardPage = () => {
