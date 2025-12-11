@@ -33,6 +33,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
+import styles from "./documentation.module.css";
 
 const CodeBlock = ({ code, language }: { code: string; language: string }) => {
   const [copied, setCopied] = useState(false);
@@ -44,22 +45,22 @@ const CodeBlock = ({ code, language }: { code: string; language: string }) => {
   };
 
   return (
-    <div className="relative group rounded-xl overflow-hidden">
-      <div className="absolute top-0 left-0 px-3 py-1 text-xs font-mono text-primary bg-primary/10 rounded-br-lg">
+    <div className={`${styles.codeBlockContainer} group`}>
+      <div className={styles.languageLabel}>
         {language}
       </div>
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 rounded-lg glass opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary/20"
+        className={styles.copyButton}
       >
         {copied ? (
-          <Check className="w-4 h-4 text-green-400" />
+          <Check className={styles.checkIcon} />
         ) : (
-          <Copy className="w-4 h-4 text-muted-foreground" />
+          <Copy className={styles.copyIcon} />
         )}
       </button>
-      <pre className="bg-card/80 backdrop-blur-xl border border-border/50 p-6 pt-10 overflow-x-auto">
-        <code className="text-sm font-mono text-foreground/90">{code}</code>
+      <pre className={styles.codePre}>
+        <code className={styles.codeContent}>{code}</code>
       </pre>
     </div>
   );
@@ -76,14 +77,14 @@ const FeatureSection = ({
   description: string;
   children?: React.ReactNode;
 }) => (
-  <div className="glass-strong rounded-2xl p-8 hover:border-primary/30 transition-all duration-500 group">
-    <div className="flex items-start gap-4 mb-6">
-      <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-6 h-6 text-primary" />
+  <div className={`${styles.featureSection} group`}>
+    <div className={styles.featureHeader}>
+      <div className={styles.featureIconContainer}>
+        <Icon className={styles.featureIcon} />
       </div>
       <div>
-        <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
-        <p className="text-muted-foreground">{description}</p>
+        <h3 className={styles.featureTitle}>{title}</h3>
+        <p className={styles.featureDescription}>{description}</p>
       </div>
     </div>
     {children}
@@ -103,15 +104,15 @@ const DocNavItem = ({
 }) => (
   <button
     onClick={onClick}
-    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left ${
+    className={`${styles.navItem} ${
       active
-        ? "bg-primary/20 text-primary border border-primary/30"
-        : "hover:bg-card/60 text-muted-foreground hover:text-foreground"
+        ? styles.navItemActive
+        : styles.navItemInactive
     }`}
   >
-    <Icon className="w-5 h-5" />
-    <span className="font-medium">{label}</span>
-    {active && <ChevronRight className="w-4 h-4 ml-auto" />}
+    <Icon className={styles.navIcon} />
+    <span className={styles.navLabel}>{label}</span>
+    {active && <ChevronRight className={styles.navChevron} />}
   </button>
 );
 
@@ -184,47 +185,47 @@ const Documentation = () => {
   ];
 
   return (
-    <div className="min-h-screen gradient-cold relative overflow-hidden">
+    <div className={styles.pageContainer}>
       <BlockchainNetwork />
       <FloatingHexagons />
 
       {/* Ambient Effects */}
-      <div className="fixed top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
-      <div className="fixed bottom-1/4 -right-32 w-96 h-96 bg-glacier/20 rounded-full blur-3xl animate-pulse-glow" />
+      <div className={styles.ambientEffect1} />
+      <div className={styles.ambientEffect2} />
 
       {/* Header */}
-      <header className="relative z-20 glass border-b border-border/30">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-glacier group-hover:scale-110 transition-transform">
-                <Thermometer className="w-6 h-6 text-primary-foreground" />
+      <header className={styles.header}>
+        <div className={styles.headerContainer}>
+          <div className={styles.headerContent}>
+            <Link href="/" className={`${styles.logoLink} group`}>
+              <div className={styles.logoIconContainer}>
+                <Thermometer className={styles.logoIcon} />
               </div>
-              <span className="text-xl font-bold text-foreground">
-                ColdChain<span className="text-primary">Docs</span>
+              <span className={styles.logoText}>
+                ColdChain<span className={styles.logoTextHighlight}>Docs</span>
               </span>
             </Link>
 
-            <nav className="flex items-center gap-4">
+            <nav className={styles.nav}>
               <Link
                 href="/"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-card/40 transition-colors text-muted-foreground hover:text-foreground"
+                className={styles.navLink}
               >
-                <Home className="w-4 h-4" />
+                <Home className={styles.navLinkIcon} />
                 <span>Inicio</span>
               </Link>
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-card/40 transition-colors text-muted-foreground hover:text-foreground"
+                className={styles.navLink}
               >
-                <Database className="w-4 h-4" />
+                <Database className={styles.navLinkIcon} />
                 <span>Dashboard</span>
               </Link>
               <Link
                 href="/history"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-card/40 transition-colors text-muted-foreground hover:text-foreground"
+                className={styles.navLink}
               >
-                <Workflow className="w-4 h-4" />
+                <Workflow className={styles.navLinkIcon} />
                 <span>Historial</span>
               </Link>
             </nav>
@@ -232,14 +233,14 @@ const Documentation = () => {
         </div>
       </header>
 
-      <div className="relative z-10 container mx-auto px-6 py-12">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-8">
+      <div className={styles.mainContainer}>
+        <div className={styles.contentGrid}>
           {/* Sidebar Navigation */}
-          <aside className="glass-strong rounded-2xl p-6 h-fit sticky top-24">
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+          <aside className={styles.sidebar}>
+            <h2 className={styles.sidebarTitle}>
               Documentación
             </h2>
-            <nav className="space-y-2">
+            <nav className={styles.sidebarNav}>
               {navItems.map((item) => (
                 <DocNavItem
                   key={item.id}
@@ -252,30 +253,30 @@ const Documentation = () => {
             </nav>
 
             {/* Quick Links */}
-            <div className="mt-8 pt-6 border-t border-border/30">
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+            <div className={styles.quickLinksContainer}>
+              <h3 className={styles.sidebarTitle}>
                 Enlaces Rápidos
               </h3>
-              <div className="space-y-2">
+              <div className={styles.sidebarNav}>
                 <a
                   href="#"
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className={styles.quickLink}
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className={styles.navLinkIcon} />
                   GitHub Repository
                 </a>
                 <a
                   href="#"
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className={styles.quickLink}
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className={styles.navLinkIcon} />
                   API Playground
                 </a>
                 <a
                   href="#"
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className={styles.quickLink}
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className={styles.navLinkIcon} />
                   Status Page
                 </a>
               </div>
@@ -283,52 +284,52 @@ const Documentation = () => {
           </aside>
 
           {/* Main Content */}
-          <main className="space-y-8">
+          <main className={styles.mainContent}>
             {/* Overview Section */}
             {activeSection === "overview" && (
-              <div className="space-y-8 animate-fade-in">
-                <div className="glass-strong rounded-2xl p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="h-1 w-12 bg-gradient-to-r from-primary to-glacier rounded-full" />
-                    <span className="text-primary font-mono text-sm">
+              <div className={styles.sectionFadeIn}>
+                <div className={styles.heroCard}>
+                  <div className={styles.versionBadge}>
+                    <div className={styles.versionIndicator} />
+                    <span className={styles.versionText}>
                       v2.0.0
                     </span>
                   </div>
-                  <h1 className="text-4xl font-bold text-foreground mb-4">
+                  <h1 className={styles.heroTitle}>
                     Documentación ColdChain
                   </h1>
-                  <p className="text-xl text-muted-foreground leading-relaxed">
+                  <p className={styles.heroDescription}>
                     Sistema de trazabilidad farmacéutica con verificación
                     blockchain y monitoreo de cadena de frío en tiempo real.
                   </p>
                 </div>
 
                 {/* Quick Start Cards */}
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group cursor-pointer">
-                    <Cpu className="w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-bold text-foreground mb-2">
+                <div className={styles.quickStartGrid}>
+                  <div className={`${styles.quickStartCard} group`}>
+                    <Cpu className={styles.quickStartIcon} />
+                    <h3 className={styles.quickStartTitle}>
                       Inicio Rápido
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={styles.quickStartText}>
                       Configura tu primer envío en menos de 5 minutos
                     </p>
                   </div>
-                  <div className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group cursor-pointer">
-                    <Lock className="w-10 h-10 text-glacier mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-bold text-foreground mb-2">
+                  <div className={styles.quickStartCard}>
+                    <Lock className={styles.quickStartIconGlacier} />
+                    <h3 className={styles.quickStartTitle}>
                       Seguridad
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={styles.quickStartText}>
                       Encriptación end-to-end y registros inmutables
                     </p>
                   </div>
-                  <div className="glass rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group cursor-pointer">
-                    <Globe className="w-10 h-10 text-accent mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-bold text-foreground mb-2">
+                  <div className={styles.quickStartCard}>
+                    <Globe className={styles.quickStartIconAccent} />
+                    <h3 className={styles.quickStartTitle}>
                       Integraciones
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={styles.quickStartText}>
                       APIs RESTful y webhooks para cualquier sistema
                     </p>
                   </div>
@@ -341,7 +342,7 @@ const Documentation = () => {
                   description="Instala el SDK de ColdChain en tu proyecto"
                 >
                   <Tabs defaultValue="npm" className="mt-4">
-                    <TabsList className="glass mb-4">
+                    <TabsList className={styles.tabsList}>
                       <TabsTrigger value="npm">npm</TabsTrigger>
                       <TabsTrigger value="yarn">yarn</TabsTrigger>
                       <TabsTrigger value="pnpm">pnpm</TabsTrigger>
@@ -371,65 +372,65 @@ const Documentation = () => {
 
             {/* Architecture Section */}
             {activeSection === "architecture" && (
-              <div className="space-y-8 animate-fade-in">
-                <div className="glass-strong rounded-2xl p-8">
-                  <h2 className="text-3xl font-bold text-foreground mb-4">
+              <div className={styles.sectionFadeIn}>
+                <div className={styles.heroCard}>
+                  <h2 className={styles.architectureTitle}>
                     Arquitectura del Sistema
                   </h2>
-                  <p className="text-muted-foreground mb-8">
+                  <p className={styles.architectureDescription}>
                     Una arquitectura distribuida diseñada para máxima
                     confiabilidad y escalabilidad.
                   </p>
 
                   {/* Architecture Diagram */}
-                  <div className="relative bg-card/60 rounded-xl p-8 border border-border/50">
-                    <div className="grid grid-cols-3 gap-8">
+                  <div className={styles.diagramContainer}>
+                    <div className={styles.diagramGrid}>
                       {/* IoT Layer */}
-                      <div className="text-center">
-                        <div className="glass rounded-xl p-6 mb-4 hover:border-primary/50 transition-all">
-                          <Thermometer className="w-12 h-12 text-primary mx-auto mb-3" />
-                          <h4 className="font-bold text-foreground">
+                      <div className={styles.diagramNode}>
+                        <div className={styles.diagramCard}>
+                          <Thermometer className={styles.diagramIcon} />
+                          <h4 className={styles.diagramTitle}>
                             Capa IoT
                           </h4>
-                          <p className="text-xs text-muted-foreground mt-2">
+                          <p className={styles.diagramSubtitle}>
                             Sensores y dispositivos
                           </p>
                         </div>
-                        <div className="h-8 w-px bg-gradient-to-b from-primary to-transparent mx-auto" />
+                        <div className={styles.diagramLinePrimary} />
                       </div>
 
                       {/* Processing Layer */}
-                      <div className="text-center">
-                        <div className="glass rounded-xl p-6 mb-4 hover:border-glacier/50 transition-all">
-                          <Database className="w-12 h-12 text-glacier mx-auto mb-3" />
-                          <h4 className="font-bold text-foreground">
+                      <div className={styles.diagramNode}>
+                        <div className={styles.diagramCardGlacier}>
+                          <Database className={styles.diagramIconGlacier} />
+                          <h4 className={styles.diagramTitle}>
                             Procesamiento
                           </h4>
-                          <p className="text-xs text-muted-foreground mt-2">
+                          <p className={styles.diagramSubtitle}>
                             Edge computing & APIs
                           </p>
                         </div>
-                        <div className="h-8 w-px bg-gradient-to-b from-glacier to-transparent mx-auto" />
+                        <div className={styles.diagramLineGlacier} />
                       </div>
 
                       {/* Blockchain Layer */}
-                      <div className="text-center">
-                        <div className="glass rounded-xl p-6 mb-4 hover:border-accent/50 transition-all">
-                          <Shield className="w-12 h-12 text-accent mx-auto mb-3" />
-                          <h4 className="font-bold text-foreground">
+                      <div className={styles.diagramNode}>
+                        <div className={styles.diagramCardAccent}>
+                          <Shield className={styles.diagramIconAccent} />
+                          <h4 className={styles.diagramTitle}>
                             Blockchain
                           </h4>
-                          <p className="text-xs text-muted-foreground mt-2">
+                          <p className={styles.diagramSubtitle}>
                             Registro inmutable
                           </p>
                         </div>
-                        <div className="h-8 w-px bg-gradient-to-b from-accent to-transparent mx-auto" />
+                        <div className={styles.diagramLineAccent} />
                       </div>
                     </div>
 
                     {/* Connection Lines Animation */}
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
-                      <div className="absolute top-1/2 left-1/4 w-1/2 h-px bg-gradient-to-r from-primary via-glacier to-accent animate-shimmer" />
+                    <div className={styles.diagramShimmer}>
+                      <div className={styles.diagramShimmerLine} />
                     </div>
                   </div>
                 </div>
@@ -440,17 +441,17 @@ const Documentation = () => {
                     title="Edge Computing"
                     description="Procesamiento local para latencia mínima y operación offline."
                   >
-                    <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    <ul className={styles.featureList}>
+                      <li className={styles.featureListItem}>
+                        <div className={styles.featureDotPrimary} />
                         Procesamiento en tiempo real {"<"}100ms
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <li className={styles.featureListItem}>
+                        <div className={styles.featureDotPrimary} />
                         Buffer local para operación sin conexión
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <li className={styles.featureListItem}>
+                        <div className={styles.featureDotPrimary} />
                         Sincronización automática
                       </li>
                     </ul>
@@ -461,17 +462,17 @@ const Documentation = () => {
                     title="Seguridad"
                     description="Múltiples capas de protección para tus datos sensibles."
                   >
-                    <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-glacier" />
+                    <ul className={styles.featureList}>
+                      <li className={styles.featureListItem}>
+                        <div className={styles.featureDotGlacier} />
                         Encriptación AES-256 en reposo
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-glacier" />
+                      <li className={styles.featureListItem}>
+                        <div className={styles.featureDotGlacier} />
                         TLS 1.3 en tránsito
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-glacier" />
+                      <li className={styles.featureListItem}>
+                        <div className={styles.featureDotGlacier} />
                         Firmas digitales blockchain
                       </li>
                     </ul>
@@ -482,20 +483,20 @@ const Documentation = () => {
 
             {/* API Reference Section */}
             {activeSection === "api" && (
-              <div className="space-y-8 animate-fade-in">
-                <div className="glass-strong rounded-2xl p-8">
-                  <h2 className="text-3xl font-bold text-foreground mb-4">
+              <div className={styles.sectionFadeIn}>
+                <div className={styles.heroCard}>
+                  <h2 className={styles.architectureTitle}>
                     API Reference
                   </h2>
-                  <p className="text-muted-foreground">
+                  <p className={styles.featureDescription}>
                     Documentación completa de endpoints RESTful para integrar
                     ColdChain en tu aplicación.
                   </p>
                 </div>
 
                 {/* Base URL */}
-                <div className="glass rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-foreground mb-3">
+                <div className={styles.baseUrlCard}>
+                  <h3 className={styles.baseUrlTitle}>
                     Base URL
                   </h3>
                   <CodeBlock
@@ -505,35 +506,35 @@ const Documentation = () => {
                 </div>
 
                 {/* Endpoints Table */}
-                <div className="glass-strong rounded-2xl overflow-hidden">
-                  <div className="p-6 border-b border-border/30">
-                    <h3 className="text-xl font-bold text-foreground">
+                <div className={styles.endpointsContainer}>
+                  <div className={styles.endpointsHeader}>
+                    <h3 className={styles.endpointsTitle}>
                       Endpoints
                     </h3>
                   </div>
-                  <div className="divide-y divide-border/30">
+                  <div className={styles.endpointsList}>
                     {apiEndpoints.map((endpoint, index) => (
                       <div
                         key={index}
-                        className="p-6 hover:bg-card/40 transition-colors"
+                        className={styles.endpointItem}
                       >
-                        <div className="flex items-start gap-4">
+                        <div className={styles.endpointContent}>
                           <span
-                            className={`px-3 py-1 rounded-lg text-xs font-bold ${
+                            className={`${styles.methodBadge} ${
                               endpoint.method === "GET"
-                                ? "bg-green-500/20 text-green-400"
+                                ? styles.methodGet
                                 : endpoint.method === "POST"
-                                ? "bg-blue-500/20 text-blue-400"
-                                : "bg-yellow-500/20 text-yellow-400"
+                                ? styles.methodPost
+                                : styles.methodOther
                             }`}
                           >
                             {endpoint.method}
                           </span>
                           <div className="flex-1">
-                            <code className="text-foreground font-mono">
+                            <code className={styles.endpointUrl}>
                               {endpoint.endpoint}
                             </code>
-                            <p className="text-sm text-muted-foreground mt-1">
+                            <p className={styles.endpointDescription}>
                               {endpoint.description}
                             </p>
                           </div>
@@ -584,12 +585,12 @@ console.log('Shipment created:', data.transactionHash);`}
 
             {/* Blockchain Section */}
             {activeSection === "blockchain" && (
-              <div className="space-y-8 animate-fade-in">
-                <div className="glass-strong rounded-2xl p-8">
-                  <h2 className="text-3xl font-bold text-foreground mb-4">
+              <div className={styles.sectionFadeIn}>
+                <div className={styles.heroCard}>
+                  <h2 className={styles.architectureTitle}>
                     Verificación Blockchain
                   </h2>
-                  <p className="text-muted-foreground">
+                  <p className={styles.featureDescription}>
                     Registro inmutable y verificable de cada evento en la cadena
                     de suministro.
                   </p>
@@ -632,26 +633,26 @@ contract ColdChainRegistry {
                     title="Arquitectura Híbrida"
                     description="Combinación de redes públicas y privadas para máxima flexibilidad."
                   >
-                    <div className="mt-4 space-y-4">
-                      <div className="glass rounded-lg p-4">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-                          <span className="font-medium text-foreground">
+                    <div className={styles.hybridArchContainer}>
+                      <div className={styles.hybridArchCard}>
+                        <div className={styles.hybridArchHeader}>
+                          <div className={styles.hybridArchDotPrimary} />
+                          <span className={styles.hybridArchTitle}>
                             Ethereum Mainnet
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground">
+                        <p className={styles.hybridArchText}>
                           Registros públicos verificables por cualquier parte
                         </p>
                       </div>
-                      <div className="glass rounded-lg p-4">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-3 h-3 rounded-full bg-glacier animate-pulse" />
-                          <span className="font-medium text-foreground">
+                      <div className={styles.hybridArchCard}>
+                        <div className={styles.hybridArchHeader}>
+                          <div className={styles.hybridArchDotGlacier} />
+                          <span className={styles.hybridArchTitle}>
                             Red Privada
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground">
+                        <p className={styles.hybridArchText}>
                           Datos sensibles con acceso controlado
                         </p>
                       </div>
@@ -660,28 +661,28 @@ contract ColdChainRegistry {
                 </div>
 
                 {/* Verification Flow */}
-                <div className="glass-strong rounded-2xl p-8">
-                  <h3 className="text-xl font-bold text-foreground mb-6">
+                <div className={styles.verificationFlow}>
+                  <h3 className={styles.verificationTitle}>
                     Flujo de Verificación
                   </h3>
-                  <div className="flex items-center justify-between gap-4">
+                  <div className={styles.verificationSteps}>
                     {[
                       { step: 1, label: "Lectura Sensor", icon: Thermometer },
                       { step: 2, label: "Firma Digital", icon: Lock },
                       { step: 3, label: "Smart Contract", icon: Code },
                       { step: 4, label: "Confirmación", icon: Check },
                     ].map((item, index) => (
-                      <div key={index} className="flex items-center gap-4">
+                      <div key={index} className={styles.verificationStep}>
                         <div className="text-center">
-                          <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mb-2 group hover:bg-primary/20 transition-all">
-                            <item.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
+                          <div className={`${styles.verificationIconContainer} group`}>
+                            <item.icon className={styles.verificationIcon} />
                           </div>
-                          <span className="text-xs text-muted-foreground">
+                          <span className={styles.verificationLabel}>
                             {item.label}
                           </span>
                         </div>
                         {index < 3 && (
-                          <ChevronRight className="w-6 h-6 text-muted-foreground/50" />
+                          <ChevronRight className={styles.verificationArrow} />
                         )}
                       </div>
                     ))}
@@ -692,23 +693,23 @@ contract ColdChainRegistry {
 
             {/* Cold Chain Section */}
             {activeSection === "coldchain" && (
-              <div className="space-y-8 animate-fade-in">
-                <div className="glass-strong rounded-2xl p-8">
-                  <h2 className="text-3xl font-bold text-foreground mb-4">
+              <div className={styles.sectionFadeIn}>
+                <div className={styles.heroCard}>
+                  <h2 className={styles.architectureTitle}>
                     Monitoreo de Cadena de Frío
                   </h2>
-                  <p className="text-muted-foreground">
+                  <p className={styles.featureDescription}>
                     Sistema de monitoreo en tiempo real con alertas automáticas
                     y registro blockchain.
                   </p>
                 </div>
 
                 {/* Temperature Ranges */}
-                <div className="glass-strong rounded-2xl p-8">
-                  <h3 className="text-xl font-bold text-foreground mb-6">
+                <div className={styles.heroCard}>
+                  <h3 className={styles.verificationTitle}>
                     Rangos de Temperatura Estándar
                   </h3>
-                  <div className="grid md:grid-cols-4 gap-4">
+                  <div className={styles.tempRangesGrid}>
                     {[
                       {
                         range: "2-8°C",
@@ -731,14 +732,14 @@ contract ColdChainRegistry {
                         color: "bg-temp-warm",
                       },
                     ].map((temp, index) => (
-                      <div key={index} className="glass rounded-xl p-6 text-center">
+                      <div key={index} className={styles.tempRangeCard}>
                         <div
-                          className={`w-4 h-4 ${temp.color} rounded-full mx-auto mb-3`}
+                          className={`${styles.tempRangeDot} ${temp.color}`}
                         />
-                        <span className="text-2xl font-bold text-foreground">
+                        <span className={styles.tempRangeValue}>
                           {temp.range}
                         </span>
-                        <p className="text-sm text-muted-foreground mt-1">
+                        <p className={styles.tempRangeLabel}>
                           {temp.label}
                         </p>
                       </div>
@@ -775,37 +776,37 @@ contract ColdChainRegistry {
                 </FeatureSection>
 
                 {/* Sensors */}
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="glass rounded-xl p-6 text-center hover:border-primary/30 transition-all group">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <Thermometer className="w-8 h-8 text-primary" />
+                <div className={styles.sensorGrid}>
+                  <div className={`${styles.sensorCard} group`}>
+                    <div className={styles.sensorIconContainer}>
+                      <Thermometer className={styles.sensorIcon} />
                     </div>
-                    <h4 className="font-bold text-foreground mb-2">
+                    <h4 className={styles.sensorTitle}>
                       Sensores IoT
                     </h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={styles.sensorDescription}>
                       Precisión ±0.1°C certificada
                     </p>
                   </div>
-                  <div className="glass rounded-xl p-6 text-center hover:border-glacier/30 transition-all group">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-glacier/20 to-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <MapPin className="w-8 h-8 text-glacier" />
+                  <div className={`${styles.sensorCardGlacier} group`}>
+                    <div className={styles.sensorIconContainerGlacier}>
+                      <MapPin className={styles.sensorIconGlacier} />
                     </div>
-                    <h4 className="font-bold text-foreground mb-2">
+                    <h4 className={styles.sensorTitle}>
                       GPS Integrado
                     </h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={styles.sensorDescription}>
                       Ubicación en tiempo real
                     </p>
                   </div>
-                  <div className="glass rounded-xl p-6 text-center hover:border-accent/30 transition-all group">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-glacier/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <Zap className="w-8 h-8 text-accent" />
+                  <div className={`${styles.sensorCardAccent} group`}>
+                    <div className={styles.sensorIconContainerAccent}>
+                      <Zap className={styles.sensorIconAccent} />
                     </div>
-                    <h4 className="font-bold text-foreground mb-2">
+                    <h4 className={styles.sensorTitle}>
                       Batería 5 años
                     </h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={styles.sensorDescription}>
                       Sin mantenimiento
                     </p>
                   </div>
@@ -815,24 +816,23 @@ contract ColdChainRegistry {
 
             {/* FAQ Section */}
             {activeSection === "faq" && (
-              <div className="space-y-8 animate-fade-in">
-                <div className="glass-strong rounded-2xl p-8">
-                  <h2 className="text-3xl font-bold text-foreground mb-4">
+              <div className={styles.sectionFadeIn}>
+                <div className={styles.heroCard}>
+                  <h2 className={styles.architectureTitle}>
                     Preguntas Frecuentes
                   </h2>
-                  <p className="text-muted-foreground">
+                  <p className={styles.featureDescription}>
                     Respuestas a las dudas más comunes sobre el sistema
                     ColdChain.
                   </p>
                 </div>
 
-                <div className="glass-strong rounded-2xl p-6">
+                <div className={styles.faqAccordionContainer}>
                   <Accordion type="single" collapsible className="space-y-2">
                     {faqItems.map((item, index) => (
                       <AccordionItem
                         key={index}
                         value={`item-${index}`}
-                        className="glass rounded-xl px-6 border-none"
                       >
                         <AccordionTrigger className="text-foreground hover:text-primary hover:no-underline py-6">
                           {item.question}

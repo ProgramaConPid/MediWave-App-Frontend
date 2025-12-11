@@ -1,0 +1,277 @@
+@reference "./globals.css";
+
+.container {
+    @apply min-h-screen bg-gradient-to-br from-background to-secondary overflow-hidden relative;
+}
+
+.gradientOrbs {
+    @apply fixed inset-0 overflow-hidden pointer-events-none;
+}
+
+.orb1 {
+    @apply absolute -top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow;
+}
+
+.orb2 {
+    @apply absolute top-1/3 -right-40 w-96 h-96 bg-glacier/20 rounded-full blur-3xl animate-pulse-glow;
+}
+
+.orb3 {
+    @apply absolute -bottom-40 left-1/3 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-glow;
+}
+
+.header {
+    @apply relative z-20 border-b border-border/50 backdrop-blur-xl;
+}
+
+.headerContainer {
+    @apply container mx-auto px-6 py-6;
+}
+
+.headerContent {
+    @apply flex items-center justify-between;
+}
+
+.logoContainer {
+    @apply flex items-center gap-3;
+}
+
+.logoIconContainer {
+    @apply p-2 rounded-lg bg-primary/20;
+}
+
+.logoIcon {
+    @apply w-6 h-6 text-primary;
+}
+
+.logoText {
+    @apply text-2xl font-bold text-foreground;
+}
+
+.logoSubtext {
+    @apply text-xs text-muted-foreground;
+}
+
+.nav {
+    @apply flex items-center gap-4;
+}
+
+.dashboardButton {
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground;
+}
+
+.dashboardIcon {
+    @apply w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform;
+}
+
+.historyButton {
+    @apply bg-background/80 backdrop-blur-xl border border-white/10 hover:bg-secondary/50;
+}
+
+.historyIcon {
+    @apply w-4 h-4 mr-2;
+}
+
+.docsButton {
+    @apply text-muted-foreground hover:text-foreground;
+}
+
+.heroSection {
+    @apply relative z-10 container mx-auto px-6 pt-20 pb-32;
+}
+
+.heroContent {
+    @apply max-w-5xl mx-auto text-center;
+}
+
+.badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-lg border border-white/10 mb-8 animate-float;
+}
+
+.badgeDot {
+    @apply w-2 h-2 rounded-full bg-temperature-optimal animate-pulse;
+}
+
+.badgeText {
+    @apply text-sm text-muted-foreground;
+}
+
+.heroHeading {
+    @apply text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-glacier bg-clip-text text-transparent animate-gradient;
+}
+
+.heroDescription {
+    @apply text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed;
+}
+
+.ctaContainer {
+    @apply flex items-center justify-center gap-4 flex-wrap;
+}
+
+.ctaDashboard {
+    @apply bg-gradient-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20;
+}
+
+.ctaDashboardIcon {
+    @apply w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform;
+}
+
+.ctaDocs {
+    @apply bg-background/80 backdrop-blur-xl border border-white/10 hover:bg-secondary/50 text-lg px-8 py-6 rounded-xl;
+}
+
+.ctaDocsIcon {
+    @apply w-5 h-5 ml-2 group-hover:rotate-12 transition-transform;
+}
+
+.statsGrid {
+    @apply grid grid-cols-3 gap-8 mt-20 max-w-3xl mx-auto;
+}
+
+.statCard {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 p-6 rounded-2xl hover:scale-105 transition-transform;
+}
+
+.statValuePrimary {
+    @apply text-4xl font-bold text-primary mb-2;
+}
+
+.statValueGlacier {
+    @apply text-4xl font-bold text-glacier mb-2;
+}
+
+.statValueAccent {
+    @apply text-4xl font-bold text-accent mb-2;
+}
+
+.statLabel {
+    @apply text-sm text-muted-foreground;
+}
+
+.featuresSection {
+    @apply relative z-10 container mx-auto px-6 py-20;
+}
+
+.featuresHeader {
+    @apply text-center mb-16;
+}
+
+.featuresTitle {
+    @apply text-4xl md:text-5xl font-bold mb-4 text-foreground;
+}
+
+.featuresDescription {
+    @apply text-lg text-muted-foreground max-w-2xl mx-auto;
+}
+
+.featuresGrid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto;
+}
+
+.featureCardWrapper {
+    @apply animate-fade-in;
+}
+
+.howItWorksSection {
+    @apply relative z-10 container mx-auto px-6 py-20;
+}
+
+.howItWorksContainer {
+    @apply max-w-4xl mx-auto;
+}
+
+.howItWorksTitle {
+    @apply text-4xl md:text-5xl font-bold mb-16 text-center text-foreground;
+}
+
+.howItWorksSteps {
+    @apply space-y-8;
+}
+
+.stepCard {
+    @apply bg-background/80 backdrop-blur-xl border border-white/10 p-8 rounded-2xl flex items-start gap-6 hover:scale-102 transition-all duration-300;
+}
+
+.stepNumberContainer {
+    @apply flex-shrink-0;
+}
+
+.stepNumber {
+    @apply text-5xl font-bold text-primary/20 group-hover:text-primary/40 transition-colors;
+}
+
+.stepContent {
+    @apply flex-1;
+}
+
+.stepTitle {
+    @apply text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors;
+}
+
+.stepDescription {
+    @apply text-muted-foreground leading-relaxed;
+}
+
+.ctaSection {
+    @apply relative z-10 container mx-auto px-6 py-20 mb-20;
+}
+
+.ctaCard {
+    @apply bg-background/80 backdrop-blur-xl border border-white/10 p-12 rounded-3xl text-center max-w-4xl mx-auto relative overflow-hidden;
+}
+
+.ctaGradient {
+    @apply absolute inset-0 bg-gradient-to-r from-primary/10 to-glacier/10 animate-gradient;
+}
+
+.ctaContent {
+    @apply relative z-10;
+}
+
+.ctaTitle {
+    @apply text-4xl md:text-5xl font-bold mb-6 text-foreground;
+}
+
+.ctaText {
+    @apply text-lg text-muted-foreground mb-8 max-w-2xl mx-auto;
+}
+
+.ctaButton {
+    @apply bg-gradient-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground text-lg px-10 py-6 rounded-xl shadow-xl shadow-primary/30;
+}
+
+.ctaButtonIcon {
+    @apply w-5 h-5 ml-2;
+}
+
+.footer {
+    @apply relative z-10 border-t border-border/50 backdrop-blur-xl;
+}
+
+.footerContainer {
+    @apply container mx-auto px-6 py-8;
+}
+
+.footerContent {
+    @apply flex items-center justify-between flex-wrap gap-4;
+}
+
+.footerCopyright {
+    @apply flex items-center gap-2;
+}
+
+.footerIcon {
+    @apply w-5 h-5 text-primary;
+}
+
+.footerText {
+    @apply text-sm text-muted-foreground;
+}
+
+.footerStatus {
+    @apply flex items-center gap-2 text-sm text-muted-foreground;
+}
+
+.footerStatusIcon {
+    @apply w-4 h-4 text-temperature-optimal animate-pulse;
+}

@@ -16,6 +16,7 @@ import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import FeatureCard from "@/components/FeatureCard";
 import ParticlesBackground from "@/components/ParticlesBackground";
+import styles from "./page.module.css";
 
 const Index = () => {
   const features = [
@@ -58,47 +59,47 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen gradient-cold overflow-hidden relative">
+    <div className={styles.container}>
       {/* Animated Background Elements */}
       <ParticlesBackground />
       <BlockchainNetwork />
       <FloatingHexagons />
 
       {/* Gradient Orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
-        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-glacier/20 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "2s" }} />
-        <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "4s" }} />
+      <div className={styles.gradientOrbs}>
+        <div className={styles.orb1} />
+        <div className={styles.orb2} style={{ animationDelay: "2s" }} />
+        <div className={styles.orb3} style={{ animationDelay: "4s" }} />
       </div>
 
       {/* Header */}
-      <header className="relative z-20 border-b border-border/50 backdrop-blur-xl">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/20">
-                <Droplets className="w-6 h-6 text-primary" />
+      <header className={styles.header}>
+        <div className={styles.headerContainer}>
+          <div className={styles.headerContent}>
+            <div className={styles.logoContainer}>
+              <div className={styles.logoIconContainer}>
+                <Droplets className={styles.logoIcon} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">MediWave</h1>
-                <p className="text-xs text-muted-foreground">Pharmaceutical Traceability</p>
+                <h1 className={styles.logoText}>MediWave</h1>
+                <p className={styles.logoSubtext}>Pharmaceutical Traceability</p>
               </div>
             </div>
-            <nav className="flex items-center gap-4">
+            <nav className={styles.nav}>
               <Link href="/dashboard">
-                <Button className="group bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Button className={`${styles.dashboardButton} group`}>
                   Dashboard
-                  <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className={styles.dashboardIcon} />
                 </Button>
               </Link>
               <Link href="/history">
-                <Button variant="outline" className="group glass-strong hover:bg-secondary/50">
-                  <BarChart3 className="w-4 h-4 mr-2" />
+                <Button variant="outline" className={`${styles.historyButton} group`}>
+                  <BarChart3 className={styles.historyIcon} />
                   Historial
                 </Button>
               </Link>
               <Link href="/documentation">
-                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                <Button variant="ghost" className={styles.docsButton}>
                   Documentación
                 </Button>
               </Link>
@@ -108,82 +109,82 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 container mx-auto px-6 pt-20 pb-32">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-float">
-            <div className="w-2 h-2 rounded-full bg-temperature-optimal animate-pulse" />
-            <span className="text-sm text-muted-foreground">Sistema Activo • Blockchain Verificado</span>
+          <div className={styles.badge}>
+            <div className={styles.badgeDot} />
+            <span className={styles.badgeText}>Sistema Activo • Blockchain Verificado</span>
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-glacier bg-clip-text text-transparent animate-gradient">
+          <h1 className={styles.heroHeading}>
             Trazabilidad Farmacéutica del Futuro
           </h1>
 
-          <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className={styles.heroDescription}>
             Garantizamos la integridad de medicamentos mediante tecnología blockchain, 
             monitoreo IoT en tiempo real y verificación descentralizada de la cadena de frío.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className={styles.ctaContainer}>
             <Link href="/dashboard">
               <Button 
                 size="lg" 
-                className="group bg-gradient-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20"
+                className={`${styles.ctaDashboard} group`}
               >
                 Ver Dashboard
-                <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+                <ChevronRight className={styles.ctaDashboardIcon} />
               </Button>
             </Link>
             <Link href="/documentation">
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="glass-strong hover:bg-secondary/50 text-lg px-8 py-6 rounded-xl group"
+                className={`${styles.ctaDocs} group`}
               >
                 Documentación
-                <TrendingUp className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform" />
+                <TrendingUp className={styles.ctaDocsIcon} />
               </Button>
             </Link>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-20 max-w-3xl mx-auto">
-            <div className="glass p-6 rounded-2xl hover:scale-105 transition-transform">
-              <p className="text-4xl font-bold text-primary mb-2">99.9%</p>
-              <p className="text-sm text-muted-foreground">Precisión</p>
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <p className={styles.statValuePrimary}>99.9%</p>
+              <p className={styles.statLabel}>Precisión</p>
             </div>
-            <div className="glass p-6 rounded-2xl hover:scale-105 transition-transform" style={{ animationDelay: "0.1s" }}>
-              <p className="text-4xl font-bold text-glacier mb-2">24/7</p>
-              <p className="text-sm text-muted-foreground">Monitoreo</p>
+            <div className={styles.statCard} style={{ animationDelay: "0.1s" }}>
+              <p className={styles.statValueGlacier}>24/7</p>
+              <p className={styles.statLabel}>Monitoreo</p>
             </div>
-            <div className="glass p-6 rounded-2xl hover:scale-105 transition-transform" style={{ animationDelay: "0.2s" }}>
-              <p className="text-4xl font-bold text-accent mb-2">100%</p>
-              <p className="text-sm text-muted-foreground">Trazable</p>
+            <div className={styles.statCard} style={{ animationDelay: "0.2s" }}>
+              <p className={styles.statValueAccent}>100%</p>
+              <p className={styles.statLabel}>Trazable</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="relative z-10 container mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+      <section className={styles.featuresSection}>
+        <div className={styles.featuresHeader}>
+          <h2 className={styles.featuresTitle}>
             Tecnología de Vanguardia
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className={styles.featuresDescription}>
             Combinamos blockchain, IoT y IA para crear el sistema más avanzado 
             de trazabilidad farmacéutica del mercado.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className={styles.featuresGrid}>
           {features.map((feature, index) => (
             <div
               key={index}
-              className="animate-fade-in"
+              className={styles.featureCardWrapper}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <FeatureCard {...feature} />
@@ -193,13 +194,13 @@ const Index = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative z-10 container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center text-foreground">
+      <section className={styles.howItWorksSection}>
+        <div className={styles.howItWorksContainer}>
+          <h2 className={styles.howItWorksTitle}>
             Cómo Funciona
           </h2>
 
-          <div className="space-y-8">
+          <div className={styles.howItWorksSteps}>
             {[
               {
                 step: "01",
@@ -224,18 +225,18 @@ const Index = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="glass-strong p-8 rounded-2xl flex items-start gap-6 hover:scale-102 transition-all duration-300 group"
+                className={`${styles.stepCard} group`}
               >
-                <div className="flex-shrink-0">
-                  <div className="text-5xl font-bold text-primary/20 group-hover:text-primary/40 transition-colors">
+                <div className={styles.stepNumberContainer}>
+                  <div className={styles.stepNumber}>
                     {item.step}
                   </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                <div className={styles.stepContent}>
+                  <h3 className={styles.stepTitle}>
                     {item.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className={styles.stepDescription}>
                     {item.description}
                   </p>
                 </div>
@@ -246,25 +247,25 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 container mx-auto px-6 py-20 mb-20">
-        <div className="glass-strong p-12 rounded-3xl text-center max-w-4xl mx-auto relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-glacier/10 animate-gradient" />
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaCard}>
+          <div className={styles.ctaGradient} />
           
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <div className={styles.ctaContent}>
+            <h2 className={styles.ctaTitle}>
               Comienza a Monitorear Ahora
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className={styles.ctaText}>
               Únete a las empresas farmacéuticas que ya confían en MedChain 
               para garantizar la integridad de sus productos.
             </p>
             <Link href="/dashboard">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground text-lg px-10 py-6 rounded-xl shadow-xl shadow-primary/30"
+                className={styles.ctaButton}
               >
                 Acceder al Dashboard
-                <ChevronRight className="w-5 h-5 ml-2" />
+                <ChevronRight className={styles.ctaButtonIcon} />
               </Button>
             </Link>
           </div>
@@ -272,17 +273,17 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border/50 backdrop-blur-xl">
-        <div className="container mx-auto px-6 py-8">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-2">
-              <Droplets className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">
+      <footer className={styles.footer}>
+        <div className={styles.footerContainer}>
+          <div className={styles.footerContent}>
+            <div className={styles.footerCopyright}>
+              <Droplets className={styles.footerIcon} />
+              <span className={styles.footerText}>
                 © 2024 MedChain. Blockchain Pharmaceutical Traceability.
               </span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Activity className="w-4 h-4 text-temperature-optimal animate-pulse" />
+            <div className={styles.footerStatus}>
+              <Activity className={styles.footerStatusIcon} />
               <span>Sistema Operativo</span>
             </div>
           </div>

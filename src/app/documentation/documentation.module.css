@@ -1,0 +1,501 @@
+@reference "../globals.css";
+
+.codeBlockContainer {
+  @apply relative rounded-xl overflow-hidden;
+}
+
+.languageLabel {
+  @apply absolute top-0 left-0 px-3 py-1 text-xs font-mono text-primary bg-primary/10 rounded-br-lg;
+}
+
+.copyButton {
+  @apply absolute top-2 right-2 p-2 rounded-lg bg-white/5 backdrop-blur-lg border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary/20;
+}
+
+.checkIcon {
+  @apply w-4 h-4 text-green-400;
+}
+
+.copyIcon {
+  @apply w-4 h-4 text-muted-foreground;
+}
+
+.codePre {
+  @apply bg-card/80 backdrop-blur-xl border border-border/50 p-6 pt-10 overflow-x-auto;
+}
+
+.codeContent {
+  @apply text-sm font-mono text-foreground/90;
+}
+
+.featureSection {
+  @apply bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-primary/30 transition-all duration-500;
+}
+
+.featureHeader {
+  @apply flex items-start gap-4 mb-6;
+}
+
+.featureIconContainer {
+  @apply p-3 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 group-hover:scale-110 transition-transform duration-300;
+}
+
+.featureIcon {
+  @apply w-6 h-6 text-primary;
+}
+
+.featureTitle {
+  @apply text-xl font-bold text-foreground mb-2;
+}
+
+.featureDescription {
+  @apply text-muted-foreground;
+}
+
+.navItem {
+  @apply w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-left;
+}
+
+.navItemActive {
+  @apply bg-primary/20 text-primary border border-primary/30;
+}
+
+.navItemInactive {
+  @apply hover:bg-card/60 text-muted-foreground hover:text-foreground;
+}
+
+.navIcon {
+  @apply w-5 h-5;
+}
+
+.navLabel {
+  @apply font-medium;
+}
+
+.navChevron {
+  @apply w-4 h-4 ml-auto;
+}
+
+.pageContainer {
+  @apply min-h-screen bg-gradient-to-br from-background to-secondary relative overflow-hidden;
+}
+
+.ambientEffect1 {
+  @apply fixed top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow;
+}
+
+.ambientEffect2 {
+  @apply fixed bottom-1/4 -right-32 w-96 h-96 bg-glacier/20 rounded-full blur-3xl animate-pulse-glow;
+}
+
+.header {
+  @apply relative z-20 bg-white/5 backdrop-blur-lg border border-white/10 border-b border-border/30;
+}
+
+.headerContainer {
+  @apply container mx-auto px-6 py-4;
+}
+
+.headerContent {
+  @apply flex items-center justify-between;
+}
+
+.logoLink {
+  @apply flex items-center gap-3;
+}
+
+.logoIconContainer {
+  @apply p-2 rounded-xl bg-gradient-to-br from-primary to-glacier group-hover:scale-110 transition-transform;
+}
+
+.logoIcon {
+  @apply w-6 h-6 text-primary-foreground;
+}
+
+.logoText {
+  @apply text-xl font-bold text-foreground;
+}
+
+.logoTextHighlight {
+  @apply text-primary;
+}
+
+.nav {
+  @apply flex items-center gap-4;
+}
+
+.navLink {
+  @apply flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-card/40 transition-colors text-muted-foreground hover:text-foreground;
+}
+
+.navLinkIcon {
+  @apply w-4 h-4;
+}
+
+.mainContainer {
+  @apply relative z-10 container mx-auto px-6 py-12;
+}
+
+.contentGrid {
+  @apply grid lg:grid-cols-[280px_1fr] gap-8;
+}
+
+.sidebar {
+  @apply bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 h-fit sticky top-24;
+}
+
+.sidebarTitle {
+  @apply text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4;
+}
+
+.sidebarNav {
+  @apply space-y-2;
+}
+
+.quickLinksContainer {
+  @apply mt-8 pt-6 border-t border-border/30;
+}
+
+.quickLink {
+  @apply flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors;
+}
+
+.mainContent {
+  @apply space-y-8;
+}
+
+.sectionFadeIn {
+  @apply space-y-8 animate-fade-in;
+}
+
+.heroCard {
+  @apply bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8;
+}
+
+.versionBadge {
+  @apply flex items-center gap-3 mb-6;
+}
+
+.versionIndicator {
+  @apply h-1 w-12 bg-gradient-to-r from-primary to-glacier rounded-full;
+}
+
+.versionText {
+  @apply text-primary font-mono text-sm;
+}
+
+.heroTitle {
+  @apply text-4xl font-bold text-foreground mb-4;
+}
+
+.heroDescription {
+  @apply text-xl text-muted-foreground leading-relaxed;
+}
+
+.quickStartGrid {
+  @apply grid md:grid-cols-3 gap-6;
+}
+
+.quickStartCard {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 cursor-pointer;
+}
+
+.quickStartIcon {
+  @apply w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform;
+}
+
+.quickStartIconGlacier {
+  @apply w-10 h-10 text-glacier mb-4 group-hover:scale-110 transition-transform;
+}
+
+.quickStartIconAccent {
+  @apply w-10 h-10 text-accent mb-4 group-hover:scale-110 transition-transform;
+}
+
+.quickStartTitle {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.quickStartText {
+  @apply text-sm text-muted-foreground;
+}
+
+.tabsList {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 mb-4;
+}
+
+.architectureTitle {
+  @apply text-3xl font-bold text-foreground mb-4;
+}
+
+.architectureDescription {
+  @apply text-muted-foreground mb-8;
+}
+
+.diagramContainer {
+  @apply relative bg-card/60 rounded-xl p-8 border border-border/50;
+}
+
+.diagramGrid {
+  @apply grid grid-cols-3 gap-8;
+}
+
+.diagramNode {
+  @apply text-center;
+}
+
+.diagramCard {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 mb-4 hover:border-primary/50 transition-all;
+}
+
+.diagramCardGlacier {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 mb-4 hover:border-glacier/50 transition-all;
+}
+
+.diagramCardAccent {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 mb-4 hover:border-accent/50 transition-all;
+}
+
+.diagramIcon {
+  @apply w-12 h-12 text-primary mx-auto mb-3;
+}
+
+.diagramIconGlacier {
+  @apply w-12 h-12 text-glacier mx-auto mb-3;
+}
+
+.diagramIconAccent {
+  @apply w-12 h-12 text-accent mx-auto mb-3;
+}
+
+.diagramTitle {
+  @apply font-bold text-foreground;
+}
+
+.diagramSubtitle {
+  @apply text-xs text-muted-foreground mt-2;
+}
+
+.diagramLinePrimary {
+  @apply h-8 w-px bg-gradient-to-b from-primary to-transparent mx-auto;
+}
+
+.diagramLineGlacier {
+  @apply h-8 w-px bg-gradient-to-b from-glacier to-transparent mx-auto;
+}
+
+.diagramLineAccent {
+  @apply h-8 w-px bg-gradient-to-b from-accent to-transparent mx-auto;
+}
+
+.diagramShimmer {
+  @apply absolute inset-0 pointer-events-none overflow-hidden rounded-xl;
+}
+
+.diagramShimmerLine {
+  @apply absolute top-1/2 left-1/4 w-1/2 h-px bg-gradient-to-r from-primary via-glacier to-accent animate-shimmer;
+}
+
+.featureList {
+  @apply mt-4 space-y-2 text-sm text-muted-foreground;
+}
+
+.featureListItem {
+  @apply flex items-center gap-2;
+}
+
+.featureDotPrimary {
+  @apply w-1.5 h-1.5 rounded-full bg-primary;
+}
+
+.featureDotGlacier {
+  @apply w-1.5 h-1.5 rounded-full bg-glacier;
+}
+
+.baseUrlCard {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6;
+}
+
+.baseUrlTitle {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+.endpointsContainer {
+  @apply bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden;
+}
+
+.endpointsHeader {
+  @apply p-6 border-b border-border/30;
+}
+
+.endpointsTitle {
+  @apply text-xl font-bold text-foreground;
+}
+
+.endpointsList {
+  @apply divide-y divide-border/30;
+}
+
+.endpointItem {
+  @apply p-6 hover:bg-card/40 transition-colors;
+}
+
+.endpointContent {
+  @apply flex items-start gap-4;
+}
+
+.methodBadge {
+  @apply px-3 py-1 rounded-lg text-xs font-bold;
+}
+
+.methodGet {
+  @apply bg-green-500/20 text-green-400;
+}
+
+.methodPost {
+  @apply bg-blue-500/20 text-blue-400;
+}
+
+.methodOther {
+  @apply bg-yellow-500/20 text-yellow-400;
+}
+
+.endpointUrl {
+  @apply text-foreground font-mono;
+}
+
+.endpointDescription {
+  @apply text-sm text-muted-foreground mt-1;
+}
+
+.hybridArchContainer {
+  @apply mt-4 space-y-4;
+}
+
+.hybridArchCard {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-lg p-4;
+}
+
+.hybridArchHeader {
+  @apply flex items-center gap-3 mb-2;
+}
+
+.hybridArchDotPrimary {
+  @apply w-3 h-3 rounded-full bg-primary animate-pulse;
+}
+
+.hybridArchDotGlacier {
+  @apply w-3 h-3 rounded-full bg-glacier animate-pulse;
+}
+
+.hybridArchTitle {
+  @apply font-medium text-foreground;
+}
+
+.hybridArchText {
+  @apply text-sm text-muted-foreground;
+}
+
+.verificationFlow {
+  @apply bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8;
+}
+
+.verificationTitle {
+  @apply text-xl font-bold text-foreground mb-6;
+}
+
+.verificationSteps {
+  @apply flex items-center justify-between gap-4;
+}
+
+.verificationStep {
+  @apply flex items-center gap-4;
+}
+
+.verificationIconContainer {
+  @apply w-16 h-16 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 flex items-center justify-center mb-2 hover:bg-primary/20 transition-all;
+}
+
+.verificationIcon {
+  @apply w-8 h-8 text-primary group-hover:scale-110 transition-transform;
+}
+
+.verificationLabel {
+  @apply text-xs text-muted-foreground;
+}
+
+.verificationArrow {
+  @apply w-6 h-6 text-muted-foreground/50;
+}
+
+.tempRangesGrid {
+  @apply grid md:grid-cols-4 gap-4;
+}
+
+.tempRangeCard {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center;
+}
+
+.tempRangeDot {
+  @apply w-4 h-4 rounded-full mx-auto mb-3;
+}
+
+.tempRangeValue {
+  @apply text-2xl font-bold text-foreground;
+}
+
+.tempRangeLabel {
+  @apply text-sm text-muted-foreground mt-1;
+}
+
+.sensorGrid {
+  @apply grid md:grid-cols-3 gap-6;
+}
+
+.sensorCard {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center hover:border-primary/30 transition-all;
+}
+
+.sensorCardGlacier {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center hover:border-glacier/30 transition-all;
+}
+
+.sensorCardAccent {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center hover:border-accent/30 transition-all;
+}
+
+.sensorIconContainer {
+  @apply w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform;
+}
+
+.sensorIconContainerGlacier {
+  @apply w-16 h-16 rounded-2xl bg-gradient-to-br from-glacier/20 to-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform;
+}
+
+.sensorIconContainerAccent {
+  @apply w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-glacier/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform;
+}
+
+.sensorIcon {
+  @apply w-8 h-8 text-primary;
+}
+
+.sensorIconGlacier {
+  @apply w-8 h-8 text-glacier;
+}
+
+.sensorIconAccent {
+  @apply w-8 h-8 text-accent;
+}
+
+.sensorTitle {
+  @apply font-bold text-foreground mb-2;
+}
+
+.sensorDescription {
+  @apply text-sm text-muted-foreground;
+}
+
+.faqAccordionContainer {
+  @apply bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6;
+}
