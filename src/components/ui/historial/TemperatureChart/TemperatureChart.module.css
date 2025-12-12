@@ -1,0 +1,74 @@
+.chartContainer {
+  background: linear-gradient(135deg, #0f2c47 0%, #1a4d6d 100%);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #8ab4d5;
+  margin: 0;
+  font-style: italic;
+}
+
+.chartWrapper {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.tooltip {
+  background: rgba(15, 44, 71, 0.95);
+  border: 2px solid #00bcd4;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.tooltipTime {
+  color: #8ab4d5;
+  font-size: 12px;
+  margin: 0 0 4px 0;
+}
+
+.tooltipValue {
+  color: #ffffff;
+  font-size: 14px;
+  margin: 0;
+}
+
+.tooltipValue strong {
+  color: #00bcd4;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .chartContainer {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .chartWrapper {
+    padding: 8px;
+  }
+}

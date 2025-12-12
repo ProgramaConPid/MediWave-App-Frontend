@@ -1,0 +1,96 @@
+.card__blockchain {
+  padding: 20px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-base);
+  background-color: hsl(var(--card) / .4);
+  backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.card__blockchainHeader {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+
+.card__blockchainIconContainer {
+  padding: 10px;
+  border-radius: var(--radius-base);
+  background-color: hsl(var(--primary) / .2);
+}
+
+.card__blockchainIcon {
+  color: hsl(var(--primary));
+  font-size: 1.2rem;
+}
+
+.card__blockchainTextsInfo {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.card__blockchainTextsTitle {
+  color: hsl(var(--foreground));
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.card__blockchainTextsInfo {
+  font-size: .8rem;
+  color: hsl(var(--temp-optimal));
+}
+
+.card__blockchainHash,
+.card__blockchainBlockId {
+  background-color: hsl(var(--secondary));
+  padding: 15px;
+  display: flex;
+  border-radius: var(--radius-base);
+}
+
+.card__blockchainHash {
+  gap: .5rem;
+}
+
+.card__blockchainHashIcon {
+  color: hsl(var(--muted-foreground));
+  font-weight: 700;
+  position: relative;
+  top: 3px;
+}
+
+
+.card__blockchainBlockId {
+  margin-top: 1rem  ;
+}
+
+.card__blockchainHashTitle {
+  color: hsl(var(--muted-foreground));
+}
+
+.card__blockchainBlockId {
+  justify-content: space-between;
+}
+
+.card__blockchainHashId {
+  color: hsl(var(--foreground));
+}
+
+.card__blockchainBlockIdTitle {
+  color: hsl(var(--muted-foreground));
+}
+
+.card__blockchainBlockIdId {
+  color: hsl(var(--glacier));
+}
+
+.card__blockchainButton {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
