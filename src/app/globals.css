@@ -354,3 +354,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+#tsparticles canvas {
+  filter: drop-shadow(0 0 12px #06b6d4) 
+          drop-shadow(0 0 24px #06b6d4)
+          blur(2px);
+}

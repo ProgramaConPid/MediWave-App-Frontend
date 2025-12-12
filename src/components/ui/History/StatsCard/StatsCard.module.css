@@ -1,13 +1,13 @@
 .card {
-  background: linear-gradient(135deg, #0f2c47 0%, #1a4d6d 100%);
-  border-radius: 12px;
   padding: 20px;
+  background-color: hsl(var(--card) / .4);
+  border-radius: var(--radius-base);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(24px);
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  transition: 300ms ease;
 }
 
 .card:hover {

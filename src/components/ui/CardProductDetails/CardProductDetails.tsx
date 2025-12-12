@@ -1,7 +1,7 @@
 import styles from "./CardProductDetails.module.css";
 import { LuPackage } from "react-icons/lu";
 import { FaTemperatureArrowUp } from "react-icons/fa6";
-import { CardProductDetailsProps } from "@/src/interfaces/main";
+import { CardProductDetailsProps } from "@/interfaces/main";
 import { LuShield } from "react-icons/lu";
 
 const CardProductDetails = ({productId, productName, productTag, currentTemp}:CardProductDetailsProps) => {

@@ -63,9 +63,9 @@
   top: 3px;
 }
 
-
 .card__blockchainBlockId {
   margin-top: 1rem  ;
+  text-overflow: clip;
 }
 
 .card__blockchainHashTitle {
@@ -78,6 +78,7 @@
 
 .card__blockchainHashId {
   color: hsl(var(--foreground));
+  word-break: break-all;
 }
 
 .card__blockchainBlockIdTitle {

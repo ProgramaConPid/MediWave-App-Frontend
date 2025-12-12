@@ -1,9 +1,10 @@
 .header {
-  background: linear-gradient(135deg, #0f2c47 0%, #1a4d6d 100%);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  background-color: hsl(var(--card) / .4);
+  border-radius: var(--radius-base);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(24px);
+  margin-bottom: 2rem;
 }
 
 .headerContent {
@@ -21,7 +22,7 @@
 .title {
   font-size: 28px;
   font-weight: 700;
-  color: #ffffff;
+  color: hsl(var(--foreground));
   margin: 0 0 12px 0;
 }
 
@@ -34,32 +35,31 @@
 }
 
 .label {
-  color: #8ab4d5;
+  color: hsl(var(--muted-foreground));
   font-size: 14px;
 }
 
 .value {
-  color: #ffffff;
+  color: hsl(var(--foreground));
   font-size: 14px;
   font-weight: 500;
 }
 
+.modified {
+  color: hsl(var(--primary));
+}
+
 .certificateBtn {
-  background: rgba(0, 188, 212, 0.15);
-  color: #00bcd4;
+  background: hsl(var(--temp-optimal) / .2);
+  color: hsl(var(--temp-optimal));
   padding: 12px 24px;
-  border: 2px solid rgba(0, 188, 212, 0.3);
+  border: 1px solid hsl(var(--temp-optimal) / .5);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: default;
   transition: all 0.3s ease;
   white-space: nowrap;
-}
-
-.certificateBtn:hover {
-  background: rgba(0, 188, 212, 0.2);
-  border-color: rgba(0, 188, 212, 0.5);
 }
 
 @media (max-width: 768px) {

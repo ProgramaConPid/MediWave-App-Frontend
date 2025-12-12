@@ -1,3 +1,5 @@
+"use client"
+
 const BlockchainNetwork = () => {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20">
@@ -9,7 +11,7 @@ const BlockchainNetwork = () => {
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background" />
     </div>
   );
 };

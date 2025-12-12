@@ -109,6 +109,7 @@
 .dashboardButton {
     background-color: hsl(var(--primary));
     color: hsl(var(--primary-foreground));
+    cursor: pointer;
 }
 
 .dashboardButton:hover {
@@ -127,9 +128,12 @@
 }
 
 .historyButton {
+    color: hsl(var(--foreground));
     background-color: hsl(var(--background) / 0.8);
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: 300ms ease;
 }
 
 .historyButton:hover {
@@ -143,11 +147,16 @@
 }
 
 .docsButton {
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background) / 0.8);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: 300ms ease;
 }
 
 .docsButton:hover {
-    color: hsl(var(--foreground));
+    background-color: hsl(var(--secondary) / 0.5);
 }
 
 .heroSection {
@@ -244,6 +253,7 @@
     padding-bottom: 1.5rem;
     border-radius: 0.75rem;
     box-shadow: 0 10px 15px -3px hsl(var(--primary) / 0.2);
+    cursor: pointer;
 }
 
 .ctaDashboard:hover {
@@ -262,6 +272,7 @@
 }
 
 .ctaDocs {
+    color: hsl(var(--foreground));
     background-color: hsl(var(--background) / 0.8);
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -271,6 +282,7 @@
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     border-radius: 0.75rem;
+    cursor: pointer;
 }
 
 .ctaDocs:hover {
@@ -504,7 +516,7 @@
 }
 
 .ctaCard {
-    background-color: hsl(var(--background) / 0.8);
+    background: hsl(var(--background) / 0.8);
     backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 3rem;
@@ -517,13 +529,14 @@
     overflow: hidden;
 }
 
-.ctaGradient {
+/* Optional */
+/* .ctaGradient {
     position: absolute;
     inset: 0;
     background: linear-gradient(to right, hsl(var(--primary) / 0.1), hsl(var(--glacier) / 0.1));
     animation: gradient 8s linear infinite;
     background-size: 200% 200%;
-}
+} */
 
 .ctaContent {
     position: relative;
@@ -562,6 +575,8 @@
     padding-bottom: 1.5rem;
     border-radius: 0.75rem;
     box-shadow: 0 20px 25px -5px hsl(var(--primary) / 0.3);
+    transition: 300ms ease;
+    cursor: pointer;
 }
 
 .ctaButton:hover {

@@ -836,10 +836,10 @@ contract MediWaveRegistry {
                         key={index}
                         value={`item-${index}`}
                       >
-                        <AccordionTrigger className="text-foreground hover:text-primary hover:no-underline py-6">
+                        <AccordionTrigger className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] hover:no-underline py-6 cursor-pointer">
                           {item.question}
                         </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground pb-6">
+                        <AccordionContent className="text-[hsl(var(--muted-foreground))] pb-6">
                           {item.answer}
                         </AccordionContent>
                       </AccordionItem>
@@ -848,18 +848,18 @@ contract MediWaveRegistry {
                 </div>
 
                 {/* Contact CTA */}
-                <div className="glass-strong rounded-2xl p-8 text-center">
-                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                <div className={`glass-strong rounded-2xl p-8 text-center ${styles.contactCTA}`}>
+                  <h3 className="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
                     ¿Tienes más preguntas?
                   </h3>
-                  <p className="text-muted-foreground mb-6">
+                  <p className="text-[hsl(var(--muted-foreground))] mb-6">
                     Nuestro equipo está disponible para ayudarte
                   </p>
                   <div className="flex justify-center gap-4">
-                    <Button className="bg-gradient-to-r from-primary to-glacier hover:opacity-90">
+                    <Button className="bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--glacier))] hover:opacity-90 cursor-pointer">
                       Contactar Soporte
                     </Button>
-                    <Button variant="outline" className="border-border/50">
+                    <Button className="border order-border/50 bg-[hsl(var(--background))] text-[hsl(var(--foreground))] cursor-pointer">
                       Unirse a Discord
                     </Button>
                   </div>
@@ -874,26 +874,26 @@ contract MediWaveRegistry {
       <footer className="relative z-10 glass border-t border-border/30 mt-20">
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-[hsl(var(--muted-foreground))] text-sm">
               © 2025 MediWave. Trazabilidad farmacéutica con tecnología
               blockchain.
             </p>
             <div className="flex items-center gap-6">
               <a
                 href="#"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors"
               >
                 Términos
               </a>
               <a
                 href="#"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors"
               >
                 Privacidad
               </a>
               <a
                 href="#"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors"
               >
                 Seguridad
               </a>

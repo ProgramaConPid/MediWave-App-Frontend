@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import createGlobe, { COBEOptions } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 import { motion } from "framer-motion";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 const MOVEMENT_DAMPING = 1400;
 
@@ -148,7 +148,7 @@ export function Globe({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className={cn(
-        "relative inset-0 mx-auto aspect-square w-full max-w-[387px]",
+        "relative inset-0 mx-auto aspect-square w-full max-w-[400px]",
         className
       )}
       onHoverStart={() => (rotationSpeed.current = 0.02)}

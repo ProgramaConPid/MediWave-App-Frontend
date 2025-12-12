@@ -5,7 +5,7 @@ import styles from "./CardBlockchain.module.css";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
 import { FaHashtag } from "react-icons/fa";
-import { CardBlockchainProps } from "@/src/interfaces/main";
+import { CardBlockchainProps } from "@/interfaces/main";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { ShimmerButton } from "../shimmer-button";
 

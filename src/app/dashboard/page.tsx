@@ -1,29 +1,33 @@
-import DashboardNav from "@/src/components/layout/DashboardNav/DashboardNav";
+"use client"
+
+import DashboardNav from "@/components/layout/DashboardNav/DashboardNav";
 import styles from "./dashboard.module.css";
-import CardItemInfo from "@/src/components/ui/CardItemInfo/CardItemInfo";
+import CardItemInfo from "@/components/ui/CardItemInfo/CardItemInfo";
 import { LuPackage } from "react-icons/lu";
 import { FaTemperatureArrowUp } from "react-icons/fa6";
 import { SlGraph } from "react-icons/sl";
-import CardBlockchain from "@/src/components/ui/CardBlockchain/CardBlockchain";
-import TraceCard from "@/src/components/ui/TraceCard/TraceCard";
-import CardCurrentTemp from "@/src/components/ui/CardCurrentTemp/CardCurrentTemp";
-import CardProductDetails from "@/src/components/ui/CardProductDetails/CardProductDetails";
-import { Particles } from "@/src/components/ui/particles";
-import { Globe } from "@/src/components/ui/globe";
+import CardBlockchain from "@/components/ui/CardBlockchain/CardBlockchain";
+import TraceCard from "@/components/ui/TraceCard/TraceCard";
+import CardCurrentTemp from "@/components/ui/CardCurrentTemp/CardCurrentTemp";
+import CardProductDetails from "@/components/ui/CardProductDetails/CardProductDetails";
+import { Globe } from "@/components/ui/globe";
+import ParticlesBackground from "@/components/ParticlesBackground";
+import BlockchainNetwork from "@/components/BlockchainNetwork";
+import FloatingHexagons from "@/components/FloatingHexagons";
 
 const DashboardPage = () => {
   return (
-    <div className={`${styles.dashboard__section}`}>  
-      <Particles />
-
+    <div className={`${styles.dashboard__section}`}>
       <DashboardNav />
 
-      <div className={styles.dashboard__bg}>
-        <span className={`${styles.glow} ${styles.glow1}`}></span>
-        <span className={`${styles.glow} ${styles.glow2}`}></span>
-        <span className={`${styles.glow} ${styles.glow3}`}></span>
-        <span className={`${styles.glow} ${styles.glow4}`}></span>
-        <span className={`${styles.glow} ${styles.glow5}`}></span>
+      <ParticlesBackground />
+      <BlockchainNetwork />
+      <FloatingHexagons />
+
+      <div className={styles.gradientOrbs}>
+        <div className={styles.orb1} />
+        <div className={styles.orb2} style={{ animationDelay: "2s" }} />
+        <div className={styles.orb3} style={{ animationDelay: "4s" }} />
       </div>
 
       <div className={`container ${styles.dashboard__itemsContainer}`}>
@@ -92,16 +96,19 @@ const DashboardPage = () => {
           />
         </div>
       </div>
-      
+
       <div className={`container ${styles.dashboard__cardBlockchainContainer}`}>
-        <CardBlockchain 
-        transactionId="0x8f7a3b2c4e1d6a9b5c8f2e7d4a1b6c9e3f8a2b5c7d4e1a6b9c2f5e8d1a4b7c" blockId="18942156" />
+        <CardBlockchain
+          transactionId="0x8f7a3b2c4e1d6a9b5c8f2e7d4a1b6c9e3f8a2b5c7d4e1a6b9c2f5e8d1a4b7c"
+          blockId="18942156"
+        />
 
         <Globe className={styles.globe} />
       </div>
 
       <p className={styles.footer__text}>
-        Datos actualizados en tiempo real mediante IoT y verificados en blockchain
+        Datos actualizados en tiempo real mediante IoT y verificados en
+        blockchain
       </p>
     </div>
   );

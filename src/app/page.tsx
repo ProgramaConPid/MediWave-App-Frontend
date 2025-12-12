@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { 
@@ -82,7 +84,7 @@ const Index = () => {
               </div>
               <div>
                 <h1 className={styles.logoText}>MediWave</h1>
-                <p className={styles.logoSubtext}>Pharmaceutical Traceability</p>
+                <p className={styles.logoSubtext}>Trazabilidad Farmacéutica</p>
               </div>
             </div>
             <nav className={styles.nav}>

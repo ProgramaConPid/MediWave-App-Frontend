@@ -1,5 +1,5 @@
-import styles from "@/src/components/ui/CardItemInfo/CardItemInfo.module.css";
-import { CardItemInfoProps } from "@/src/interfaces/main";
+import styles from "./CardItemInfo.module.css";
+import { CardItemInfoProps } from "@/interfaces/main";
 
 const CardItemInfo = ({
   icon,

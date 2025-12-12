@@ -17,7 +17,7 @@ const VaccineHeader: React.FC<VaccineHeaderProps> = ({
           <h1 className={styles.title}>{vaccineName}</h1>
           <div className={styles.subtitle}>
             <span className={styles.label}>ID:</span>
-            <span className={styles.value}>{vaccineId}</span>
+            <span className={`${styles.value} ${styles.modified}`}>{vaccineId}</span>
             <span className={styles.label} style={{ marginLeft: '20px' }}>Lote:</span>
             <span className={styles.value}>{lotNumber}</span>
           </div>

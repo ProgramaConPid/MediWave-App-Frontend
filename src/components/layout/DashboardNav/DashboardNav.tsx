@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./nav.module.css";
 import { FaHandHoldingMedical } from "react-icons/fa6";
 import { SlGraph } from "react-icons/sl";
@@ -5,8 +7,16 @@ import { FaClockRotateLeft } from "react-icons/fa6";
 import Link from "next/link";
 import { FiHome } from "react-icons/fi";
 import { ShimmerButton } from "../../ui/shimmer-button";
+import { useRouter } from "next/navigation";
 
 const DashboardNav = () => {
+
+  const router = useRouter();
+
+  const handleHistoryClick = () => {
+    router.push("/history");
+  };
+
   return (
     <nav className={`${styles.dashboard__nav} ${styles.fadeInScale}`}>
       <div className={`container ${styles.dashboard__navContainer} ${styles.dashboard__navContainer}`}>
@@ -28,7 +38,7 @@ const DashboardNav = () => {
             <span className={styles.nav__systemStatus}>Sistema Activo</span>
           </div>
 
-          <ShimmerButton className={`${styles.nav__linksHistory} ${styles.hoverZoom}`}>
+          <ShimmerButton className={`${styles.nav__linksHistory} ${styles.hoverZoom}`} onClick={handleHistoryClick}>
             <FaClockRotateLeft className={styles.nav__historyIcon} />
             <span className={styles.nav__historyText}>Historial</span>
           </ShimmerButton>
