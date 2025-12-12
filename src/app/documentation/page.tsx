@@ -33,6 +33,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
+import ParticlesBackground from "@/components/ParticlesBackground";
 import styles from "./documentation.module.css";
 
 const CodeBlock = ({ code, language }: { code: string; language: string }) => {
@@ -124,7 +125,7 @@ const Documentation = () => {
     { id: "architecture", icon: Layers, label: "Arquitectura" },
     { id: "api", icon: Code, label: "API Reference" },
     { id: "blockchain", icon: Shield, label: "Blockchain" },
-    { id: "coldchain", icon: Thermometer, label: "Cadena de Frío" },
+    { id: "MediWave", icon: Thermometer, label: "Cadena de Frío" },
     { id: "faq", icon: Zap, label: "FAQ" },
   ];
 
@@ -186,6 +187,7 @@ const Documentation = () => {
 
   return (
     <div className={styles.pageContainer}>
+      <ParticlesBackground />
       <BlockchainNetwork />
       <FloatingHexagons />
 
@@ -202,7 +204,7 @@ const Documentation = () => {
                 <Thermometer className={styles.logoIcon} />
               </div>
               <span className={styles.logoText}>
-                ColdChain<span className={styles.logoTextHighlight}>Docs</span>
+                MediWave<span className={styles.logoTextHighlight}>Docs</span>
               </span>
             </Link>
 
@@ -296,7 +298,7 @@ const Documentation = () => {
                     </span>
                   </div>
                   <h1 className={styles.heroTitle}>
-                    Documentación ColdChain
+                    Documentación MediWave
                   </h1>
                   <p className={styles.heroDescription}>
                     Sistema de trazabilidad farmacéutica con verificación
@@ -339,7 +341,7 @@ const Documentation = () => {
                 <FeatureSection
                   icon={Code}
                   title="Instalación"
-                  description="Instala el SDK de ColdChain en tu proyecto"
+                  description="Instala el SDK de MediWave en tu proyecto"
                 >
                   <Tabs defaultValue="npm" className="mt-4">
                     <TabsList className={styles.tabsList}>
@@ -350,19 +352,19 @@ const Documentation = () => {
                     <TabsContent value="npm">
                       <CodeBlock
                         language="bash"
-                        code="npm install @coldchain/sdk @coldchain/blockchain"
+                        code="npm install @MediWave/sdk @MediWave/blockchain"
                       />
                     </TabsContent>
                     <TabsContent value="yarn">
                       <CodeBlock
                         language="bash"
-                        code="yarn add @coldchain/sdk @coldchain/blockchain"
+                        code="yarn add @MediWave/sdk @MediWave/blockchain"
                       />
                     </TabsContent>
                     <TabsContent value="pnpm">
                       <CodeBlock
                         language="bash"
-                        code="pnpm add @coldchain/sdk @coldchain/blockchain"
+                        code="pnpm add @MediWave/sdk @MediWave/blockchain"
                       />
                     </TabsContent>
                   </Tabs>
@@ -490,7 +492,7 @@ const Documentation = () => {
                   </h2>
                   <p className={styles.featureDescription}>
                     Documentación completa de endpoints RESTful para integrar
-                    ColdChain en tu aplicación.
+                    MediWave en tu aplicación.
                   </p>
                 </div>
 
@@ -501,7 +503,7 @@ const Documentation = () => {
                   </h3>
                   <CodeBlock
                     language="text"
-                    code="https://api.coldchain.io/v1"
+                    code="https://api.MediWave.io/v1"
                   />
                 </div>
 
@@ -553,7 +555,7 @@ const Documentation = () => {
                   <div className="mt-4">
                     <CodeBlock
                       language="javascript"
-                      code={`const response = await fetch('https://api.coldchain.io/v1/shipments', {
+                      code={`const response = await fetch('https://api.MediWave.io/v1/shipments', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -608,7 +610,7 @@ console.log('Shipment created:', data.transactionHash);`}
                       code={`// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-contract ColdChainRegistry {
+contract MediWaveRegistry {
     struct TemperatureRecord {
         uint256 timestamp;
         int8 temperature;
@@ -692,7 +694,7 @@ contract ColdChainRegistry {
             )}
 
             {/* Cold Chain Section */}
-            {activeSection === "coldchain" && (
+            {activeSection === "MediWave" && (
               <div className={styles.sectionFadeIn}>
                 <div className={styles.heroCard}>
                   <h2 className={styles.architectureTitle}>
@@ -823,7 +825,7 @@ contract ColdChainRegistry {
                   </h2>
                   <p className={styles.featureDescription}>
                     Respuestas a las dudas más comunes sobre el sistema
-                    ColdChain.
+                    MediWave.
                   </p>
                 </div>
 
@@ -873,7 +875,7 @@ contract ColdChainRegistry {
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-muted-foreground text-sm">
-              © 2024 ColdChain. Trazabilidad farmacéutica con tecnología
+              © 2025 MediWave. Trazabilidad farmacéutica con tecnología
               blockchain.
             </p>
             <div className="flex items-center gap-6">
