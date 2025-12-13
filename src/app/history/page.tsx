@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import {
   FaThermometerHalf,
   FaLungs,
@@ -16,11 +16,9 @@ import VaccineHeader from "../../components/ui/History/VaccineHeader/VaccineHead
 import StatsCard from "../../components/ui/History/StatsCard/StatsCard";
 import TemperatureChart from "../../components/ui/History/TemperatureChart/TemperatureChart";
 import EventTimeline from "../../components/ui/History/EventTimeline/EventTimeline";
-import {
-  generateStructuredPDF,
-} from "../../utils/pdfGenerator";
+import { generateStructuredPDF } from "../../utils/pdfGenerator";
 import styles from "./history.module.css";
-import { FaHandHoldingMedical } from "react-icons/fa6";
+// import { FaHandHoldingMedical } from "react-icons/fa6";
 import { FiHome } from "react-icons/fi";
 import Link from "next/link";
 import ParticlesBackground from "@/components/ParticlesBackground";
@@ -165,7 +163,13 @@ export default function HistorialPage() {
         <div className={`container ${styles.navbar__container}`}>
           <div className={`${styles.navbar__logo} ${styles.slideLeft}`}>
             <div className={styles.navbar__logoContainer}>
-              <FaHandHoldingMedical className={`${styles.navbar__logoIcon} ${styles.pulse}`} />
+              <Image
+                src="/icon.png"
+                alt="MediWave Logo"
+                width={45}
+                height={45}
+                className={`${styles.navbar__logoIcon} ${styles.pulse}`}
+              />
             </div>
             <div className={styles.navbar__logoTexts}>
               <h3 className={styles.navbar__textsTitle}>MediWave</h3>
@@ -177,22 +181,31 @@ export default function HistorialPage() {
 
           {/* Botones de navegación y exportación */}
           <div className={styles.navbar__linksContainer}>
-            <button
-              onClick={handleExportPDF}
-              className={styles.exportBtn}
-            >
+            <button onClick={handleExportPDF} className={styles.exportBtn}>
               <FaFilePdf /> Exportar PDF
             </button>
 
-            <Link href={"/dashboard"} className={styles.navbar__link} title="Dashboard">
+            <Link
+              href={"/dashboard"}
+              className={styles.navbar__link}
+              title="Dashboard"
+            >
               <SlGraph />
             </Link>
 
-            <Link href={"/history"} className={styles.navbar__link} title="Historial">
+            <Link
+              href={"/history"}
+              className={styles.navbar__link}
+              title="Historial"
+            >
               <FaClockRotateLeft />
             </Link>
 
-            <Link href={"/login"} className={styles.navbar__link} title="Gestión">
+            <Link
+              href={"/login"}
+              className={styles.navbar__link}
+              title="Gestión"
+            >
               <Package />
             </Link>
 
@@ -233,7 +246,10 @@ export default function HistorialPage() {
       </div>
 
       <footer className={styles.footer}>
-        <p className={styles.footer__content}>Todos los datos son verificados mediante blockchain y sensores IoT certificados</p>
+        <p className={styles.footer__content}>
+          Todos los datos son verificados mediante blockchain y sensores IoT
+          certificados
+        </p>
       </footer>
     </div>
   );

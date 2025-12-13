@@ -22,8 +22,14 @@
 
 .navbar__logoContainer {
   padding: 12px;
-  border-radius: 0.8rem;
+  /* border-radius: 0.8rem; */
   background-color: hsl(var(--primary) / 0.2);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar__logoTexts {
