@@ -13,7 +13,6 @@ import StatsCard from "../../components/ui/History/StatsCard/StatsCard";
 import TemperatureChart from "../../components/ui/History/TemperatureChart/TemperatureChart";
 import EventTimeline from "../../components/ui/History/EventTimeline/EventTimeline";
 import {
-  generateHistorialPDF,
   generateStructuredPDF,
 } from "../../utils/pdfGenerator";
 import styles from "./history.module.css";
@@ -64,7 +63,7 @@ const statsData = [
     title: "Violaciones",
     value: "0",
     unit: "",
-    status: "normal" as const,
+    status: "violations" as const,
     subtitle: "Sin incidencias",
   },
 ];
@@ -141,13 +140,8 @@ const eventsData = [
 ];
 
 export default function HistorialPage() {
-  // Función para generar el PDF capturando todo el contenido visual
-  const handleGenerateVisualPDF = async () => {
-    await generateHistorialPDF("historial-content", "historial-vacuna-covid19");
-  };
-
   // Función para generar el PDF con datos estructurados
-  const handleGenerateStructuredPDF = async () => {
+  const handleExportPDF = async () => {
     // Preparar stats sin el icono para el PDF
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const statsForPDF = statsData.map(({ icon, ...rest }) => rest);
@@ -180,16 +174,10 @@ export default function HistorialPage() {
           {/* Botones de exportación */}
           <div className={styles.exportButtons}>
             <button
-              onClick={handleGenerateVisualPDF}
+              onClick={handleExportPDF}
               className={styles.exportBtn}
             >
-              <FaFilePdf /> Exportar PDF Visual
-            </button>
-            <button
-              onClick={handleGenerateStructuredPDF}
-              className={styles.exportBtn}
-            >
-              <FaFilePdf /> Exportar PDF Estructurado
+              <FaFilePdf /> Exportar PDF
             </button>
 
             <Link href={"/"} className={styles.navbar__homeLink}>

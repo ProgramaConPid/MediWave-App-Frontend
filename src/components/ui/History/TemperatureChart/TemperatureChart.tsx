@@ -40,7 +40,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
       </div>
 
       <div className={styles.chartWrapper}>
-        <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="100%" height={450}>
           <LineChart
             data={data}
             margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
