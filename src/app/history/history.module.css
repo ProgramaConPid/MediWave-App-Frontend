@@ -4,6 +4,7 @@
   margin-bottom: 2rem;
   position: relative;
   z-index: 999;
+  animation: fadeInScale 0.6s ease-out forwards;
 }
 
 .navbar__container {
@@ -16,6 +17,7 @@
   display: flex;
   gap: 0.6rem;
   align-items: center;
+  animation: slideLeft 0.7s ease-out forwards;
 }
 
 .navbar__logoContainer {
@@ -24,14 +26,15 @@
   background-color: hsl(var(--primary) / 0.2);
 }
 
-.navbar__logoIcon {
-  font-size: 1.4rem;
-  color: hsl(var(--primary));
-}
-
 .navbar__logoTexts {
   display: flex;
   flex-direction: column;
+}
+
+.navbar__logoIcon {
+  font-size: 1.4rem;
+  color: hsl(var(--primary));
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .navbar__textsTitle {
@@ -47,18 +50,40 @@
   font-weight: 300;
 }
 
-.navbar__homeIcon {
-  font-size: 1.2rem;
+.navbar__linksContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  animation: slideRight 0.7s ease-out forwards;
+}
+
+.navbar__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: transparent;
   color: hsl(var(--muted-foreground));
   cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.navbar__link:hover {
+  transform: scale(1.2) rotate(15deg);
+  color: hsl(var(--primary));
+  background-color: hsl(var(--primary) / 0.1);
+}
+
+.navbar__link svg {
+  font-size: 1.2rem;
 }
 
 .exportButtons {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  margin-block: auto;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -90,6 +115,70 @@
 
 .exportBtn svg {
   font-size: 16px;
+}
+
+/* ========================= */
+/* ANIMACIONES */
+/* ========================= */
+.fadeInScale {
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.slideLeft {
+  animation: slideLeft 0.7s ease-out forwards;
+}
+
+.slideRight {
+  animation: slideRight 0.7s ease-out forwards;
+}
+
+@keyframes slideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .gradientOrbs {

@@ -8,6 +8,8 @@ import {
   FaStethoscope,
   FaFilePdf,
 } from "react-icons/fa";
+import { SlGraph } from "react-icons/sl";
+import { FaClockRotateLeft } from "react-icons/fa6";
 import VaccineHeader from "../../components/ui/History/VaccineHeader/VaccineHeader";
 import StatsCard from "../../components/ui/History/StatsCard/StatsCard";
 import TemperatureChart from "../../components/ui/History/TemperatureChart/TemperatureChart";
@@ -159,9 +161,9 @@ export default function HistorialPage() {
     <div>
       <nav className={styles.navbar}>
         <div className={`container ${styles.navbar__container}`}>
-          <div className={styles.navbar__logo}>
+          <div className={`${styles.navbar__logo} ${styles.slideLeft}`}>
             <div className={styles.navbar__logoContainer}>
-              <FaHandHoldingMedical className={styles.navbar__logoIcon} />
+              <FaHandHoldingMedical className={`${styles.navbar__logoIcon} ${styles.pulse}`} />
             </div>
             <div className={styles.navbar__logoTexts}>
               <h3 className={styles.navbar__textsTitle}>MediWave</h3>
@@ -171,8 +173,8 @@ export default function HistorialPage() {
             </div>
           </div>
 
-          {/* Botones de exportación */}
-          <div className={styles.exportButtons}>
+          {/* Botones de navegación y exportación */}
+          <div className={styles.navbar__linksContainer}>
             <button
               onClick={handleExportPDF}
               className={styles.exportBtn}
@@ -180,8 +182,20 @@ export default function HistorialPage() {
               <FaFilePdf /> Exportar PDF
             </button>
 
-            <Link href={"/"} className={styles.navbar__homeLink}>
-              <FiHome className={styles.navbar__homeIcon} />
+            <Link href={"/dashboard"} className={styles.navbar__link} title="Dashboard">
+              <SlGraph />
+            </Link>
+
+            <Link href={"/history"} className={styles.navbar__link} title="Historial">
+              <FaClockRotateLeft />
+            </Link>
+
+            <Link href={"/gestion"} className={styles.navbar__link} title="Gestión">
+              <FaStethoscope />
+            </Link>
+
+            <Link href={"/"} className={styles.navbar__link} title="Inicio">
+              <FiHome />
             </Link>
           </div>
         </div>
