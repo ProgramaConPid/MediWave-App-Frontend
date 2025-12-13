@@ -4,6 +4,7 @@ import styles from "./nav.module.css";
 import { FaHandHoldingMedical } from "react-icons/fa6";
 import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
+import { MdLocalShipping } from "react-icons/md";
 import Link from "next/link";
 import { FiHome } from "react-icons/fi";
 import { ShimmerButton } from "../../ui/shimmer-button";
@@ -42,6 +43,11 @@ const DashboardNav = () => {
             <FaClockRotateLeft className={styles.nav__historyIcon} />
             <span className={styles.nav__historyText}>Historial</span>
           </ShimmerButton>
+
+          <Link href={"/login"} className={`${styles.nav__linksGestion} ${styles.hoverZoom}`}>
+            <MdLocalShipping className={styles.nav__gestionIcon} />
+            <span className={styles.nav__gestionText}>Gestión</span>
+          </Link>
           
           <Link href={"/"} className={`${styles.nav__linksHome} ${styles.hoverSpinFast}`}>
             <FiHome className={styles.nav__homeIcon} />

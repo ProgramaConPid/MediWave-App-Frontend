@@ -72,6 +72,34 @@
   padding: 7px 12px;
 }
 
+.nav__linksGestion {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+  padding: 7px 12px;
+  text-decoration: none;
+  color: hsl(var(--foreground));
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  background: hsl(var(--secondary) / 0.3);
+}
+
+.nav__linksGestion:hover {
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+}
+
+.nav__gestionIcon {
+  font-size: 1.2rem;
+  color: hsl(var(--primary));
+}
+
+.nav__gestionText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
 .nav__homeIcon {
   font-size: 1.2rem;
   color: hsl(var(--muted-foreground));

@@ -100,6 +100,12 @@ const Index = () => {
                   Historial
                 </Button>
               </Link>
+              <Link href="/login">
+                <Button variant="outline" className={`${styles.historyButton} group`}>
+                  <Package className={styles.historyIcon} />
+                  Gestión
+                </Button>
+              </Link>
               <Link href="/documentation">
                 <Button variant="ghost" className={styles.docsButton}>
                   Documentación

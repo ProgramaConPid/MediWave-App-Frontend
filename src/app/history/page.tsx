@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
+import { MdSettingsInputSvideo } from "react-icons/md";
+import { Package } from "lucide-react";
 import VaccineHeader from "../../components/ui/History/VaccineHeader/VaccineHeader";
 import StatsCard from "../../components/ui/History/StatsCard/StatsCard";
 import TemperatureChart from "../../components/ui/History/TemperatureChart/TemperatureChart";
@@ -190,8 +192,8 @@ export default function HistorialPage() {
               <FaClockRotateLeft />
             </Link>
 
-            <Link href={"/gestion"} className={styles.navbar__link} title="Gestión">
-              <FaStethoscope />
+            <Link href={"/login"} className={styles.navbar__link} title="Gestión">
+              <Package />
             </Link>
 
             <Link href={"/"} className={styles.navbar__link} title="Inicio">
