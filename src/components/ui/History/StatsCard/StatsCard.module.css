@@ -27,6 +27,10 @@
   border-color: rgba(96, 165, 250, 0.5);
 }
 
+.card.violations {
+  border-color: rgba(255, 193, 7, 0.5);
+}
+
 .iconContainer {
   display: flex;
   align-items: center;
@@ -71,6 +75,15 @@
   color: #60a5fa !important;
 }
 
+.icon_violations {
+  background: rgba(255, 193, 7, 0.15) !important;
+}
+
+.icon_violations svg,
+.icon_violations i {
+  color: #ffc107 !important;
+}
+
 .content {
   flex: 1;
   display: flex;
@@ -80,7 +93,7 @@
 
 .title {
   font-size: 14px;
-  color: #8ab4d5;
+  color: #00bcd4;
   margin: 0;
   font-weight: 500;
   text-transform: uppercase;
@@ -96,20 +109,45 @@
 .value {
   font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
+  color: #00bcd4;
 }
 
 .unit {
   font-size: 14px;
-  color: #8ab4d5;
+  color: #00bcd4;
   font-weight: 400;
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: 15px;
   color: #6b8799;
   margin: 4px 0 0 0;
   font-weight: 400;
+}
+
+/* Estilos de color según estado */
+.normal .title,
+.normal .value,
+.normal .unit {
+  color: #00bcd4;
+}
+
+.warning .title,
+.warning .value,
+.warning .unit {
+  color: #ff6b6b;
+}
+
+.danger .title,
+.danger .value,
+.danger .unit {
+  color: #60a5fa;
+}
+
+.violations .title,
+.violations .value,
+.violations .unit {
+  color: #ffc107;
 }
 
 @media (max-width: 768px) {
