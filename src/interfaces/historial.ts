@@ -14,7 +14,7 @@ export interface StatsCardProps {
   title: string;
   value: string;
   unit?: string;
-  status?: 'normal' | 'warning' | 'danger';
+  status?: 'normal' | 'warning' | 'danger' | 'violations';
   subtitle?: string;
 }
 
