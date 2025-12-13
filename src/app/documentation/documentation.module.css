@@ -92,7 +92,11 @@
 .featureIconContainer {
   padding: 0.75rem;
   border-radius: 0.75rem;
-  background: linear-gradient(to bottom right, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--primary) / 0.2),
+    hsl(var(--accent) / 0.2)
+  );
   transition: transform 0.3s;
 }
 
@@ -166,7 +170,11 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  background: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--secondary)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--background)),
+    hsl(var(--secondary))
+  );
   position: relative;
   overflow: hidden;
 }
@@ -229,8 +237,14 @@
 
 .logoIconContainer {
   padding: 0.5rem;
-  border-radius: 0.75rem;
-  background: linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--glacier)));
+  /* border-radius: 0.75rem; */
+  background-color: hsl(var(--primary) / 0.2);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.3s;
 }
 
@@ -239,9 +253,9 @@
 }
 
 .logoIcon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: hsl(var(--primary-foreground));
+  width: 40px;
+  height: 40px;
+  /* color: hsl(var(--primary-foreground)); */
 }
 
 .logoText {
@@ -387,7 +401,11 @@
 .versionIndicator {
   height: 0.25rem;
   width: 3rem;
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--glacier)));
+  background: linear-gradient(
+    to right,
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
   border-radius: 9999px;
 }
 
@@ -641,7 +659,12 @@
   left: 25%;
   width: 50%;
   height: 1px;
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--glacier)), hsl(var(--accent)));
+  background: linear-gradient(
+    to right,
+    hsl(var(--primary)),
+    hsl(var(--glacier)),
+    hsl(var(--accent))
+  );
 }
 
 /* Feature List */
@@ -714,7 +737,7 @@
   border-top: 1px solid hsl(var(--border) / 0.3);
 }
 
-.endpointsList>*+* {
+.endpointsList > * + * {
   border-top: 1px solid hsl(var(--border) / 0.3);
 }
 
@@ -987,7 +1010,11 @@
   width: 4rem;
   height: 4rem;
   border-radius: 1rem;
-  background: linear-gradient(to bottom right, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--primary) / 0.2),
+    hsl(var(--accent) / 0.2)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1005,7 +1032,11 @@
   width: 4rem;
   height: 4rem;
   border-radius: 1rem;
-  background: linear-gradient(to bottom right, hsl(var(--glacier) / 0.2), hsl(var(--primary) / 0.2));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--glacier) / 0.2),
+    hsl(var(--primary) / 0.2)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1023,7 +1054,11 @@
   width: 4rem;
   height: 4rem;
   border-radius: 1rem;
-  background: linear-gradient(to bottom right, hsl(var(--accent) / 0.2), hsl(var(--glacier) / 0.2));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--accent) / 0.2),
+    hsl(var(--glacier) / 0.2)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1086,7 +1121,6 @@
 
 /* Animations */
 @keyframes pulse-glow {
-
   0%,
   100% {
     opacity: 0.2;

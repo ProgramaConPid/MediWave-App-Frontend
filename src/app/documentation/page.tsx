@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -47,13 +48,8 @@ const CodeBlock = ({ code, language }: { code: string; language: string }) => {
 
   return (
     <div className={`${styles.codeBlockContainer} group`}>
-      <div className={styles.languageLabel}>
-        {language}
-      </div>
-      <button
-        onClick={handleCopy}
-        className={styles.copyButton}
-      >
+      <div className={styles.languageLabel}>{language}</div>
+      <button onClick={handleCopy} className={styles.copyButton}>
         {copied ? (
           <Check className={styles.checkIcon} />
         ) : (
@@ -106,9 +102,7 @@ const DocNavItem = ({
   <button
     onClick={onClick}
     className={`${styles.navItem} ${
-      active
-        ? styles.navItemActive
-        : styles.navItemInactive
+      active ? styles.navItemActive : styles.navItemInactive
     }`}
   >
     <Icon className={styles.navIcon} />
@@ -201,7 +195,13 @@ const Documentation = () => {
           <div className={styles.headerContent}>
             <Link href="/" className={`${styles.logoLink} group`}>
               <div className={styles.logoIconContainer}>
-                <Thermometer className={styles.logoIcon} />
+                <Image
+                  src="/icon.png"
+                  alt="MediWave Logo"
+                  width={40}
+                  height={40}
+                  className={styles.logoIcon}
+                />
               </div>
               <span className={styles.logoText}>
                 MediWave<span className={styles.logoTextHighlight}>Docs</span>
@@ -209,24 +209,15 @@ const Documentation = () => {
             </Link>
 
             <nav className={styles.nav}>
-              <Link
-                href="/"
-                className={styles.navLink}
-              >
+              <Link href="/" className={styles.navLink}>
                 <Home className={styles.navLinkIcon} />
                 <span>Inicio</span>
               </Link>
-              <Link
-                href="/dashboard"
-                className={styles.navLink}
-              >
+              <Link href="/dashboard" className={styles.navLink}>
                 <Database className={styles.navLinkIcon} />
                 <span>Dashboard</span>
               </Link>
-              <Link
-                href="/history"
-                className={styles.navLink}
-              >
+              <Link href="/history" className={styles.navLink}>
                 <Workflow className={styles.navLinkIcon} />
                 <span>Historial</span>
               </Link>
@@ -239,9 +230,7 @@ const Documentation = () => {
         <div className={styles.contentGrid}>
           {/* Sidebar Navigation */}
           <aside className={styles.sidebar}>
-            <h2 className={styles.sidebarTitle}>
-              Documentación
-            </h2>
+            <h2 className={styles.sidebarTitle}>Documentación</h2>
             <nav className={styles.sidebarNav}>
               {navItems.map((item) => (
                 <DocNavItem
@@ -256,28 +245,17 @@ const Documentation = () => {
 
             {/* Quick Links */}
             <div className={styles.quickLinksContainer}>
-              <h3 className={styles.sidebarTitle}>
-                Enlaces Rápidos
-              </h3>
+              <h3 className={styles.sidebarTitle}>Enlaces Rápidos</h3>
               <div className={styles.sidebarNav}>
-                <a
-                  href="#"
-                  className={styles.quickLink}
-                >
+                <a href="#" className={styles.quickLink}>
                   <ExternalLink className={styles.navLinkIcon} />
                   GitHub Repository
                 </a>
-                <a
-                  href="#"
-                  className={styles.quickLink}
-                >
+                <a href="#" className={styles.quickLink}>
                   <ExternalLink className={styles.navLinkIcon} />
                   API Playground
                 </a>
-                <a
-                  href="#"
-                  className={styles.quickLink}
-                >
+                <a href="#" className={styles.quickLink}>
                   <ExternalLink className={styles.navLinkIcon} />
                   Status Page
                 </a>
@@ -293,13 +271,9 @@ const Documentation = () => {
                 <div className={styles.heroCard}>
                   <div className={styles.versionBadge}>
                     <div className={styles.versionIndicator} />
-                    <span className={styles.versionText}>
-                      v2.0.0
-                    </span>
+                    <span className={styles.versionText}>v2.0.0</span>
                   </div>
-                  <h1 className={styles.heroTitle}>
-                    Documentación MediWave
-                  </h1>
+                  <h1 className={styles.heroTitle}>Documentación MediWave</h1>
                   <p className={styles.heroDescription}>
                     Sistema de trazabilidad farmacéutica con verificación
                     blockchain y monitoreo de cadena de frío en tiempo real.
@@ -310,27 +284,21 @@ const Documentation = () => {
                 <div className={styles.quickStartGrid}>
                   <div className={`${styles.quickStartCard} group`}>
                     <Cpu className={styles.quickStartIcon} />
-                    <h3 className={styles.quickStartTitle}>
-                      Inicio Rápido
-                    </h3>
+                    <h3 className={styles.quickStartTitle}>Inicio Rápido</h3>
                     <p className={styles.quickStartText}>
                       Configura tu primer envío en menos de 5 minutos
                     </p>
                   </div>
                   <div className={styles.quickStartCard}>
                     <Lock className={styles.quickStartIconGlacier} />
-                    <h3 className={styles.quickStartTitle}>
-                      Seguridad
-                    </h3>
+                    <h3 className={styles.quickStartTitle}>Seguridad</h3>
                     <p className={styles.quickStartText}>
                       Encriptación end-to-end y registros inmutables
                     </p>
                   </div>
                   <div className={styles.quickStartCard}>
                     <Globe className={styles.quickStartIconAccent} />
-                    <h3 className={styles.quickStartTitle}>
-                      Integraciones
-                    </h3>
+                    <h3 className={styles.quickStartTitle}>Integraciones</h3>
                     <p className={styles.quickStartText}>
                       APIs RESTful y webhooks para cualquier sistema
                     </p>
@@ -391,9 +359,7 @@ const Documentation = () => {
                       <div className={styles.diagramNode}>
                         <div className={styles.diagramCard}>
                           <Thermometer className={styles.diagramIcon} />
-                          <h4 className={styles.diagramTitle}>
-                            Capa IoT
-                          </h4>
+                          <h4 className={styles.diagramTitle}>Capa IoT</h4>
                           <p className={styles.diagramSubtitle}>
                             Sensores y dispositivos
                           </p>
@@ -405,9 +371,7 @@ const Documentation = () => {
                       <div className={styles.diagramNode}>
                         <div className={styles.diagramCardGlacier}>
                           <Database className={styles.diagramIconGlacier} />
-                          <h4 className={styles.diagramTitle}>
-                            Procesamiento
-                          </h4>
+                          <h4 className={styles.diagramTitle}>Procesamiento</h4>
                           <p className={styles.diagramSubtitle}>
                             Edge computing & APIs
                           </p>
@@ -419,9 +383,7 @@ const Documentation = () => {
                       <div className={styles.diagramNode}>
                         <div className={styles.diagramCardAccent}>
                           <Shield className={styles.diagramIconAccent} />
-                          <h4 className={styles.diagramTitle}>
-                            Blockchain
-                          </h4>
+                          <h4 className={styles.diagramTitle}>Blockchain</h4>
                           <p className={styles.diagramSubtitle}>
                             Registro inmutable
                           </p>
@@ -487,9 +449,7 @@ const Documentation = () => {
             {activeSection === "api" && (
               <div className={styles.sectionFadeIn}>
                 <div className={styles.heroCard}>
-                  <h2 className={styles.architectureTitle}>
-                    API Reference
-                  </h2>
+                  <h2 className={styles.architectureTitle}>API Reference</h2>
                   <p className={styles.featureDescription}>
                     Documentación completa de endpoints RESTful para integrar
                     MediWave en tu aplicación.
@@ -498,9 +458,7 @@ const Documentation = () => {
 
                 {/* Base URL */}
                 <div className={styles.baseUrlCard}>
-                  <h3 className={styles.baseUrlTitle}>
-                    Base URL
-                  </h3>
+                  <h3 className={styles.baseUrlTitle}>Base URL</h3>
                   <CodeBlock
                     language="text"
                     code="https://api.MediWave.io/v1"
@@ -510,16 +468,11 @@ const Documentation = () => {
                 {/* Endpoints Table */}
                 <div className={styles.endpointsContainer}>
                   <div className={styles.endpointsHeader}>
-                    <h3 className={styles.endpointsTitle}>
-                      Endpoints
-                    </h3>
+                    <h3 className={styles.endpointsTitle}>Endpoints</h3>
                   </div>
                   <div className={styles.endpointsList}>
                     {apiEndpoints.map((endpoint, index) => (
-                      <div
-                        key={index}
-                        className={styles.endpointItem}
-                      >
+                      <div key={index} className={styles.endpointItem}>
                         <div className={styles.endpointContent}>
                           <span
                             className={`${styles.methodBadge} ${
@@ -640,22 +593,11 @@ contract MediWaveRegistry {
                         <div className={styles.hybridArchHeader}>
                           <div className={styles.hybridArchDotPrimary} />
                           <span className={styles.hybridArchTitle}>
-                            Ethereum Mainnet
+                            Celo Sepolia Testnet
                           </span>
                         </div>
                         <p className={styles.hybridArchText}>
                           Registros públicos verificables por cualquier parte
-                        </p>
-                      </div>
-                      <div className={styles.hybridArchCard}>
-                        <div className={styles.hybridArchHeader}>
-                          <div className={styles.hybridArchDotGlacier} />
-                          <span className={styles.hybridArchTitle}>
-                            Red Privada
-                          </span>
-                        </div>
-                        <p className={styles.hybridArchText}>
-                          Datos sensibles con acceso controlado
                         </p>
                       </div>
                     </div>
@@ -676,7 +618,9 @@ contract MediWaveRegistry {
                     ].map((item, index) => (
                       <div key={index} className={styles.verificationStep}>
                         <div className="text-center">
-                          <div className={`${styles.verificationIconContainer} group`}>
+                          <div
+                            className={`${styles.verificationIconContainer} group`}
+                          >
                             <item.icon className={styles.verificationIcon} />
                           </div>
                           <span className={styles.verificationLabel}>
@@ -741,9 +685,7 @@ contract MediWaveRegistry {
                         <span className={styles.tempRangeValue}>
                           {temp.range}
                         </span>
-                        <p className={styles.tempRangeLabel}>
-                          {temp.label}
-                        </p>
+                        <p className={styles.tempRangeLabel}>{temp.label}</p>
                       </div>
                     ))}
                   </div>
@@ -783,9 +725,7 @@ contract MediWaveRegistry {
                     <div className={styles.sensorIconContainer}>
                       <Thermometer className={styles.sensorIcon} />
                     </div>
-                    <h4 className={styles.sensorTitle}>
-                      Sensores IoT
-                    </h4>
+                    <h4 className={styles.sensorTitle}>Sensores IoT</h4>
                     <p className={styles.sensorDescription}>
                       Precisión ±0.1°C certificada
                     </p>
@@ -794,9 +734,7 @@ contract MediWaveRegistry {
                     <div className={styles.sensorIconContainerGlacier}>
                       <MapPin className={styles.sensorIconGlacier} />
                     </div>
-                    <h4 className={styles.sensorTitle}>
-                      GPS Integrado
-                    </h4>
+                    <h4 className={styles.sensorTitle}>GPS Integrado</h4>
                     <p className={styles.sensorDescription}>
                       Ubicación en tiempo real
                     </p>
@@ -805,9 +743,7 @@ contract MediWaveRegistry {
                     <div className={styles.sensorIconContainerAccent}>
                       <Zap className={styles.sensorIconAccent} />
                     </div>
-                    <h4 className={styles.sensorTitle}>
-                      Batería 5 años
-                    </h4>
+                    <h4 className={styles.sensorTitle}>Batería 5 años</h4>
                     <p className={styles.sensorDescription}>
                       Sin mantenimiento
                     </p>
@@ -832,10 +768,7 @@ contract MediWaveRegistry {
                 <div className={styles.faqAccordionContainer}>
                   <Accordion type="single" collapsible className="space-y-2">
                     {faqItems.map((item, index) => (
-                      <AccordionItem
-                        key={index}
-                        value={`item-${index}`}
-                      >
+                      <AccordionItem key={index} value={`item-${index}`}>
                         <AccordionTrigger className="text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] hover:no-underline py-6 cursor-pointer">
                           {item.question}
                         </AccordionTrigger>
@@ -848,7 +781,9 @@ contract MediWaveRegistry {
                 </div>
 
                 {/* Contact CTA */}
-                <div className={`glass-strong rounded-2xl p-8 text-center ${styles.contactCTA}`}>
+                <div
+                  className={`glass-strong rounded-2xl p-8 text-center ${styles.contactCTA}`}
+                >
                   <h3 className="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
                     ¿Tienes más preguntas?
                   </h3>
