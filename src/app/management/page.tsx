@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -115,45 +116,82 @@ const Management = () => {
 
             {/* Gradient Orbs */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
-                <div className="absolute top-1/3 -right-40 w-96 h-96 bg-glacier/20 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "2s" }} />
-                <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "4s" }} />
+                <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-pulse-glow" />
+                <div className="absolute top-1/3 -right-40 w-96 h-96 bg-glacier/30 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "2s" }} />
+                <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-accent/30 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "4s" }} />
             </div>
 
             {/* Header */}
-            <header className={styles.header}>
-                <div className="container mx-auto px-6 py-6">
+            <header className="relative z-20 border-b border-white/10 backdrop-blur-sm bg-background/50">
+                <div className="container mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                             <Link href="/">
-                                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+                                <Button variant="ghost" size="icon" className="text-white hover:text-glacier">
                                     <ChevronLeft className="w-5 h-5" />
                                 </Button>
                             </Link>
                             <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-primary/20">
-                                    <Droplets className="w-6 h-6 text-primary" />
+                                <div 
+                                    className="flex items-center justify-center"
+                                    style={{
+                                        padding: '0.5rem',
+                                        backgroundColor: 'hsl(var(--primary) / 0.2)',
+                                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                        width: '50px',
+                                        height: '50px'
+                                    }}
+                                >
+                                    <Image
+                                        src="/icon.png"
+                                        alt="MediWave Logo"
+                                        width={40}
+                                        height={40}
+                                        className="w-10 h-10"
+                                    />
                                 </div>
                                 <div>
-                                    <h1 className={`text-2xl font-bold ${styles.textGradient}`}>Gestión</h1>
-                                    <p className={`text-xs ${styles.textGradient}`}>Administración de Registros</p>
+                                    <h1 className="text-2xl font-bold text-white">Gestión</h1>
+                                    <p className="text-xs text-white/60">Administración de Registros</p>
                                 </div>
                             </div>
                         </div>
                         <nav className="flex items-center gap-4">
-                            <span className="text-xs text-muted-foreground hidden md:block">
+                            <span className="text-xs text-white/60 hidden md:block">
                                 {user?.email || "demo@mediwave.com"}
                             </span>
                             <Link href="/dashboard">
-                                <Button variant="outline" className="glass-strong hover:bg-secondary/50">
+                                <Button 
+                                    style={{
+                                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                                        color: 'white'
+                                    }}
+                                    className="backdrop-blur-sm"
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'hsl(var(--primary))';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                                    }}
+                                >
                                     Dashboard
                                 </Button>
                             </Link>
                             <Button
-                                variant="ghost"
                                 size="icon"
                                 onClick={handleSignOut}
-                                className="text-muted-foreground hover:text-destructive"
+                                style={{
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                    border: 'none'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'transparent';
+                                }}
                             >
                                 <LogOut className="w-5 h-5" />
                             </Button>
@@ -216,11 +254,11 @@ const Management = () => {
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex items-center gap-4">
                                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-glacier flex items-center justify-center">
-                                        <Pill className="w-6 h-6 text-primary-foreground" />
+                                        <Pill className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
-                                        <h3 className={`text-2xl font-bold ${styles.textGradient}`}>Nuevo Medicamento</h3>
-                                        <p className={`text-sm ${styles.textGradient}`}>Registrar en blockchain</p>
+                                        <h3 className="text-2xl font-bold text-white">Nuevo Medicamento</h3>
+                                        <p className="text-sm text-white/70">Registrar en blockchain</p>
                                     </div>
                                 </div>
                                 <Button
@@ -236,26 +274,26 @@ const Management = () => {
                             <form onSubmit={(e) => handleSubmit(e, "Medicamento")} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="med-name" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Package className="w-4 h-4 text-primary" />
+                                        <Label htmlFor="med-name" className="flex items-center gap-2 text-white">
+                                            <Package className="w-4 h-4 text-glacier" />
                                             Nombre del Medicamento
                                         </Label>
                                         <Input
                                             id="med-name"
                                             placeholder="Ej: Insulina Glargina"
-                                            className="glass border-border/50 focus:border-primary"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="med-code" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Hash className="w-4 h-4 text-primary" />
+                                        <Label htmlFor="med-code" className="flex items-center gap-2 text-white">
+                                            <Hash className="w-4 h-4 text-glacier" />
                                             Código NDC
                                         </Label>
                                         <Input
                                             id="med-code"
                                             placeholder="Ej: 0002-7714-01"
-                                            className="glass border-border/50 focus:border-primary"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
@@ -263,27 +301,27 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="med-manufacturer" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Building className="w-4 h-4 text-primary" />
+                                        <Label htmlFor="med-manufacturer" className="flex items-center gap-2 text-white">
+                                            <Building className="w-4 h-4 text-glacier" />
                                             Fabricante
                                         </Label>
                                         <Input
                                             id="med-manufacturer"
                                             placeholder="Ej: Laboratorios XYZ"
-                                            className="glass border-border/50 focus:border-primary"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="med-category" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Layers className="w-4 h-4 text-primary" />
+                                        <Label htmlFor="med-category" className="flex items-center gap-2 text-white">
+                                            <Layers className="w-4 h-4 text-glacier" />
                                             Categoría
                                         </Label>
                                         <Select required>
-                                            <SelectTrigger className="glass border-border/50 focus:border-primary">
+                                            <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                                                 <SelectValue placeholder="Seleccionar categoría" />
                                             </SelectTrigger>
-                                            <SelectContent className="glass-strong border-border/50">
+                                            <SelectContent className="glass-strong border-border/50 bg-slate-900">
                                                 <SelectItem value="biologico">Biológico</SelectItem>
                                                 <SelectItem value="quimico">Químico</SelectItem>
                                                 <SelectItem value="vacuna">Vacuna</SelectItem>
@@ -295,42 +333,42 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="med-temp-min" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Thermometer className="w-4 h-4 text-temperature-cold" />
+                                        <Label htmlFor="med-temp-min" className="flex items-center gap-2 text-white">
+                                            <Thermometer className="w-4 h-4 text-glacier" />
                                             Temp. Mínima (°C)
                                         </Label>
                                         <Input
                                             id="med-temp-min"
                                             type="number"
                                             placeholder="Ej: 2"
-                                            className="glass border-border/50 focus:border-primary"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="med-temp-max" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Thermometer className="w-4 h-4 text-temperature-warm" />
+                                        <Label htmlFor="med-temp-max" className="flex items-center gap-2 text-white">
+                                            <Thermometer className="w-4 h-4 text-glacier" />
                                             Temp. Máxima (°C)
                                         </Label>
                                         <Input
                                             id="med-temp-max"
                                             type="number"
                                             placeholder="Ej: 8"
-                                            className="glass border-border/50 focus:border-primary"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="med-description" className={`${styles.textGradient} flex items-center gap-2`}>
-                                        <FileText className="w-4 h-4 text-primary" />
+                                    <Label htmlFor="med-description" className="flex items-center gap-2 text-white">
+                                        <FileText className="w-4 h-4 text-glacier" />
                                         Descripción
                                     </Label>
                                     <Textarea
                                         id="med-description"
                                         placeholder="Descripción detallada del medicamento..."
-                                        className="glass border-border/50 focus:border-primary min-h-[100px]"
+                                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50 min-h-[100px]"
                                     />
                                 </div>
 
@@ -339,13 +377,14 @@ const Management = () => {
                                         type="button"
                                         variant="outline"
                                         onClick={() => setActiveForm(null)}
-                                        className="flex-1 glass-strong hover:bg-secondary/50"
+                                        className="flex-1 glass-strong hover:bg-secondary/50 text-white hover:text-white"
                                     >
                                         Cancelar
                                     </Button>
                                     <Button
                                         type="submit"
-                                        className="flex-1 bg-gradient-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground"
+                                        style={{backgroundColor: 'hsl(var(--primary))'}}
+                                        className="flex-1 text-primary-foreground"
                                     >
                                         <Plus className="w-4 h-4 mr-2" />
                                         Registrar Medicamento
@@ -366,8 +405,8 @@ const Management = () => {
                                         <Layers className="w-6 h-6 text-primary-foreground" />
                                     </div>
                                     <div>
-                                        <h3 className={`text-2xl font-bold ${styles.textGradient}`}>Nuevo Lote</h3>
-                                        <p className={`text-sm ${styles.textGradient}`}>Crear lote de producción</p>
+                                        <h3 className="text-2xl font-bold text-white">Nuevo Lote</h3>
+                                        <p className="text-sm text-white/70">Crear lote de producción</p>
                                     </div>
                                 </div>
                                 <Button
@@ -383,27 +422,27 @@ const Management = () => {
                             <form onSubmit={(e) => handleSubmit(e, "Lote")} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="batch-number" className={`${styles.textGradient} flex items-center gap-2`}>
+                                        <Label htmlFor="batch-number" className="flex items-center gap-2 text-white">
                                             <Hash className="w-4 h-4 text-glacier" />
                                             Número de Lote
                                         </Label>
                                         <Input
                                             id="batch-number"
                                             placeholder="Ej: LOT-2024-001234"
-                                            className="glass border-border/50 focus:border-glacier"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="batch-medicine" className={`${styles.textGradient} flex items-center gap-2`}>
+                                        <Label htmlFor="batch-medicine" className="flex items-center gap-2 text-white">
                                             <Pill className="w-4 h-4 text-glacier" />
                                             Medicamento
                                         </Label>
                                         <Select required>
-                                            <SelectTrigger className="glass border-border/50 focus:border-glacier">
+                                            <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                                                 <SelectValue placeholder="Seleccionar medicamento" />
                                             </SelectTrigger>
-                                            <SelectContent className="glass-strong border-border/50">
+                                            <SelectContent className="glass-strong border-border/50 bg-slate-900">
                                                 <SelectItem value="insulina">Insulina Glargina</SelectItem>
                                                 <SelectItem value="vacuna-covid">Vacuna COVID-19</SelectItem>
                                                 <SelectItem value="hormona">Hormona de Crecimiento</SelectItem>
@@ -415,7 +454,7 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="batch-quantity" className={`${styles.textGradient} flex items-center gap-2`}>
+                                        <Label htmlFor="batch-quantity" className="flex items-center gap-2 text-white">
                                             <Package className="w-4 h-4 text-glacier" />
                                             Cantidad de Unidades
                                         </Label>
@@ -423,19 +462,19 @@ const Management = () => {
                                             id="batch-quantity"
                                             type="number"
                                             placeholder="Ej: 5000"
-                                            className="glass border-border/50 focus:border-glacier"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="batch-production" className={`${styles.textGradient} flex items-center gap-2`}>
+                                        <Label htmlFor="batch-production" className="flex items-center gap-2 text-white">
                                             <Calendar className="w-4 h-4 text-glacier" />
                                             Fecha de Producción
                                         </Label>
                                         <Input
                                             id="batch-production"
                                             type="date"
-                                            className="glass border-border/50 focus:border-glacier"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
@@ -443,27 +482,27 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="batch-expiry" className={`${styles.textGradient} flex items-center gap-2`}>
+                                        <Label htmlFor="batch-expiry" className="flex items-center gap-2 text-white">
                                             <Clock className="w-4 h-4 text-glacier" />
                                             Fecha de Vencimiento
                                         </Label>
                                         <Input
                                             id="batch-expiry"
                                             type="date"
-                                            className="glass border-border/50 focus:border-glacier"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="batch-location" className={`${styles.textGradient} flex items-center gap-2`}>
+                                        <Label htmlFor="batch-location" className="flex items-center gap-2 text-white">
                                             <Building className="w-4 h-4 text-glacier" />
                                             Planta de Producción
                                         </Label>
                                         <Select required>
-                                            <SelectTrigger className="glass border-border/50 focus:border-glacier">
+                                            <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                                                 <SelectValue placeholder="Seleccionar planta" />
                                             </SelectTrigger>
-                                            <SelectContent className="glass-strong border-border/50">
+                                            <SelectContent className="glass-strong border-border/50 bg-slate-900">
                                                 <SelectItem value="planta-a">Planta A - Madrid</SelectItem>
                                                 <SelectItem value="planta-b">Planta B - Barcelona</SelectItem>
                                                 <SelectItem value="planta-c">Planta C - Valencia</SelectItem>
@@ -473,14 +512,14 @@ const Management = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="batch-notes" className={`${styles.textGradient} flex items-center gap-2`}>
+                                    <Label htmlFor="batch-notes" className="flex items-center gap-2 text-white">
                                         <FileText className="w-4 h-4 text-glacier" />
                                         Notas de Producción
                                     </Label>
                                     <Textarea
                                         id="batch-notes"
                                         placeholder="Observaciones del proceso de producción..."
-                                        className="glass border-border/50 focus:border-glacier min-h-[100px]"
+                                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50 min-h-[100px]"
                                     />
                                 </div>
 
@@ -489,13 +528,14 @@ const Management = () => {
                                         type="button"
                                         variant="outline"
                                         onClick={() => setActiveForm(null)}
-                                        className="flex-1 glass-strong hover:bg-secondary/50"
+                                        className="flex-1 glass-strong hover:bg-secondary/50 text-white hover:text-white"
                                     >
                                         Cancelar
                                     </Button>
                                     <Button
                                         type="submit"
-                                        className="flex-1 bg-gradient-to-r from-glacier to-accent hover:opacity-90 text-primary-foreground"
+                                        style={{backgroundColor: 'hsl(var(--primary))'}}
+                                        className="flex-1 text-primary-foreground"
                                     >
                                         <Plus className="w-4 h-4 mr-2" />
                                         Crear Lote
@@ -512,12 +552,12 @@ const Management = () => {
                         <div className="glass-strong p-8 rounded-2xl">
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-glacier flex items-center justify-center">
                                         <Truck className="w-6 h-6 text-primary-foreground" />
                                     </div>
                                     <div>
-                                        <h3 className={`text-2xl font-bold ${styles.textGradient}`}>Nuevo Envío</h3>
-                                        <p className={`text-sm ${styles.textGradient}`}>Gestionar transporte</p>
+                                        <h3 className="text-2xl font-bold text-white">Nuevo Envío</h3>
+                                        <p className="text-sm text-white/70">Gestionar transporte</p>
                                     </div>
                                 </div>
                                 <Button
@@ -533,27 +573,27 @@ const Management = () => {
                             <form onSubmit={(e) => handleSubmit(e, "Envío")} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-tracking" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Hash className="w-4 h-4 text-accent" />
+                                        <Label htmlFor="ship-tracking" className="flex items-center gap-2 text-white">
+                                            <Hash className="w-4 h-4 text-glacier" />
                                             Número de Tracking
                                         </Label>
                                         <Input
                                             id="ship-tracking"
                                             placeholder="Ej: TRK-2024-789456"
-                                            className="glass border-border/50 focus:border-accent"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-batch" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Layers className="w-4 h-4 text-accent" />
+                                        <Label htmlFor="ship-batch" className="flex items-center gap-2 text-white">
+                                            <Layers className="w-4 h-4 text-glacier" />
                                             Lote a Enviar
                                         </Label>
                                         <Select required>
-                                            <SelectTrigger className="glass border-border/50 focus:border-accent">
+                                            <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                                                 <SelectValue placeholder="Seleccionar lote" />
                                             </SelectTrigger>
-                                            <SelectContent className="glass-strong border-border/50">
+                                            <SelectContent className="glass-strong border-border/50 bg-slate-900">
                                                 <SelectItem value="lot-001">LOT-2024-001234 - Insulina</SelectItem>
                                                 <SelectItem value="lot-002">LOT-2024-001235 - Vacuna</SelectItem>
                                                 <SelectItem value="lot-003">LOT-2024-001236 - Hormona</SelectItem>
@@ -564,26 +604,26 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-origin" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <MapPin className="w-4 h-4 text-temperature-cold" />
+                                        <Label htmlFor="ship-origin" className="flex items-center gap-2 text-white">
+                                            <MapPin className="w-4 h-4 text-glacier" />
                                             Origen
                                         </Label>
                                         <Input
                                             id="ship-origin"
                                             placeholder="Ej: Madrid, España"
-                                            className="glass border-border/50 focus:border-accent"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-destination" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <MapPin className="w-4 h-4 text-temperature-optimal" />
+                                        <Label htmlFor="ship-destination" className="flex items-center gap-2 text-white">
+                                            <MapPin className="w-4 h-4 text-glacier" />
                                             Destino
                                         </Label>
                                         <Input
                                             id="ship-destination"
                                             placeholder="Ej: Barcelona, España"
-                                            className="glass border-border/50 focus:border-accent"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
@@ -591,27 +631,27 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-date" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Calendar className="w-4 h-4 text-accent" />
+                                        <Label htmlFor="ship-date" className="flex items-center gap-2 text-white">
+                                            <Calendar className="w-4 h-4 text-glacier" />
                                             Fecha de Salida
                                         </Label>
                                         <Input
                                             id="ship-date"
                                             type="datetime-local"
-                                            className="glass border-border/50 focus:border-accent"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-carrier" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Truck className="w-4 h-4 text-accent" />
+                                        <Label htmlFor="ship-carrier" className="flex items-center gap-2 text-white">
+                                            <Truck className="w-4 h-4 text-glacier" />
                                             Transportista
                                         </Label>
                                         <Select required>
-                                            <SelectTrigger className="glass border-border/50 focus:border-accent">
+                                            <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                                                 <SelectValue placeholder="Seleccionar transportista" />
                                             </SelectTrigger>
-                                            <SelectContent className="glass-strong border-border/50">
+                                            <SelectContent className="glass-strong border-border/50 bg-slate-900">
                                                 <SelectItem value="coldchain-express">ColdChain Express</SelectItem>
                                                 <SelectItem value="pharma-logistics">Pharma Logistics</SelectItem>
                                                 <SelectItem value="bio-transport">Bio Transport</SelectItem>
@@ -623,28 +663,28 @@ const Management = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-temp-set" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Thermometer className="w-4 h-4 text-temperature-cold" />
+                                        <Label htmlFor="ship-temp-set" className="flex items-center gap-2 text-white">
+                                            <Thermometer className="w-4 h-4 text-glacier" />
                                             Temperatura Objetivo (°C)
                                         </Label>
                                         <Input
                                             id="ship-temp-set"
                                             type="number"
                                             placeholder="Ej: 5"
-                                            className="glass border-border/50 focus:border-accent"
+                                            className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                                             required
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="ship-priority" className={`${styles.textGradient} flex items-center gap-2`}>
-                                            <Clock className="w-4 h-4 text-accent" />
+                                        <Label htmlFor="ship-priority" className="flex items-center gap-2 text-white">
+                                            <Clock className="w-4 h-4 text-glacier" />
                                             Prioridad
                                         </Label>
                                         <Select required>
-                                            <SelectTrigger className="glass border-border/50 focus:border-accent">
+                                            <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                                                 <SelectValue placeholder="Seleccionar prioridad" />
                                             </SelectTrigger>
-                                            <SelectContent className="glass-strong border-border/50">
+                                            <SelectContent className="glass-strong border-border/50 bg-slate-900">
                                                 <SelectItem value="normal">Normal</SelectItem>
                                                 <SelectItem value="high">Alta</SelectItem>
                                                 <SelectItem value="urgent">Urgente</SelectItem>
@@ -655,14 +695,14 @@ const Management = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="ship-instructions" className={`${styles.textGradient} flex items-center gap-2`}>
-                                        <FileText className="w-4 h-4 text-accent" />
+                                    <Label htmlFor="ship-instructions" className="flex items-center gap-2 text-white">
+                                        <FileText className="w-4 h-4 text-glacier" />
                                         Instrucciones Especiales
                                     </Label>
                                     <Textarea
                                         id="ship-instructions"
                                         placeholder="Instrucciones de manejo, requisitos especiales..."
-                                        className="glass border-border/50 focus:border-accent min-h-[100px]"
+                                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50 min-h-[100px]"
                                     />
                                 </div>
 
@@ -671,13 +711,14 @@ const Management = () => {
                                         type="button"
                                         variant="outline"
                                         onClick={() => setActiveForm(null)}
-                                        className="flex-1 glass-strong hover:bg-secondary/50"
+                                        className="flex-1 glass-strong hover:bg-secondary/50 text-white hover:text-white"
                                     >
                                         Cancelar
                                     </Button>
                                     <Button
                                         type="submit"
-                                        className="flex-1 bg-gradient-to-r from-accent to-primary hover:opacity-90 text-primary-foreground"
+                                        style={{backgroundColor: 'hsl(var(--primary))'}}
+                                        className="flex-1 text-primary-foreground"
                                     >
                                         <Plus className="w-4 h-4 mr-2" />
                                         Crear Envío
