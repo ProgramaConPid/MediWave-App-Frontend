@@ -1,4 +1,4 @@
-import { TraceCardProps } from "@/src/interfaces/main";
+import { TraceCardProps } from "@/interfaces/main";
 import { BsCursor } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import styles from "./TraceCard.module.css";
@@ -27,11 +27,10 @@ const TraceCard = ({ timeline }: TraceCardProps) => {
             </div>
             <div className={styles.card__traceInfo}>
               <span
-                className={`${
-                  step.type === "transit"
+                className={`${step.type === "transit"
                     ? styles.card__traceInfoTitleModified
                     : styles.card__traceInfoTitle
-                }`}
+                  }`}
               >
                 {step.type === "origin" && "Origin"}
                 {step.type === "destination" && "Destination"}
