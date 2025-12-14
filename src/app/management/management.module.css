@@ -1,9 +1,12 @@
 /* Layout & Container */
 .container {
-  min-height: 100vh;
+  min-height: 90vh;
   overflow: hidden;
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mainContent {
@@ -116,6 +119,11 @@
   transition: all 0.3s ease;
   cursor: pointer;
   width: 100%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1);
 }
 
 .cardButton:hover {
