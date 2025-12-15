@@ -2,16 +2,13 @@
 
 import React, { useState } from 'react';
 import styles from './RegisterForm.module.css';
-import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiPhone, FiBriefcase } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiBriefcase } from 'react-icons/fi';
 import Link from 'next/link';
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    company: '',
+    fullName: '',
     position: '',
-    phone: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -35,7 +32,7 @@ const RegisterForm = () => {
       alert('Las contraseñas no coinciden');
       return;
     }
-
+    
     setIsLoading(true);
     
     setTimeout(() => {
@@ -47,93 +44,38 @@ const RegisterForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="firstName" className={styles.label}>
-              <FiUser className={styles.labelIcon} />
-              Nombre
-            </label>
-            <input
-              id="firstName"
-              type="text"
-              placeholder="Juan"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="lastName" className={styles.label}>
-              <FiUser className={styles.labelIcon} />
-              Apellido
-            </label>
-            <input
-              id="lastName"
-              type="text"
-              placeholder="Pérez"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-        </div>
-
         <div className={styles.formGroup}>
-          <label htmlFor="company" className={styles.label}>
-            <FiBriefcase className={styles.labelIcon} />
-            Empresa / Organización
+          <label htmlFor="fullName" className={styles.label}>
+            <FiUser className={styles.labelIcon} />
+            Nombre Completo
           </label>
           <input
-            id="company"
+            id="fullName"
             type="text"
-            placeholder="Farmacéutica ABC S.A."
-            name="company"
-            value={formData.company}
+            placeholder="Juan Pérez"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleChange}
             className={styles.input}
             required
           />
         </div>
 
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="position" className={styles.label}>
-              <FiBriefcase className={styles.labelIcon} />
-              Cargo
-            </label>
-            <input
-              id="position"
-              type="text"
-              placeholder="Gerente de Logística"
-              name="position"
-              value={formData.position}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="phone" className={styles.label}>
-              <FiPhone className={styles.labelIcon} />
-              Teléfono
-            </label>
-            <input
-              id="phone"
-              type="tel"
-              placeholder="+52 55 1234 5678"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="position" className={styles.label}>
+            <FiBriefcase className={styles.labelIcon} />
+            Cargo
+          </label>
+          <input
+            id="position"
+            type="text"
+            placeholder="Gerente de Logística"
+            name="position"
+            value={formData.position}
+            onChange={handleChange}
+            className={styles.input}
+            required
+          />
         </div>
 
         <div className={styles.formGroup}>
@@ -203,18 +145,6 @@ const RegisterForm = () => {
               {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
             </button>
           </div>
-        </div>
-
-        <div className={styles.terms}>
-          <input
-            id="terms"
-            type="checkbox"
-            className={styles.checkbox}
-            required
-          />
-          <label htmlFor="terms" className={styles.checkboxLabel}>
-            Acepto los términos y condiciones
-          </label>
         </div>
 
         <button
