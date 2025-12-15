@@ -46,3 +46,74 @@ export interface TimelineEvent {
 export interface EventTimelineProps {
   events: TimelineEvent[];
 }
+
+// Interfaces de la API Backend
+export interface Medication {
+  id: string;
+  name: string;
+  description?: string;
+  manufacturer?: string;
+  temperatureMin?: number;
+  temperatureMax?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Batch {
+  id: string;
+  medicationId: string;
+  batchNumber: string;
+  quantity: number;
+  manufactureDate: string;
+  expirationDate: string;
+  medication?: Medication;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Location {
+  id: string;
+  name: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
+export interface Shipment {
+  id: string;
+  batchId: string;
+  originLocationId: string;
+  destinationLocationId: string;
+  status: string;
+  departureDate?: string;
+  arrivalDate?: string;
+  batch?: Batch;
+  originLocation?: Location;
+  destinationLocation?: Location;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface StateHistory {
+  id: string;
+  shipmentId: string;
+  temperature?: number;
+  humidity?: number;
+  locationId?: string;
+  status: string;
+  timestamp: string;
+  location?: Location;
+  shipment?: Shipment;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Interfaces para las respuestas de la API
+export interface HistorialResponse {
+  vaccine: VaccineHeaderProps;
+  stats: Omit<StatsCardProps, 'icon'>[];
+  temperatureData: TemperatureDataPoint[];
+  events: TimelineEvent[];
+}

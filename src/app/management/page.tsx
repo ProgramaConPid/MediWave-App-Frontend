@@ -15,8 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/useAuth";
 import {
   Droplets,
   ChevronLeft,
@@ -51,45 +49,18 @@ type FormType = "medicine" | "batch" | "shipment" | "user" | null;
 
 const Management = () => {
   const [activeForm, setActiveForm] = useState<FormType>(null);
-  const { toast } = useToast();
-  const { user, loading, signOut } = useAuth();
   const router = useRouter();
 
-  // useEffect(() => {
-  //     if (!loading && !user) {
-  //         router.push("/management");
-  //     }
-  // }, [user, loading, router]);
-
-  const handleSignOut = async () => {
-    await signOut();
-    toast({
-      title: "Sesión cerrada",
-      description: "Has cerrado sesión correctamente",
-    });
+  const handleSignOut = () => {
+    // Lógica de sign out simplificada
     router.push("/");
   };
 
   const handleSubmit = (e: React.FormEvent, formType: string) => {
     e.preventDefault();
-    toast({
-      title: "Registro Exitoso",
-      description: `${formType} registrado correctamente en el sistema blockchain.`,
-    });
+    console.log(`${formType} registrado correctamente`);
     setActiveForm(null);
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen gradient-cold flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  // if (!user) {
-  //     return null;
-  // }
 
   const formConfigs = [
     {
