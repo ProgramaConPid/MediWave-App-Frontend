@@ -16,8 +16,8 @@ export interface CardProductDetailsProps {
 }
 
 export interface CardBlockchainProps {
-  transactionId: string;
-  blockId: string;
+  onVerify: (value: string) => void;
+  loading: boolean;
 }
 
 export interface TraceCardProps {
