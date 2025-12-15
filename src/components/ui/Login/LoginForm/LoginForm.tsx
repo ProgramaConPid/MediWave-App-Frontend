@@ -9,12 +9,15 @@ import { BsShieldCheck } from 'react-icons/bs';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { login } from '@/services/authService';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { signIn } = useAuth();
   const router = useRouter();
@@ -22,14 +25,37 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage(null);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const result = await login({ email, password });
+
+      if (result.token) {
+        // Required for axiosInstance interceptor to attach Authorization header
+        localStorage.setItem('token', result.token);
+      }
+
       signIn(email);
-      setIsLoading(false);
-      console.log('Login successful:', { email });
+      console.log('Login successful:', { email, response: result.raw });
       router.push('/management');
-    }, 1500);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message =
+          (error.response?.data as any)?.message ||
+          (error.response?.data as any)?.detail ||
+          `Error de login (HTTP ${error.response?.status ?? 'sin status'})`;
+        setErrorMessage(message);
+        console.error('Login error:', {
+          status: error.response?.status,
+          data: error.response?.data,
+        });
+      } else {
+        setErrorMessage('Error inesperado al iniciar sesión');
+        console.error('Unexpected login error:', error);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
