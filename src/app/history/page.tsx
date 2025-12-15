@@ -24,6 +24,8 @@ import Link from "next/link";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
+import Navbar from "@/components/layout/Navbar/Navbar";
+import NavLink from "@/components/layout/Navbar/NavLink";
 
 // Datos de ejemplo - estos pueden venir de una API o base de datos
 const vaccineData = {
@@ -159,62 +161,23 @@ export default function HistorialPage() {
 
   return (
     <div>
-      <nav className={styles.navbar}>
-        <div className={`container ${styles.navbar__container}`}>
-          <div className={`${styles.navbar__logo} ${styles.slideLeft}`}>
-            <div className={styles.navbar__logoContainer}>
-              <Image
-                src="/icon.png"
-                alt="MediWave Logo"
-                width={45}
-                height={45}
-                className={`${styles.navbar__logoIcon} ${styles.pulse}`}
-              />
-            </div>
-            <div className={styles.navbar__logoTexts}>
-              <h3 className={styles.navbar__textsTitle}>MediWave</h3>
-              <span className={styles.navbar__textsSpan}>
-                Historial Detallado
-              </span>
-            </div>
-          </div>
-
-          {/* Botones de navegación y exportación */}
-          <div className={styles.navbar__linksContainer}>
-            <button onClick={handleExportPDF} className={styles.exportBtn}>
-              <FaFilePdf /> Exportar PDF
-            </button>
-
-            <Link
-              href={"/dashboard"}
-              className={styles.navbar__link}
-              title="Dashboard"
-            >
-              <SlGraph />
-            </Link>
-
-            <Link
-              href={"/history"}
-              className={styles.navbar__link}
-              title="Historial"
-            >
-              <FaClockRotateLeft />
-            </Link>
-
-            <Link
-              href={"/login"}
-              className={styles.navbar__link}
-              title="Gestión"
-            >
-              <Package />
-            </Link>
-
-            <Link href={"/"} className={styles.navbar__link} title="Inicio">
-              <FiHome />
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar logoText="MediWave" logoSubtitle="Historial Detallado">
+        <button onClick={handleExportPDF} className={styles.exportBtn}>
+          <FaFilePdf /> Exportar PDF
+        </button>
+        <NavLink href="/dashboard" icon={<SlGraph />}>
+          Dashboard
+        </NavLink>
+        <NavLink href="/history" icon={<FaClockRotateLeft />} isActive>
+          Historial
+        </NavLink>
+        <NavLink href="/login" icon={<Package />}>
+          Gestión
+        </NavLink>
+        <NavLink href="/" icon={<FiHome />}>
+          Inicio
+        </NavLink>
+      </Navbar>
 
       {/* Animated Background Elements */}
       <ParticlesBackground />
