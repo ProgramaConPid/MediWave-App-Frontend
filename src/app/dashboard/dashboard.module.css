@@ -169,7 +169,7 @@
   }
 
   .dashboard__cardsContainerLeft > * {
-    flex: none;
+    flex: 1;
   }
 
   .dashboard__cardBlockchainContainer {
@@ -187,7 +187,11 @@
   }
 
   .dashboard__itemsContainer {
-    gap: 0.8rem;
+    padding-inline: 0.75rem;
+  }
+
+  .dashboard__cardBlockchainContainer {
+    padding-inline: 0.75rem;
   }
 
   .footer__text {

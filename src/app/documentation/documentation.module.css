@@ -76,6 +76,7 @@
   border-radius: 1rem;
   padding: 2rem;
   transition: all 0.5s;
+  overflow: hidden;
 }
 
 .featureSection:hover {
@@ -316,6 +317,10 @@
   gap: 2rem;
 }
 
+.contentGrid > * {
+  overflow: hidden;
+}
+
 @media (min-width: 1024px) {
   .contentGrid {
     grid-template-columns: 280px 1fr;
@@ -416,7 +421,7 @@
 }
 
 .heroTitle {
-  font-size: 2.25rem;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
   font-weight: 700;
   color: hsl(var(--foreground));
   margin-bottom: 1rem;
@@ -533,7 +538,7 @@
 
 .diagramGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 2rem;
 }
 
@@ -720,6 +725,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
   overflow: hidden;
+  overflow-x: auto;
 }
 
 .endpointsHeader {
@@ -801,6 +807,7 @@
 }
 
 .hybridArchCard {
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -861,6 +868,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -1142,5 +1150,35 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 400px) {
+  .diagramGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+/* Responsive Styles for Blockchain Section */
+@media (max-width: 768px) {
+  .verificationSteps {
+    flex-wrap: wrap;
+  }
+
+  .verificationArrow {
+    display: none;
+  }
+
+  .verificationFlow {
+    padding: 1.5rem;
+  }
+
+  .featureHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .featureIconContainer {
+    margin-bottom: 0.5rem;
   }
 }

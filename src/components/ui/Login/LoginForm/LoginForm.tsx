@@ -7,6 +7,8 @@ import { MdFingerprint } from 'react-icons/md';
 import { BiLockOpen } from 'react-icons/bi';
 import { BsShieldCheck } from 'react-icons/bs';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -14,49 +16,21 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
+  const { signIn } = useAuth();
+  const router = useRouter();
 
-        try {
-            const response = await axios.post(
-                'https://mediwave-backend-production.up.railway.app/auth/login',
-                {
-                    email,
-                    password,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-            const { accessToken } = response.data;
-
-            // Guardamos el token (simple y directo)
-            localStorage.setItem('accessToken', accessToken);
-
-            console.log('✅ Login exitoso');
-            console.log('Token:', accessToken);
-
-            // Aquí luego puedes redirigir al dashboard si quieres
-            // router.push('/dashboard');
-
-        } catch (error: any) {
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 401) {
-                    console.error('❌ Credenciales inválidas');
-                } else {
-                    console.error('❌ Error en login:', error.response?.data);
-                }
-            } else {
-                console.error('❌ Error inesperado:', error);
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    // Simulate API call
+    setTimeout(() => {
+      signIn(email);
+      setIsLoading(false);
+      console.log('Login successful:', { email });
+      router.push('/management');
+    }, 1500);
+  };
 
   return (
     <>
