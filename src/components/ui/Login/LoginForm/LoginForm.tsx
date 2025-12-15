@@ -41,11 +41,7 @@ const LoginForm = () => {
       </div>
 
       <form onSubmit={handleSubmit} className={styles.form}>
-        {errorMessage && (
-          <div className={styles.errorBox} role="alert">
-            {errorMessage}
-          </div>
-        )}
+
         <div className={styles.formGroup}>
           <label htmlFor="email" className={styles.label}>
             <FiMail className={styles.labelIcon} />
