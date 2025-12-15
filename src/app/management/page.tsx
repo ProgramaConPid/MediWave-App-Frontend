@@ -34,7 +34,12 @@ import {
   FileText,
   Clock,
   LogOut,
+  Home,
+  Database,
+  BookOpen,
 } from "lucide-react";
+import Navbar from "@/components/layout/Navbar/Navbar";
+import NavLink from "@/components/layout/Navbar/NavLink";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import ParticlesBackground from "@/components/ParticlesBackground";
@@ -111,97 +116,31 @@ const Management = () => {
   return (
     <>
       {/* Header */}
-      <header className="relative z-20 border-b border-white/10 backdrop-blur-sm bg-background/50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:text-glacier"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </Button>
-              </Link>
-              <div className="flex items-center gap-3">
-                <div
-                  className="flex items-center justify-center"
-                  style={{
-                    padding: "0.5rem",
-                    backgroundColor: "hsl(var(--primary) / 0.2)",
-                    clipPath:
-                      "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-                    width: "50px",
-                    height: "50px",
-                  }}
-                >
-                  <Image
-                    src="/icon.png"
-                    alt="MediWave Logo"
-                    width={40}
-                    height={40}
-                    className="w-10 h-10"
-                  />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-white">Gestión</h1>
-                  <p className="text-xs text-white/60">
-                    Administración de Registros
-                  </p>
-                </div>
-              </div>
-            </div>
-            <nav className="flex items-center gap-4">
-              <span className="text-xs text-white/60 hidden md:block">
-                {user?.email || "demo@mediwave.com"}
-              </span>
-              <Link href="/dashboard">
-                <Button
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    color: "white",
-                  }}
-                  className="backdrop-blur-sm cursor-pointer duration-300"
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "hsl(var(--primary))";
-                    e.currentTarget.style.color = "black";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(255, 255, 255, 0.05)";
-                    e.currentTarget.style.color = "white";
-                  }}
-                >
-                  Dashboard
-                </Button>
-              </Link>
-              <Button
-                size="icon"
-                onClick={handleSignOut}
-                style={{
-                  backgroundColor: "transparent",
-                  color: "white",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "background-color 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(239, 68, 68, 0.2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                }}
-              >
-                <LogOut className="w-5 h-5" />
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Navbar logoText="MediWave" logoSubtitle="Gestión">
+        <NavLink href="/" icon={<Home />}>
+          Inicio
+        </NavLink>
+        <NavLink href="/dashboard" icon={<Database />}>
+          Dashboard
+        </NavLink>
+        <NavLink href="/history" icon={<BookOpen />}>
+          Historial
+        </NavLink>
+        <Button
+          size="icon"
+          onClick={handleSignOut}
+          style={{
+            backgroundColor: "transparent",
+            color: "hsl(var(--foreground))",
+            border: "none",
+            cursor: "pointer",
+            transition: "background-color 0.3s ease",
+          }}
+          className="hover:bg-red-500/20"
+        >
+          <LogOut className="w-5 h-5" />
+        </Button>
+      </Navbar>
 
       <div className={styles.container}>
         <ParticlesBackground />
@@ -272,7 +211,9 @@ const Management = () => {
           {/* Medicine Form */}
           {activeForm === "medicine" && (
             <div className="max-w-2xl mx-auto animate-fade-in">
-              <div className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}>
+              <div
+                className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}
+              >
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary to-glacier flex items-center justify-center">
@@ -422,7 +363,7 @@ const Management = () => {
                     />
                   </div>
 
-                  <div className="flex gap-4 pt-4">
+                  <div className="flex flex-col md:flex-row gap-4 pt-4">
                     <Button
                       type="button"
                       variant="outline"
@@ -448,7 +389,9 @@ const Management = () => {
           {/* Batch Form */}
           {activeForm === "batch" && (
             <div className="max-w-2xl mx-auto animate-fade-in">
-              <div className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}>
+              <div
+                className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}
+              >
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-linear-to-br from-glacier to-accent flex items-center justify-center">
@@ -641,7 +584,9 @@ const Management = () => {
           {/* Shipment Form */}
           {activeForm === "shipment" && (
             <div className="max-w-2xl mx-auto animate-fade-in">
-              <div className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}>
+              <div
+                className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}
+              >
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary to-glacier flex items-center justify-center">

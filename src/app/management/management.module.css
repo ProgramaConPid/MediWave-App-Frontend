@@ -26,7 +26,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom right, var(--background), var(--secondary));
+  background: linear-gradient(
+    to bottom right,
+    var(--background),
+    var(--secondary)
+  );
 }
 
 .spinner {
@@ -62,14 +66,24 @@
   line-height: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--glacier)));
+  background: linear-gradient(
+    to right,
+    hsl(var(--foreground)),
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .textGradient {
-  background: linear-gradient(to right, hsl(var(--foreground)), hsl(var(--primary)), hsl(var(--glacier)));
+  background: linear-gradient(
+    to right,
+    hsl(var(--foreground)),
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -269,6 +283,32 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   }
 }
 
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 2rem 1rem;
+  }
+
+  .formCard {
+    padding: 1.5rem;
+  }
+
+  .formHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .headerLeft {
+    width: 100%;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
@@ -314,15 +354,27 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 /* Gradients */
 .gradientPrimaryGlacier {
-  background: linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--glacier)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
 }
 
 .gradientGlacierAccent {
-  background: linear-gradient(to bottom right, hsl(var(--glacier)), hsl(var(--accent)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--glacier)),
+    hsl(var(--accent))
+  );
 }
 
 .gradientAccentPrimary {
-  background: linear-gradient(to bottom right, hsl(var(--accent)), hsl(var(--primary)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--accent)),
+    hsl(var(--primary))
+  );
 }
 
 /* Text Colors */
