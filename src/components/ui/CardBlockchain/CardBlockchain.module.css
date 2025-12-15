@@ -56,6 +56,10 @@
   gap: .5rem;
 }
 
+.card__blockchainHashTexts {
+  width: 100%;
+}
+
 .card__blockchainHashIcon {
   color: hsl(var(--muted-foreground));
   font-weight: 700;
@@ -79,6 +83,16 @@
 .card__blockchainHashId {
   color: hsl(var(--foreground));
   word-break: break-all;
+  width: 100%;
+  background-color: hsl(var(--card));
+  margin-top: .5rem;
+  padding: 15px;
+  border-radius: var(--radius-base);
+  transition: 400ms ease;
+}
+
+.card__blockchainHashId:focus {
+  outline: 1px solid hsl(var(--primary));
 }
 
 .card__blockchainBlockIdTitle {
@@ -95,3 +109,4 @@
   width: 100%;
   margin-top: 1rem;
 }
+
