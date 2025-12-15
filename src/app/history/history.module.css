@@ -1,10 +1,5 @@
-.navbar {
-  padding-block: 20px;
-  border-bottom: 1px solid hsl(var(--border));
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 999;
-  animation: fadeInScale 0.6s ease-out forwards;
+.container {
+  padding-top: 40px;
 }
 
 .navbar__container {

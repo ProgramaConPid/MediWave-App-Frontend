@@ -25,6 +25,8 @@ import {
   Workflow,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/layout/Navbar/Navbar";
+import NavLink from "@/components/layout/Navbar/NavLink";
 import {
   Accordion,
   AccordionContent,
@@ -190,41 +192,17 @@ const Documentation = () => {
       <div className={styles.ambientEffect2} />
 
       {/* Header */}
-      <header className={styles.header}>
-        <div className={styles.headerContainer}>
-          <div className={styles.headerContent}>
-            <Link href="/" className={`${styles.logoLink} group`}>
-              <div className={styles.logoIconContainer}>
-                <Image
-                  src="/icon.png"
-                  alt="MediWave Logo"
-                  width={40}
-                  height={40}
-                  className={styles.logoIcon}
-                />
-              </div>
-              <span className={styles.logoText}>
-                MediWave<span className={styles.logoTextHighlight}>Docs</span>
-              </span>
-            </Link>
-
-            <nav className={styles.nav}>
-              <Link href="/" className={styles.navLink}>
-                <Home className={styles.navLinkIcon} />
-                <span>Inicio</span>
-              </Link>
-              <Link href="/dashboard" className={styles.navLink}>
-                <Database className={styles.navLinkIcon} />
-                <span>Dashboard</span>
-              </Link>
-              <Link href="/history" className={styles.navLink}>
-                <Workflow className={styles.navLinkIcon} />
-                <span>Historial</span>
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Navbar logoText="MediWave" logoSubtitle="Docs">
+        <NavLink href="/" icon={<Home />}>
+          Inicio
+        </NavLink>
+        <NavLink href="/dashboard" icon={<Database />}>
+          Dashboard
+        </NavLink>
+        <NavLink href="/history" icon={<BookOpen />}>
+          Historial
+        </NavLink>
+      </Navbar>
 
       <div className={styles.mainContainer}>
         <div className={styles.contentGrid}>
@@ -390,11 +368,6 @@ const Documentation = () => {
                         </div>
                         <div className={styles.diagramLineAccent} />
                       </div>
-                    </div>
-
-                    {/* Connection Lines Animation */}
-                    <div className={styles.diagramShimmer}>
-                      <div className={styles.diagramShimmerLine} />
                     </div>
                   </div>
                 </div>
@@ -617,7 +590,7 @@ contract MediWaveRegistry {
                       { step: 4, label: "Confirmación", icon: Check },
                     ].map((item, index) => (
                       <div key={index} className={styles.verificationStep}>
-                        <div className="text-center">
+                        <div className="text-center flex flex-col items-center">
                           <div
                             className={`${styles.verificationIconContainer} group`}
                           >
@@ -790,7 +763,7 @@ contract MediWaveRegistry {
                   <p className="text-[hsl(var(--muted-foreground))] mb-6">
                     Nuestro equipo está disponible para ayudarte
                   </p>
-                  <div className="flex justify-center gap-4">
+                  <div className="flex justify-center flex-wrap gap-4">
                     <Button className="bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--glacier))] hover:opacity-90 cursor-pointer">
                       Contactar Soporte
                     </Button>

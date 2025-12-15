@@ -13,7 +13,12 @@ import {
   Eye,
   TrendingUp,
   BarChart3,
+  LayoutDashboard,
+  BookOpen,
+  Truck,
 } from "lucide-react";
+import Navbar from "@/components/layout/Navbar/Navbar";
+import NavLink from "@/components/layout/Navbar/NavLink";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import FeatureCard from "@/components/FeatureCard";
@@ -80,59 +85,17 @@ const Index = () => {
         <div className={styles.orb3} style={{ animationDelay: "4s" }} />
       </div>
 
-      {/* Header */}
-      <header className={styles.header}>
-        <div className={styles.headerContainer}>
-          <div className={styles.headerContent}>
-            <div className={styles.logoContainer}>
-              <div className={styles.logoIconContainer}>
-                <Image
-                  src="/icon.png"
-                  alt="MediWave Logo"
-                  width={32}
-                  height={32}
-                  className={styles.logoIcon}
-                />
-              </div>
-              <div>
-                <h1 className={styles.logoText}>MediWave</h1>
-                <p className={styles.logoSubtext}>Trazabilidad Farmacéutica</p>
-              </div>
-            </div>
-            <nav className={styles.nav}>
-              <Link href="/dashboard">
-                <Button className={`${styles.dashboardButton} group`}>
-                  Dashboard
-                  <ChevronRight className={styles.dashboardIcon} />
-                </Button>
-              </Link>
-              <Link href="/history">
-                <Button
-                  variant="outline"
-                  className={`${styles.historyButton} group`}
-                >
-                  <BarChart3 className={styles.historyIcon} />
-                  Historial
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button
-                  variant="outline"
-                  className={`${styles.historyButton} group`}
-                >
-                  <Package className={styles.historyIcon} />
-                  Gestión
-                </Button>
-              </Link>
-              <Link href="/documentation">
-                <Button variant="ghost" className={styles.docsButton}>
-                  Documentación
-                </Button>
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Navbar>
+        <NavLink href="/login" icon={<Truck size={18} />}>
+          Gestión
+        </NavLink>
+        <NavLink href="/dashboard" icon={<LayoutDashboard size={18} />}>
+          Dashboard
+        </NavLink>
+        <NavLink href="/documentation" icon={<BookOpen size={18} />}>
+          Documentación
+        </NavLink>
+      </Navbar>
 
       {/* Hero Section */}
       <section className={styles.heroSection}>
