@@ -71,6 +71,11 @@ const LoginForm = () => {
       </div>
 
       <form onSubmit={handleSubmit} className={styles.form}>
+        {errorMessage && (
+          <div className={styles.errorBox} role="alert">
+            {errorMessage}
+          </div>
+        )}
         <div className={styles.formGroup}>
           <label htmlFor="email" className={styles.label}>
             <FiMail className={styles.labelIcon} />
@@ -136,6 +141,13 @@ const LoginForm = () => {
           {isLoading ? 'Iniciando sesión...' : '→ Iniciar Sesión'}
         </button>
       </form>
+
+      <div className={styles.noAccount}>
+        ¿No tienes cuenta?{' '}
+        <Link href="/register" className={styles.registerLink}>
+          Regístrate aquí
+        </Link>
+      </div>
 
       <div className={styles.features}>
         <div className={styles.feature}>

@@ -52,6 +52,15 @@
   margin-bottom: 24px;
 }
 
+.errorBox {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
