@@ -14,15 +14,49 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('Login attempt:', { email, password });
-    }, 1500);
-  };
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const response = await axios.post(
+                'https://mediwave-backend-production.up.railway.app/auth/login',
+                {
+                    email,
+                    password,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            const { accessToken } = response.data;
+
+            // Guardamos el token (simple y directo)
+            localStorage.setItem('accessToken', accessToken);
+
+            console.log('✅ Login exitoso');
+            console.log('Token:', accessToken);
+
+            // Aquí luego puedes redirigir al dashboard si quieres
+            // router.push('/dashboard');
+
+        } catch (error: any) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 401) {
+                    console.error('❌ Credenciales inválidas');
+                } else {
+                    console.error('❌ Error en login:', error.response?.data);
+                }
+            } else {
+                console.error('❌ Error inesperado:', error);
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
   return (
     <>
