@@ -1,0 +1,30 @@
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.75rem;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background-color: hsl(var(--secondary) / 0.3);
+  border: 1px solid hsl(var(--border) / 0.2);
+}
+
+.navLink:hover {
+  background-color: hsl(var(--primary) / 0.15);
+  border-color: hsl(var(--primary) / 0.3);
+  color: hsl(var(--primary));
+  transform: translateY(-1px);
+}
+
+.navLinkActive {
+  background-color: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+}
+
+.navLinkIcon {
+  font-size: 1.1rem;
+}
