@@ -1,0 +1,139 @@
+.timelineContainer {
+  padding: 20px;
+  background-color: hsl(var(--card) / .4);
+  border-radius: var(--radius-base);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(24px)
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.eventItem {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.eventIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.eventDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #00bcd4;
+  border: 3px solid #0f2c47;
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.3);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.eventLine {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(to bottom, #00bcd4, rgba(0, 188, 212, 0.3));
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.eventCard {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 188, 212, 0.2);
+  transition: all 0.3s ease;
+}
+
+.eventCard:hover {
+  transform: translateX(4px);
+  border-color: rgba(0, 188, 212, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.eventTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  flex: 1;
+}
+
+.eventPriority {
+  background: rgba(0, 188, 212, 0.2);
+  color: #00bcd4;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.eventDate {
+  font-size: 13px;
+  color: #8ab4d5;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.eventDescription {
+  font-size: 14px;
+  color: #b8d4e8;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .timelineContainer {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .eventItem {
+    gap: 12px;
+  }
+
+  .eventCard {
+    padding: 12px;
+  }
+
+  .eventTitle {
+    font-size: 14px;
+  }
+
+  .eventDescription {
+    font-size: 13px;
+  }
+}

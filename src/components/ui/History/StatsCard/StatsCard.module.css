@@ -1,0 +1,171 @@
+.card {
+  padding: 20px;
+  background-color: hsl(var(--card) / .4);
+  border-radius: var(--radius-base);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: 300ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.card.normal {
+  border-color: rgba(0, 188, 212, 0.3);
+}
+
+.card.warning {
+  border-color: rgba(255, 107, 107, 0.5);
+}
+
+.card.danger {
+  border-color: rgba(96, 165, 250, 0.5);
+}
+
+.card.violations {
+  border-color: rgba(255, 193, 7, 0.5);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(0, 188, 212, 0.15);
+  flex-shrink: 0;
+}
+
+.iconContainer svg,
+.iconContainer i {
+  font-size: 24px;
+  color: #00bcd4;
+}
+
+.icon_normal {
+  background: rgba(0, 188, 212, 0.15) !important;
+}
+
+.icon_normal svg,
+.icon_normal i {
+  color: #00bcd4 !important;
+}
+
+.icon_warning {
+  background: rgba(255, 107, 107, 0.15) !important;
+}
+
+.icon_warning svg,
+.icon_warning i {
+  color: #ff6b6b !important;
+}
+
+.icon_danger {
+  background: rgba(96, 165, 250, 0.15) !important;
+}
+
+.icon_danger svg,
+.icon_danger i {
+  color: #60a5fa !important;
+}
+
+.icon_violations {
+  background: rgba(255, 193, 7, 0.15) !important;
+}
+
+.icon_violations svg,
+.icon_violations i {
+  color: #ffc107 !important;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 14px;
+  color: #00bcd4;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.valueContainer {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #00bcd4;
+}
+
+.unit {
+  font-size: 14px;
+  color: #00bcd4;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #6b8799;
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Estilos de color según estado */
+.normal .title,
+.normal .value,
+.normal .unit {
+  color: #00bcd4;
+}
+
+.warning .title,
+.warning .value,
+.warning .unit {
+  color: #ff6b6b;
+}
+
+.danger .title,
+.danger .value,
+.danger .unit {
+  color: #60a5fa;
+}
+
+.violations .title,
+.violations .value,
+.violations .unit {
+  color: #ffc107;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+  }
+
+  .iconContainer {
+    width: 40px;
+    height: 40px;
+  }
+
+  .iconContainer svg,
+  .iconContainer i {
+    font-size: 20px;
+  }
+
+  .value {
+    font-size: 20px;
+  }
+}
