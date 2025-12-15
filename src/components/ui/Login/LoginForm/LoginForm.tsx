@@ -137,13 +137,6 @@ const LoginForm = () => {
         </button>
       </form>
 
-      <div className={styles.noAccount}>
-        ¿No tienes cuenta?{' '}
-        <Link href="/register" className={styles.registerLink}>
-          Regístrate aquí
-        </Link>
-      </div>
-
       <div className={styles.features}>
         <div className={styles.feature}>
           <div className={styles.featureIcon}>
