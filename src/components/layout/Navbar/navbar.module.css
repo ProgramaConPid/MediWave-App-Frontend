@@ -59,6 +59,14 @@
   line-height: 1.2;
 }
 
+.logoTextMedi {
+  color: hsl(var(--foreground));
+}
+
+.logoTextWave {
+  color: hsl(var(--primary));
+}
+
 .logoSubtitle {
   color: hsl(var(--muted-foreground));
   font-size: 0.8rem;

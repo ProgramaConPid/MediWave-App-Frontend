@@ -226,7 +226,7 @@
 }
 
 .heroHeading {
-  font-size: 3.75rem;
+  font-size: clamp(2.2rem, 7vw, 3.75rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
   background: linear-gradient(

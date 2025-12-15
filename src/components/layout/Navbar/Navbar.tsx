@@ -37,7 +37,16 @@ const Navbar = ({
             />
           </div>
           <div className={styles.logoTexts}>
-            <h1 className={styles.logoTitle}>{logoText}</h1>
+            <h1 className={styles.logoTitle}>
+              {logoText === "MediWave" ? (
+                <>
+                  <span className={styles.logoTextMedi}>Medi</span>
+                  <span className={styles.logoTextWave}>Wave</span>
+                </>
+              ) : (
+                logoText
+              )}
+            </h1>
             {logoSubtitle && (
               <span className={styles.logoSubtitle}>{logoSubtitle}</span>
             )}

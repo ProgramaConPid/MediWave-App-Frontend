@@ -369,11 +369,6 @@ const Documentation = () => {
                         <div className={styles.diagramLineAccent} />
                       </div>
                     </div>
-
-                    {/* Connection Lines Animation */}
-                    <div className={styles.diagramShimmer}>
-                      <div className={styles.diagramShimmerLine} />
-                    </div>
                   </div>
                 </div>
 
@@ -595,7 +590,7 @@ contract MediWaveRegistry {
                       { step: 4, label: "Confirmación", icon: Check },
                     ].map((item, index) => (
                       <div key={index} className={styles.verificationStep}>
-                        <div className="text-center">
+                        <div className="text-center flex flex-col items-center">
                           <div
                             className={`${styles.verificationIconContainer} group`}
                           >
@@ -768,7 +763,7 @@ contract MediWaveRegistry {
                   <p className="text-[hsl(var(--muted-foreground))] mb-6">
                     Nuestro equipo está disponible para ayudarte
                   </p>
-                  <div className="flex justify-center gap-4">
+                  <div className="flex justify-center flex-wrap gap-4">
                     <Button className="bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--glacier))] hover:opacity-90 cursor-pointer">
                       Contactar Soporte
                     </Button>
