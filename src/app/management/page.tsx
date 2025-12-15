@@ -37,15 +37,17 @@ import {
   Home,
   Database,
   BookOpen,
+  UserPlus,
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import ParticlesBackground from "@/components/ParticlesBackground";
+import RegisterForm from "@/components/ui/Login/RegisterForm/RegisterForm";
 import styles from "./management.module.css";
 
-type FormType = "medicine" | "batch" | "shipment" | null;
+type FormType = "medicine" | "batch" | "shipment" | "user" | null;
 
 const Management = () => {
   const [activeForm, setActiveForm] = useState<FormType>(null);
@@ -109,6 +111,13 @@ const Management = () => {
       title: "Envíos",
       icon: Truck,
       description: "Gestionar envíos y transporte de medicamentos",
+      gradient: "from-primary to-glacier",
+    },
+    {
+      type: "user" as FormType,
+      title: "Usuarios",
+      icon: UserPlus,
+      description: "Registrar nuevos usuarios en el sistema",
       gradient: "from-primary to-glacier",
     },
   ];
@@ -810,6 +819,41 @@ const Management = () => {
                     </Button>
                   </div>
                 </form>
+              </div>
+            </div>
+          )}
+
+          {/* User Form */}
+          {activeForm === "user" && (
+            <div className="max-w-2xl mx-auto animate-fade-in">
+              <div
+                className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}
+              >
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary to-glacier flex items-center justify-center">
+                      <UserPlus className="w-6 h-6 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">
+                        Nuevo Usuario
+                      </h3>
+                      <p className="text-sm text-white/70">
+                        Registrar en el sistema
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setActiveForm(null)}
+                    className="text-[hsl(var(--muted-foreground))] cursor-pointer hover:text-[hsl(var(--foreground))]"
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+
+                <RegisterForm />
               </div>
             </div>
           )}
