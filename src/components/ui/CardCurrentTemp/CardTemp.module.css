@@ -38,9 +38,7 @@
 
 .progress__bar {
   height: 100%;
-  width: 45%; 
   border-radius: inherit;
-
   background: linear-gradient(
     120deg,
     #00f7ff 10%,
@@ -48,11 +46,11 @@
     #00c8ff 30%,
     #00f7ff 40%
   );
-
   background-size: 200% 100%;
   animation: moveBackground 2s linear infinite;
 
   box-shadow: 0 0 8px rgba(0,255,255,.7);
+  transition: width 0.5s ease-in-out;
 }
 
 @keyframes moveBackground {
@@ -139,3 +137,5 @@
 .card__tempInfo {
   animation: slideUp 0.6s ease-out forwards;
 }
+
+

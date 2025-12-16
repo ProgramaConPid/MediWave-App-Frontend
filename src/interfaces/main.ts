@@ -18,17 +18,6 @@ export interface CardProductDetailsProps {
 export interface CardBlockchainProps {
   onVerify: (value: string) => void;
   loading: boolean;
+  blockId?: string;
 }
 
-export interface TraceCardProps {
-  timeline: TraceStep[];
-}
-
-export interface TraceStep {
-  type: "origin" | "transit" | "destination";
-  place: string;     
-  city?: string;
-  country: string;
-  datetime: string;
-  temperature?: number;
-}

@@ -2,12 +2,23 @@
 
 import { motion } from "framer-motion";
 import styles from "./CardBlockchain.module.css";
-import { FaRegCheckCircle, FaCheck, FaHashtag, FaExternalLinkAlt, FaSearch } from "react-icons/fa";
+import {
+  FaRegCheckCircle,
+  FaCheck,
+  FaHashtag,
+  FaExternalLinkAlt,
+  FaSearch,
+} from "react-icons/fa";
 import { ShimmerButton } from "../shimmer-button";
 import { useState } from "react";
 import { CardBlockchainProps } from "@/interfaces/main";
+import Link from "next/link";
 
-const CardBlockchain = ({ onVerify, loading }: CardBlockchainProps) => {
+const CardBlockchain = ({
+  onVerify,
+  loading,
+  blockId,
+}: CardBlockchainProps) => {
   const [value, setValue] = useState("");
 
   const handleClick = () => {
@@ -22,7 +33,6 @@ const CardBlockchain = ({ onVerify, loading }: CardBlockchainProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Header */}
       <div className={styles.card__blockchainHeader}>
         <div className={styles.card__blockchainIconContainer}>
           <FaRegCheckCircle className={styles.card__blockchainIcon} />
@@ -38,7 +48,6 @@ const CardBlockchain = ({ onVerify, loading }: CardBlockchainProps) => {
         </div>
       </div>
 
-      {/* Input */}
       <div className={styles.card__blockchainHash}>
         <FaHashtag className={styles.card__blockchainHashIcon} />
         <div className={styles.card__blockchainHashTexts}>
@@ -55,13 +64,13 @@ const CardBlockchain = ({ onVerify, loading }: CardBlockchainProps) => {
         </div>
       </div>
 
-      {/* Block */}
       <div className={styles.card__blockchainBlockId}>
         <span className={styles.card__blockchainBlockIdTitle}>Bloque</span>
-        <h4 className={styles.card__blockchainBlockIdId}>#0000000</h4>
+        <h4 className={styles.card__blockchainBlockIdId}>
+          {blockId ?? "#-------"}
+        </h4>
       </div>
 
-      {/* Verify button */}
       <ShimmerButton
         className={styles.transaction__button}
         onClick={handleClick}
@@ -73,8 +82,16 @@ const CardBlockchain = ({ onVerify, loading }: CardBlockchainProps) => {
         <FaSearch className={styles.transaction__buttonIcon} />
       </ShimmerButton>
 
-      {/* Explorer */}
-      <ShimmerButton className={styles.card__blockchainButton}>
+      <ShimmerButton
+        className={styles.card__blockchainButton}
+        onClick={() =>
+          window.open(
+            "https://celo-sepolia.blockscout.com/address/0xc9BC795BbA145D9CBBb2f3ab0fbbbEedB3A4a5E9?tab=txs",
+            "_blank",
+            "noopener,noreferrer"
+          )
+        }
+      >
         <span className={styles.card__buttonText}>Ver en el explorador</span>
         <FaExternalLinkAlt className={styles.card__buttonIcon} />
       </ShimmerButton>
