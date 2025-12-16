@@ -8,6 +8,7 @@ const normalizeBaseUrl = (url: string): string => {
 // Get the API base URL from environment or default to localhost
 const getBaseUrl = (): string => {
     const env = process.env.NEXT_PUBLIC_API_URL;
+    console.log('[Debug] NEXT_PUBLIC_API_URL:', env);
     return normalizeBaseUrl(env || 'http://localhost:8000');
 };
 
@@ -16,7 +17,7 @@ const getToken = (): string | null => {
     if (typeof window === 'undefined') return null;
 
     try {
-        return localStorage.getItem('accessToken'); // consistent with login
+        return localStorage.getItem('token'); // consistent with login
     } catch {
         return null;
     }
@@ -59,7 +60,7 @@ axiosInstance.interceptors.response.use(
             // Handle unauthorized (401) responses
             if (error.response.status === 401) {
                 if (typeof window !== 'undefined') {
-                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('token');
                     // Optionally redirect to login: window.location.href = '/login';
                 }
             }

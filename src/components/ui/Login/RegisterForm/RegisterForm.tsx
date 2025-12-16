@@ -11,6 +11,7 @@ import {
   FiBriefcase,
 } from "react-icons/fi";
 import Link from "next/link";
+import { registerUser } from "@/services/managementService";
 
 const RegisterForm = () => {
   // State for registration form data
@@ -34,6 +35,8 @@ const RegisterForm = () => {
     }));
   };
 
+
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,10 +49,16 @@ const RegisterForm = () => {
 
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      await registerUser(formData);
+      alert("Usuario registrado correctamente");
+      // Optional: Redirect or clear form
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Error al registrar usuario");
+    } finally {
       setIsLoading(false);
-      console.log("Register attempt:", formData);
-    }, 1500);
+    }
   };
 
   return (
