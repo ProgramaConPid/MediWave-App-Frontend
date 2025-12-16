@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import styles from './LoginForm.module.css';
-import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
-import { MdFingerprint } from 'react-icons/md';
-import { BiLockOpen } from 'react-icons/bi';
-import { BsShieldCheck } from 'react-icons/bs';
-import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import { login } from '@/services/authService';
+import React, { useState } from "react";
+import styles from "./LoginForm.module.css";
+import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { MdFingerprint } from "react-icons/md";
+import { BiLockOpen } from "react-icons/bi";
+import { BsShieldCheck } from "react-icons/bs";
+import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { login } from "@/services/authService";
 
+// Form component for user authentication
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // State for form inputs and UI status
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -22,6 +24,7 @@ const LoginForm = () => {
   const { signIn } = useAuth();
   const router = useRouter();
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -32,26 +35,26 @@ const LoginForm = () => {
 
       if (result.token) {
         // Required for axiosInstance interceptor to attach Authorization header
-        localStorage.setItem('token', result.token);
+        localStorage.setItem("token", result.token);
       }
 
       signIn(email);
-      console.log('Login successful:', { email, response: result.raw });
-      router.push('/management');
+      console.log("Login successful:", { email, response: result.raw });
+      router.push("/management");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message =
           (error.response?.data as any)?.message ||
           (error.response?.data as any)?.detail ||
-          `Error de login (HTTP ${error.response?.status ?? 'sin status'})`;
+          `Error de login (HTTP ${error.response?.status ?? "sin status"})`;
         setErrorMessage(message);
-        console.error('Login error:', {
+        console.error("Login error:", {
           status: error.response?.status,
           data: error.response?.data,
         });
       } else {
-        setErrorMessage('Error inesperado al iniciar sesión');
-        console.error('Unexpected login error:', error);
+        setErrorMessage("Error inesperado al iniciar sesión");
+        console.error("Unexpected login error:", error);
       }
     } finally {
       setIsLoading(false);
@@ -105,7 +108,7 @@ const LoginForm = () => {
           <div className={styles.inputWrapper}>
             <input
               id="password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -123,27 +126,19 @@ const LoginForm = () => {
         </div>
 
         <div className={styles.rememberMe}>
-          <input
-            id="remember"
-            type="checkbox"
-            className={styles.checkbox}
-          />
+          <input id="remember" type="checkbox" className={styles.checkbox} />
           <label htmlFor="remember" className={styles.checkboxLabel}>
             Mantener sesión iniciada
           </label>
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={styles.submitBtn}
-        >
-          {isLoading ? 'Iniciando sesión...' : '→ Iniciar Sesión'}
+        <button type="submit" disabled={isLoading} className={styles.submitBtn}>
+          {isLoading ? "Iniciando sesión..." : "→ Iniciar Sesión"}
         </button>
       </form>
 
       <div className={styles.noAccount}>
-        ¿No tienes cuenta?{' '}
+        ¿No tienes cuenta?{" "}
         <Link href="/register" className={styles.registerLink}>
           Regístrate aquí
         </Link>
@@ -180,7 +175,8 @@ const LoginForm = () => {
       </div>
 
       <div className={styles.footer}>
-        <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro Blockchain
+        <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro
+        Blockchain
       </div>
     </>
   );

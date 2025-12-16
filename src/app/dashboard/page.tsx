@@ -1,8 +1,11 @@
 "use client";
 
+// React and Next.js hooks
 import { useState, useEffect } from "react";
+// CSS Modules for dashboard styling
 import styles from "./dashboard.module.css";
 
+// Layout and UI Component imports
 import DashboardNav from "@/components/layout/DashboardNav/DashboardNav";
 import CardItemInfo from "@/components/ui/CardItemInfo/CardItemInfo";
 import CardBlockchain from "@/components/ui/CardBlockchain/CardBlockchain";
@@ -11,28 +14,35 @@ import CardProductDetails from "@/components/ui/CardProductDetails/CardProductDe
 import TraceCard from "@/components/ui/TraceCard/TraceCard";
 import { Globe } from "@/components/ui/globe";
 
+// Background and Visual Effect components
 import ParticlesBackground from "@/components/ParticlesBackground";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 
+// Icons
 import { LuPackage } from "react-icons/lu";
 import { FaTemperatureArrowUp } from "react-icons/fa6";
 import { SlGraph } from "react-icons/sl";
 
+// Services and Types
 import { verifyBatch } from "@/services/dashboardServices";
 import type { VerifiedBatch, TraceStep } from "@/interfaces/blockchain";
 import { FALLBACK_TIMELINE } from "@/const/defualtTimeline";
 
+// Toast notifications and Loaders
 import AlertToast from "@/components/ui/AlertToast/AlertToast";
 import { toast } from "react-toastify";
 import FullScreenLoader from "@/components/ui/FullScreenLoader/FullScreenLoader";
 
 const DashboardPage = () => {
+  // State for storing verified batch data
   const [data, setData] = useState<VerifiedBatch | null>(null);
+  // State for loading status during API calls
   const [loading, setLoading] = useState(false);
+  // State for error messages
   const [error, setError] = useState<string | null>(null);
 
-  // Cargar datos guardados en localStorage al montar
+  // Effect to load persisted data from localStorage on mount
   useEffect(() => {
     const savedData = localStorage.getItem("dashboardData");
     if (savedData) {
@@ -40,13 +50,14 @@ const DashboardPage = () => {
     }
   }, []);
 
-  // Guardar datos en localStorage cada vez que cambian
+  // Effect to save data to localStorage whenever it changes
   useEffect(() => {
     if (data) {
       localStorage.setItem("dashboardData", JSON.stringify(data));
     }
   }, [data]);
 
+  // Handle verification logic when user submits a hash or lot number
   const handleVerify = async (value: string) => {
     setLoading(true);
     setError(null);
@@ -55,7 +66,7 @@ const DashboardPage = () => {
       const result = await verifyBatch(value);
 
       if (!result) {
-        // Mostrar alerta si el batch no existe
+        // Show alert if batch is not found
         toast(
           <AlertToast
             type="alert"
@@ -75,7 +86,7 @@ const DashboardPage = () => {
         return;
       }
 
-      // Si el batch existe, actualizar data y persistencia
+      // If batch exists, update data and persistence
       setData(result);
       localStorage.setItem("dashboardData", JSON.stringify(result));
     } catch {
@@ -100,15 +111,18 @@ const DashboardPage = () => {
     }
   };
 
+  // Determine formatted block ID for display
   const blockId = data?.batch?.blockchain_hash
     ? `#${data.batch.blockchain_hash.slice(-6).toUpperCase()}`
     : "#000000";
 
+  // Use timeline from data or fallback to default
   const timeline: TraceStep[] =
     data?.timeline && data.timeline.length > 0
       ? data.timeline
       : FALLBACK_TIMELINE;
 
+  // Effect to show toast notifications based on alerts in the data
   useEffect(() => {
     if (data) {
       if (data.alerts && data.alerts.length > 0) {

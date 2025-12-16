@@ -1,11 +1,13 @@
 import styles from "./CardTemp.module.css";
 
 const CardCurrentTemp = ({ currentTemp }: { currentTemp: string }) => {
+  // Define temperature thresholds
   const minTemp = -30;
   const maxTemp = -10;
 
   const temp = parseFloat(currentTemp);
 
+  // Calculate percentage for progress bar
   let percent = 0;
   if (!isNaN(temp)) {
     percent = ((temp - minTemp) / (maxTemp - minTemp)) * 100;

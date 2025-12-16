@@ -1,8 +1,11 @@
 "use client";
 
+// Next.js components
 import Link from "next/link";
 import Image from "next/image";
+// UI Components
 import { Button } from "@/components/ui/button";
+// Icons
 import {
   Shield,
   Thermometer,
@@ -17,6 +20,8 @@ import {
   BookOpen,
   Truck,
 } from "lucide-react";
+
+// Layout and Visual Components
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
@@ -25,7 +30,9 @@ import FeatureCard from "@/components/FeatureCard";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import styles from "./page.module.css";
 
+// Landing Page Component
 const Index = () => {
+  // Array of features to display in the Features Section
   const features = [
     {
       icon: Thermometer,

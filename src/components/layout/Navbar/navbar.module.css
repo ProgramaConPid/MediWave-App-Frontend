@@ -1,3 +1,8 @@
+/*
+  Navbar Styles
+  -------------
+  Styles for the main navigation bar, including layout, logo, and mobile menu.
+*/
 .navbar {
   padding-block: 20px;
   border-bottom: 1px solid hsl(var(--border) / 0.5);

@@ -1,13 +1,16 @@
+/* Main container padding */
 .container {
   padding-top: 40px;
 }
 
+/* Navbar layout */
 .navbar__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Logo section styling */
 .navbar__logo {
   display: flex;
   gap: 0.6rem;
@@ -15,9 +18,9 @@
   animation: slideLeft 0.7s ease-out forwards;
 }
 
+/* Hexagonal logo container */
 .navbar__logoContainer {
   padding: 12px;
-  /* border-radius: 0.8rem; */
   background-color: hsl(var(--primary) / 0.2);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   width: 55px;
@@ -27,17 +30,20 @@
   justify-content: center;
 }
 
+/* Logo text container */
 .navbar__logoTexts {
   display: flex;
   flex-direction: column;
 }
 
+/* Logo icon styling */
 .navbar__logoIcon {
   font-size: 1.4rem;
   color: hsl(var(--primary));
   animation: pulse 2s ease-in-out infinite;
 }
 
+/* Logo title text */
 .navbar__textsTitle {
   color: hsl(var(--foreground));
   font-size: 1.5rem;
@@ -45,12 +51,14 @@
   font-weight: 700;
 }
 
+/* Logo subtitle text */
 .navbar__textsSpan {
   color: hsl(var(--muted-foreground));
   font-size: 0.8rem;
   font-weight: 300;
 }
 
+/* Navigation links container */
 .navbar__linksContainer {
   display: flex;
   align-items: center;
@@ -58,6 +66,7 @@
   animation: slideRight 0.7s ease-out forwards;
 }
 
+/* Individual link styling */
 .navbar__link {
   display: flex;
   align-items: center;
@@ -72,22 +81,26 @@
   text-decoration: none;
 }
 
+/* Link hover effect */
 .navbar__link:hover {
   transform: scale(1.2) rotate(15deg);
   color: hsl(var(--primary));
   background-color: hsl(var(--primary) / 0.1);
 }
 
+/* Link icon sizing */
 .navbar__link svg {
   font-size: 1.2rem;
 }
 
+/* Export buttons container */
 .exportButtons {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
+/* Export button styling */
 .exportBtn {
   display: flex;
   align-items: center;
@@ -104,27 +117,31 @@
   box-shadow: 0 2px 8px rgba(0, 188, 212, 0.3);
 }
 
+/* Export button hover state */
 .exportBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 188, 212, 0.5);
   background: linear-gradient(135deg, #00acc1 0%, #0097a7 100%);
 }
 
+/* Export button active state */
 .exportBtn:active {
   transform: translateY(0);
 }
 
+/* Export button icon */
 .exportBtn svg {
   font-size: 16px;
 }
 
-/* ========================= */
-/* ANIMACIONES */
-/* ========================= */
+/* ANIMATIONS */
+
+/* Fade in with scale animation class */
 .fadeInScale {
   animation: fadeInScale 0.6s ease-out forwards;
 }
 
+/* Fade in scale keyframes */
 @keyframes fadeInScale {
   0% {
     opacity: 0;
@@ -136,14 +153,17 @@
   }
 }
 
+/* Slide left animation class */
 .slideLeft {
   animation: slideLeft 0.7s ease-out forwards;
 }
 
+/* Slide right animation class */
 .slideRight {
   animation: slideRight 0.7s ease-out forwards;
 }
 
+/* Slide left keyframes */
 @keyframes slideLeft {
   0% {
     opacity: 0;
@@ -155,6 +175,7 @@
   }
 }
 
+/* Slide right keyframes */
 @keyframes slideRight {
   0% {
     opacity: 0;
@@ -166,10 +187,12 @@
   }
 }
 
+/* Pulse animation class */
 .pulse {
   animation: pulse 2s ease-in-out infinite;
 }
 
+/* Pulse keyframes */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -182,6 +205,7 @@
   }
 }
 
+/* Background gradient orbs */
 .gradientOrbs {
   position: fixed;
   inset: 0;
@@ -189,6 +213,7 @@
   pointer-events: none;
 }
 
+/* First gradient orb */
 .orb1 {
   position: absolute;
   top: -10rem;
@@ -201,6 +226,7 @@
   animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Second gradient orb */
 .orb2 {
   position: absolute;
   top: 33.333333%;
@@ -213,6 +239,7 @@
   animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Third gradient orb */
 .orb3 {
   position: absolute;
   bottom: -10rem;
@@ -225,6 +252,7 @@
   animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Stats grid layout */
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -232,11 +260,11 @@
   margin-bottom: 24px;
 }
 
-/* Selector de envío */
+/* Shipment selector styling */
 .shipmentSelector {
   margin-bottom: 24px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: hsl(var(--card)/0.4);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -246,6 +274,7 @@
   animation: slideUp 0.5s ease-out;
 }
 
+/* Selector label */
 .shipmentSelector label {
   color: hsl(var(--foreground));
   font-weight: 600;
@@ -253,10 +282,11 @@
   min-width: fit-content;
 }
 
+/* Dropdown select styling */
 .select {
   flex: 1;
   padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.3);
+  background: hsl(var(--background));
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   color: hsl(var(--foreground));
@@ -265,18 +295,20 @@
   transition: all 0.3s ease;
 }
 
+/* Select hover state */
 .select:hover {
   border-color: hsl(var(--primary));
   background: rgba(0, 0, 0, 0.4);
 }
 
+/* Select focus state */
 .select:focus {
   outline: none;
   border-color: hsl(var(--primary));
   box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1);
 }
 
-/* Loading states */
+/* Loading container */
 .loadingContainer,
 .errorContainer {
   min-height: 100vh;
@@ -286,11 +318,13 @@
   position: relative;
 }
 
+/* Loader styling */
 .loader {
   text-align: center;
   z-index: 10;
 }
 
+/* Spinner animation */
 .spinner {
   width: 60px;
   height: 60px;
@@ -301,18 +335,21 @@
   animation: spin 1s linear infinite;
 }
 
+/* Spin animation keyframes */
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
+/* Loader text */
 .loader p {
   color: hsl(var(--foreground));
   font-size: 16px;
   font-weight: 500;
 }
 
+/* Error message styling */
 .errorMessage {
   text-align: center;
   padding: 40px;
@@ -323,17 +360,20 @@
   z-index: 10;
 }
 
+/* Error title */
 .errorMessage h2 {
   color: #ff6b6b;
   font-size: 24px;
   margin-bottom: 12px;
 }
 
+/* Error description */
 .errorMessage p {
   color: hsl(var(--muted-foreground));
   font-size: 14px;
 }
 
+/* No data message */
 .noData {
   text-align: center;
   padding: 60px 20px;
@@ -341,6 +381,7 @@
   font-size: 16px;
 }
 
+/* Slide up animation */
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -352,12 +393,14 @@
   }
 }
 
+/* Footer styling */
 .footer {
   margin: 2.2rem 0 1.4rem 0;
   text-align: center;
   color: hsl(var(--muted-foreground));
 }
 
+/* Mobile responsive styles */
 @media (max-width: 768px) {
   .container {
     padding: 16px;
@@ -378,6 +421,7 @@
   }
 }
 
+/* Tablet responsive styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);

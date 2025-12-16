@@ -1,6 +1,7 @@
 import styles from "./CardItemInfo.module.css";
 import { CardItemInfoProps } from "@/interfaces/main";
 
+// Component for displaying various item statuses
 const CardItemInfo = ({
   icon,
   iconBg,
@@ -8,6 +9,7 @@ const CardItemInfo = ({
   productInfo,
   productDetails,
 }: CardItemInfoProps) => {
+  // Determine background color class for icon
   const iconBgColor = () => {
     if (iconBg === "blue") return styles.icon__blue;
     if (iconBg === "green") return styles.icon__green;
@@ -15,6 +17,7 @@ const CardItemInfo = ({
     return "";
   };
 
+  // Determine text color class based on title
   const detailsColor = () => {
     switch (title) {
       case "Lotes Activos":

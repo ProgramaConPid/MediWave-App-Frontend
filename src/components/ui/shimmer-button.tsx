@@ -12,6 +12,7 @@ export interface ShimmerButtonProps extends ComponentPropsWithoutRef<"button"> {
   children?: React.ReactNode;
 }
 
+// Button with animated shimmering effect
 export const ShimmerButton = React.forwardRef<
   HTMLButtonElement,
   ShimmerButtonProps

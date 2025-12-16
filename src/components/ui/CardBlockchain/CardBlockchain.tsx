@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import styles from "./CardBlockchain.module.css";
+// Icons
 import {
   FaRegCheckCircle,
   FaCheck,
@@ -14,6 +15,7 @@ import { useState } from "react";
 import { CardBlockchainProps } from "@/interfaces/main";
 import Link from "next/link";
 
+// Blockchain verification card component
 const CardBlockchain = ({
   onVerify,
   loading,
@@ -21,6 +23,7 @@ const CardBlockchain = ({
 }: CardBlockchainProps) => {
   const [value, setValue] = useState("");
 
+  // Handle verification request
   const handleClick = () => {
     if (!value.trim() || loading) return;
     onVerify(value.trim());

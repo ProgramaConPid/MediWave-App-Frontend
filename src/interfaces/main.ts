@@ -1,5 +1,6 @@
 import { JSX } from "react";
 
+// Interfaces for the main component
 export interface CardItemInfoProps {
   icon: JSX.Element;
   iconBg: "green" | "blue" | "glacier";

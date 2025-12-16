@@ -3,14 +3,19 @@ import { BsCursor } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import styles from "./TraceCard.module.css";
 
+// Component to visualize the traceability timeline
 const TraceCard = ({ timeline }: TraceCardProps) => {
-  const getIconContainerClass = (type: "origin" | "transit" | "destination") => {
+  // Helper to determine icon container class based on step type
+  const getIconContainerClass = (
+    type: "origin" | "transit" | "destination"
+  ) => {
     if (type === "origin") return styles.icon__containerOrigin;
     if (type === "transit") return styles.icon__containerTransit;
     if (type === "destination") return styles.icon__containerDestination;
     return "";
   };
 
+  // Helper to get display title based on step type
   const getTitleByType = (type: "origin" | "transit" | "destination") => {
     switch (type) {
       case "origin":
@@ -31,7 +36,6 @@ const TraceCard = ({ timeline }: TraceCardProps) => {
       <div className={styles.card__traceContainer}>
         {timeline.map((step, index) => (
           <div key={`${step.type}-${index}`} className={styles.card__traceStep}>
-
             <div
               className={`${styles.card__iconContainer} ${getIconContainerClass(
                 step.type
@@ -61,9 +65,7 @@ const TraceCard = ({ timeline }: TraceCardProps) => {
               </h3>
 
               {step.address && (
-                <p className={styles.card__traceInfoAddress}>
-                  {step.address}
-                </p>
+                <p className={styles.card__traceInfoAddress}>{step.address}</p>
               )}
 
               <p className={styles.card__traceInfoDatetime}>

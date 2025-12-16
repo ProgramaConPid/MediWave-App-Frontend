@@ -1,9 +1,11 @@
 "use client";
 
+// React and Next.js imports
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+// UI Components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+// Icon imports
 import {
   Droplets,
   ChevronLeft,
@@ -37,6 +40,7 @@ import {
   BookOpen,
   UserPlus,
 } from "lucide-react";
+// Layout and Background
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
@@ -45,17 +49,20 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 import RegisterForm from "@/components/ui/Login/RegisterForm/RegisterForm";
 import styles from "./management.module.css";
 
+// Defines which form is currently active in the management view
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
 
 const Management = () => {
   const [activeForm, setActiveForm] = useState<FormType>(null);
   const router = useRouter();
 
+  // Handle user sign out
   const handleSignOut = () => {
-    // Lógica de sign out simplificada
+    // Simplified sign out logic
     router.push("/");
   };
 
+  // Generic submit handler for all forms
   const handleSubmit = (e: React.FormEvent, formType: string) => {
     e.preventDefault();
     console.log(`${formType} registrado correctamente`);

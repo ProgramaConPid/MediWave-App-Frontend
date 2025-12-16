@@ -1,12 +1,14 @@
+/* Layout */
 .card__trace {
   width: 100%;
   padding: 20px;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius-base);
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   backdrop-filter: blur(24px);
 }
 
+/* Header */
 .card__traceTitle {
   color: hsl(var(--primary));
   font-size: 1.3rem;
@@ -14,12 +16,14 @@
   margin-bottom: 1.4rem;
 }
 
+/* Steps Container */
 .card__traceContainer {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
 }
 
+/* Icons */
 .card__iconContainer {
   width: 60px;
   height: 60px;
@@ -43,44 +47,51 @@
   background-color: hsl(var(--glacier));
 }
 
+/* Step Items */
 .card__traceStep {
   display: flex;
   gap: 1rem;
 }
 
+/* Text Info */
 .card__traceInfoTitle {
   color: hsl(var(--muted-foreground));
   font-weight: 500;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .card__traceInfoTitleModified {
   color: hsl(var(--accent));
   font-weight: 500;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .card__traceInfoPlace {
   color: hsl(var(--foreground));
   font-size: 1.125rem;
   font-weight: 500;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
 }
 
 .card__traceInfoDatetime {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: hsl(var(--muted-foreground));
 }
 
 .card__traceInfoTemp {
   color: hsl(var(--temp-optimal));
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
@@ -95,9 +106,15 @@
 }
 
 @keyframes pulseIcon {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.12); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .card__trace {
@@ -109,15 +126,22 @@
   animation: slideUp 0.55s ease-out forwards;
 }
 
-.card__traceStep:nth-child(1) { animation-delay: 0.1s; }
-.card__traceStep:nth-child(2) { animation-delay: 0.25s; }
-.card__traceStep:nth-child(3) { animation-delay: 0.4s; }
-.card__traceStep:nth-child(4) { animation-delay: 0.55s; }
+.card__traceStep:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.card__traceStep:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.card__traceStep:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.card__traceStep:nth-child(4) {
+  animation-delay: 0.55s;
+}
 
 .card__iconContainer {
   animation: pulseIcon 2.6s ease-in-out infinite;
 }
-
 
 .card__traceInfo {
   animation: slideUp 0.8s ease-out forwards;
@@ -125,5 +149,5 @@
 
 .card__traceInfoAddress {
   color: hsl(var(--muted-foreground));
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
 }

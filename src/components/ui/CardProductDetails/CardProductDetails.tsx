@@ -4,14 +4,18 @@ import { FaTemperatureArrowUp } from "react-icons/fa6";
 import { CardProductDetailsProps } from "@/interfaces/main";
 import { LuShield } from "react-icons/lu";
 
+// Component to display detailed product information
 const CardProductDetails = ({
   productId,
   productName,
   productTag,
   currentTemp,
   manufacturer,
-  description
-}: CardProductDetailsProps & { manufacturer?: string; description?: string }) => {
+  description,
+}: CardProductDetailsProps & {
+  manufacturer?: string;
+  description?: string;
+}) => {
   return (
     <div className={styles.card__product}>
       <div className={styles.card__productHeader}>
@@ -48,8 +52,16 @@ const CardProductDetails = ({
         <div className={styles.card__bodyInfo}>
           <LuInfo className={styles.card__infoIcon} />
           <div className={styles.card__infoText}>
-            {manufacturer && <p className={styles.card__manufacturer}>Fabricante: {manufacturer}</p>}
-            {description && <p className={styles.card__description}>Descripción: {description}</p>}
+            {manufacturer && (
+              <p className={styles.card__manufacturer}>
+                Fabricante: {manufacturer}
+              </p>
+            )}
+            {description && (
+              <p className={styles.card__description}>
+                Descripción: {description}
+              </p>
+            )}
           </div>
         </div>
       )}

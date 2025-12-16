@@ -1,11 +1,13 @@
+/* Layout */
 .timelineContainer {
   padding: 20px;
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   border-radius: var(--radius-base);
   border: 1px solid hsl(var(--border));
-  backdrop-filter: blur(24px)
+  backdrop-filter: blur(24px);
 }
 
+/* Title */
 .title {
   font-size: 20px;
   font-weight: 700;
@@ -13,12 +15,14 @@
   margin: 0 0 24px 0;
 }
 
+/* Timeline Line */
 .timeline {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
+/* Event Item */
 .eventItem {
   display: flex;
   gap: 20px;
@@ -33,6 +37,7 @@
   position: relative;
 }
 
+/* Indicators (Dots) */
 .eventDot {
   width: 16px;
   height: 16px;
@@ -53,6 +58,7 @@
   margin-bottom: 4px;
 }
 
+/* Card Styles */
 .eventCard {
   flex: 1;
   background: rgba(0, 0, 0, 0.2);
@@ -78,6 +84,7 @@
   flex-wrap: wrap;
 }
 
+/* Text Info */
 .eventTitle {
   font-size: 16px;
   font-weight: 600;
@@ -112,6 +119,7 @@
   line-height: 1.5;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .timelineContainer {
     padding: 16px;

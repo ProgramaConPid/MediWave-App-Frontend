@@ -3,21 +3,22 @@ import { FaTemperatureHigh } from "react-icons/fa6";
 import { FaRegCheckCircle } from "react-icons/fa";
 
 interface AlertToastProps {
-  type: "alert" | "success" | "info"; // puedes agregar más tipos si quieres
+  type: "alert" | "success" | "info"; // Type determines styling and icon
   description: string;
   timestamp?: string;
 }
 
+// Toast notification component with dynamic styling
 const AlertToast = ({ type, description, timestamp }: AlertToastProps) => {
-  // Determinar clase según el tipo
+  // Determine CSS class based on alert type
   const alertClass =
     type === "success"
       ? `${styles.alert} ${styles.success}`
       : type === "info"
       ? `${styles.alert} ${styles.info}`
-      : styles.alert; // por defecto alert roja
+      : styles.alert; // Default to red alert
 
-  // Icono dinámico según tipo
+  // Dynamic icon selection
   const Icon = type === "success" ? FaRegCheckCircle : FaTemperatureHigh;
 
   return (
@@ -27,7 +28,9 @@ const AlertToast = ({ type, description, timestamp }: AlertToastProps) => {
       </div>
 
       <div className={styles.content}>
-        <h4>{type === "alert" ? "Alerta" : type === "success" ? "Éxito" : "Info"}</h4>
+        <h4>
+          {type === "alert" ? "Alerta" : type === "success" ? "Éxito" : "Info"}
+        </h4>
         <p>{description}</p>
 
         {timestamp && <span className={styles.temp}>{timestamp}</span>}
