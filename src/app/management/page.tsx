@@ -50,6 +50,8 @@ import {
 // Layout and Background
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
+import AlertToast from "@/components/ui/AlertToast/AlertToast";
+import { Loader2 } from "lucide-react";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import ParticlesBackground from "@/components/ParticlesBackground";
@@ -60,7 +62,23 @@ import styles from "./management.module.css";
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
 
 const Management = () => {
-  const [activeForm, setActiveForm] = useState<FormType>(null);
+  const [activeForm, setActiveForm] = useState<FormType | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alertState, setAlertState] = useState<{
+    show: boolean;
+    type: "alert" | "success" | "info";
+    message: string;
+  }>({ show: false, type: "info", message: "" });
+  
+  // Close alert after 3 seconds
+  useEffect(() => {
+    if (alertState.show) {
+      const timer = setTimeout(() => {
+        setAlertState((prev) => ({ ...prev, show: false }));
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [alertState.show]);
   const router = useRouter();
 
   // Handle user sign out
@@ -70,10 +88,13 @@ const Management = () => {
   };
 
   // Generic submit handler for all forms
-  const handleSubmit = async (e: React.FormEvent, formType: string) => {
+  const handleSubmit = async (e: React.FormEvent, formDisplayName: string) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
+
+    setIsLoading(true);
+    setAlertState({ show: false, type: "info", message: "" });
 
     try {
       switch (activeForm) {
@@ -123,11 +144,22 @@ const Management = () => {
           });
           break;
       }
-      alert(`${formType} registrado correctamente`);
-      setActiveForm(null);
+      setAlertState({
+        show: true,
+        type: "success",
+        message: `${formDisplayName} registrado correctamente`,
+      });
+      // Optional: keep form open or close it. Closing it for now as per original logic.
+      setTimeout(() => setActiveForm(null), 1500); 
     } catch (error) {
-      console.error(`Error registering ${formType}:`, error);
-      alert(`Error al registrar ${formType}`);
+      console.error(`Error registering ${formDisplayName}:`, error);
+      setAlertState({
+        show: true,
+        type: "alert",
+        message: `Error al registrar ${formDisplayName}`,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -208,6 +240,17 @@ const Management = () => {
             style={{ animationDelay: "4s" }}
           />
         </div>
+
+        {/* Alert Toast */}
+        {alertState.show && (
+            <div className="fixed top-24 right-8 z-50 animate-in slide-in-from-right-full fade-in duration-300">
+                <AlertToast 
+                    type={alertState.type} 
+                    description={alertState.message} 
+                    timestamp="Justo ahora"
+                />
+            </div>
+        )}
 
         {/* Main Content */}
         <main className={styles.mainContent}>
@@ -423,11 +466,21 @@ const Management = () => {
                     </Button>
                     <Button
                       type="submit"
+                      disabled={isLoading}
                       style={{ backgroundColor: "hsl(var(--primary))" }}
-                      className="flex-1 cursor-pointer text-primary-foreground"
+                      className="flex-1 cursor-pointer text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Registrar Medicamento
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Registrando...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Registrar Medicamento
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -618,11 +671,21 @@ const Management = () => {
                     </Button>
                     <Button
                       type="submit"
+                      disabled={isLoading}
                       style={{ backgroundColor: "hsl(var(--primary))" }}
-                      className="flex-1 cursor-pointer text-primary-foreground"
+                      className="flex-1 cursor-pointer text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Crear Lote
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Creando...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Crear Lote
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -833,11 +896,21 @@ const Management = () => {
                     </Button>
                     <Button
                       type="submit"
+                      disabled={isLoading}
                       style={{ backgroundColor: "hsl(var(--primary))" }}
-                      className="flex-1 cursor-pointer text-primary-foreground"
+                      className="flex-1 cursor-pointer text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Crear Envío
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Creando...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Crear Envío
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
