@@ -49,30 +49,39 @@ export interface EventTimelineProps {
 
 // Interfaces de la API Backend
 export interface Medication {
-  id: string;
+  id: number | string;
   name: string;
+  dosage?: string;
   description?: string;
   manufacturer?: string;
+  min_temperature?: number;
+  max_temperature?: number;
   temperatureMin?: number;
   temperatureMax?: number;
-  createdAt: string;
-  updatedAt: string;
+  batches?: Batch[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Batch {
-  id: string;
-  medicationId: string;
-  batchNumber: string;
-  quantity: number;
-  manufactureDate: string;
-  expirationDate: string;
+  id: number | string;
+  medication_id?: number | string;
+  medicationId?: number | string;
+  lot_number?: string;
+  batchNumber?: string;
+  quantity?: number;
+  production_date?: string;
+  manufactureDate?: string;
+  expiry_date?: string;
+  expirationDate?: string;
+  blockchain_hash?: string;
   medication?: Medication;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Location {
-  id: string;
+  id: string | number;
   name: string;
   address?: string;
   city?: string;
@@ -82,32 +91,41 @@ export interface Location {
 }
 
 export interface Shipment {
-  id: string;
-  batchId: string;
-  originLocationId: string;
-  destinationLocationId: string;
+  id: string | number;
+  batch_id?: string | number;
+  batchId?: string | number;
+  origin_location_id?: string | number;
+  originLocationId?: string | number;
+  destination_location_id?: string | number;
+  destinationLocationId?: string | number;
   status: string;
+  departure_date?: string;
   departureDate?: string;
+  arrival_date?: string;
   arrivalDate?: string;
   batch?: Batch;
   originLocation?: Location;
+  origin_location?: Location;
   destinationLocation?: Location;
-  createdAt: string;
-  updatedAt: string;
+  destination_location?: Location;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface StateHistory {
-  id: string;
-  shipmentId: string;
+  id: string | number;
+  shipment_id?: string | number;
+  shipmentId?: string | number;
   temperature?: number;
   humidity?: number;
-  locationId?: string;
+  location_id?: string | number;
+  locationId?: string | number;
   status: string;
   timestamp: string;
   location?: Location;
   shipment?: Shipment;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // Interfaces para las respuestas de la API

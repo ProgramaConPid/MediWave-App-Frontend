@@ -57,6 +57,23 @@
   font-weight: 700;
 }
 
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px dashed rgba(0, 188, 212, 0.3);
+}
+
+.emptyMessage {
+  color: #8ab4d5;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .chartContainer {
     padding: 16px;

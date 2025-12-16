@@ -260,7 +260,7 @@ const Index = () => {
                 className={styles.footerIcon}
               />
               <span className={styles.footerText}>
-                © 2024 MedChain. Blockchain Pharmaceutical Traceability.
+                © 2025 MedChain. Blockchain Pharmaceutical Traceability.
               </span>
             </div>
             <div className={styles.footerStatus}>

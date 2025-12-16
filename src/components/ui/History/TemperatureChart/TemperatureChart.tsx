@@ -16,11 +16,16 @@ import styles from './TemperatureChart.module.css';
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
+    const tempValue = payload[0].value;
+    const formattedTemp = typeof tempValue === 'number' 
+      ? tempValue.toFixed(3) 
+      : tempValue;
+    
     return (
       <div className={styles.tooltip}>
         <p className={styles.tooltipTime}>{payload[0].payload.time}</p>
         <p className={styles.tooltipValue}>
-          Temperatura: <strong>{payload[0].value}°C</strong>
+          Temperatura: <strong>{formattedTemp}°C</strong>
         </p>
       </div>
     );
@@ -29,6 +34,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
 };
 
 const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
+  const hasData = data && data.length > 0;
 
   return (
     <div className={styles.chartContainer}>
@@ -40,6 +46,11 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
       </div>
 
       <div className={styles.chartWrapper}>
+        {!hasData ? (
+          <div className={styles.emptyState}>
+            <p className={styles.emptyMessage}>No hay datos de temperatura disponibles</p>
+          </div>
+        ) : (
         <ResponsiveContainer width="100%" height={450}>
           <LineChart
             data={data}
@@ -87,6 +98,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
             />
           </LineChart>
         </ResponsiveContainer>
+        )}
       </div>
     </div>
   );

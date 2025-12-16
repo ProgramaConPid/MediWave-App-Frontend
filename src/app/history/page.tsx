@@ -23,13 +23,12 @@ import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
-import { getCompleteHistory, getAllShipments } from "@/services/historialService";
+import { getCompleteHistory, getMedicationBatchOptions } from "@/services/historialService";
 import {
   VaccineHeaderProps,
   StatsCardProps,
   TemperatureDataPoint,
   TimelineEvent,
-  Shipment,
 } from "@/interfaces/historial";
 
 // Mapeo de iconos para las stats
@@ -47,32 +46,36 @@ export default function HistorialPage() {
   const [eventsData, setEventsData] = useState<TimelineEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [shipments, setShipments] = useState<Shipment[]>([]);
-  const [selectedShipmentId, setSelectedShipmentId] = useState<string | null>(null);
+  const [medicationOptions, setMedicationOptions] = useState<
+    Array<{ medicationId: number | string; batchId: number | string; label: string }>
+  >([]);
+  const [selectedMedicationId, setSelectedMedicationId] = useState<string | null>(null);
+  const [selectedBatchId, setSelectedBatchId] = useState<string | null>(null);
 
-  const fetchShipments = async () => {
+  const fetchMedicationOptions = async () => {
     try {
-      const shipmentsData = await getAllShipments();
-      setShipments(shipmentsData);
+      const options = await getMedicationBatchOptions();
+      setMedicationOptions(options);
 
-      console.log("Shipments cargados:", shipmentsData);
+      console.log("Medicamentos cargados:", options);
 
-      // Si no hay shipment seleccionado y hay envíos disponibles, seleccionar el primero
-      if (!selectedShipmentId && shipmentsData.length > 0) {
-        setSelectedShipmentId(shipmentsData[0].id);
+      // Si hay opciones disponibles, seleccionar la primera
+      if (options.length > 0) {
+        setSelectedMedicationId(options[0].medicationId.toString());
+        setSelectedBatchId(options[0].batchId.toString());
       }
     } catch (err) {
-      console.error("Error al cargar envíos:", err);
-      setError("No se pudieron cargar los envíos disponibles");
+      console.error("Error al cargar medicamentos:", err);
+      setError("No se pudieron cargar los medicamentos disponibles");
     }
   };
 
-  const fetchHistorial = async (shipmentId: string) => {
+  const fetchHistorial = async (medicationId: string, batchId: string) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await getCompleteHistory(shipmentId);
+      const data = await getCompleteHistory(medicationId, batchId);
       setVaccineData(data.vaccine);
       setStatsData(data.stats);
       setTemperatureData(data.temperatureData);
@@ -88,25 +91,32 @@ export default function HistorialPage() {
   };
 
   useEffect(() => {
-    fetchShipments();
+    fetchMedicationOptions();
   }, []);
 
   useEffect(() => {
-    if (selectedShipmentId) {
-      fetchHistorial(selectedShipmentId);
+    if (selectedMedicationId && selectedBatchId) {
+      fetchHistorial(selectedMedicationId, selectedBatchId);
     }
-  }, [selectedShipmentId]);
+  }, [selectedMedicationId, selectedBatchId]);
 
   // Función para generar el PDF con datos estructurados
   const handleExportPDF = async () => {
     if (!vaccineData) return;
+
+    // Obtener el nombre del medicamento del label seleccionado
+    const selectedOption = medicationOptions.find(
+      opt => opt.medicationId.toString() === selectedMedicationId && opt.batchId.toString() === selectedBatchId
+    );
+    const medicationName = selectedOption?.label.split(' - ')[0] || 'Medicamento';
 
     await generateStructuredPDF(
       vaccineData,
       statsData,
       temperatureData,
       eventsData,
-      `historial-${vaccineData.vaccineId}`
+      `historial-${vaccineData.vaccineId}`,
+      medicationName
     );
   };
 
@@ -173,19 +183,23 @@ export default function HistorialPage() {
       </div>
 
       <div className={`container ${styles.container}`}>
-        {/* Selector de envío */}
-        {shipments.length > 0 && (
+        {/* Selector de medicamento */}
+        {medicationOptions.length > 0 && (
           <div className={styles.shipmentSelector}>
-            <label htmlFor="shipment-select">Seleccionar Envío:</label>
+            <label htmlFor="medication-select">Seleccionar Medicamento:</label>
             <select
-              id="shipment-select"
-              value={selectedShipmentId || ''}
-              onChange={(e) => setSelectedShipmentId(e.target.value)}
+              id="medication-select"
+              value={`${selectedMedicationId}-${selectedBatchId}` || ''}
+              onChange={(e) => {
+                const [medicationId, batchId] = e.target.value.split('-');
+                setSelectedMedicationId(medicationId);
+                setSelectedBatchId(batchId);
+              }}
               className={styles.select}
             >
-              {shipments.map((shipment) => (
-                <option key={shipment.id} value={shipment.id}>
-                  {shipment.batch?.medication?.name || 'Medicamento'} - {shipment.batch?.batchNumber || shipment.id}
+              {medicationOptions.map((option) => (
+                <option key={`${option.medicationId}-${option.batchId}`} value={`${option.medicationId}-${option.batchId}`}>
+                  {option.label}
                 </option>
               ))}
             </select>
@@ -206,11 +220,9 @@ export default function HistorialPage() {
             ))}
           </div>
 
-          {temperatureData.length > 0 && (
-            <TemperatureChart data={temperatureData} />
-          )}
+          <TemperatureChart data={temperatureData} />
 
-          {eventsData.length > 0 && <EventTimeline events={eventsData} />}
+          <EventTimeline events={eventsData} />
 
           {!vaccineData && !loading && (
             <div className={styles.noData}>
