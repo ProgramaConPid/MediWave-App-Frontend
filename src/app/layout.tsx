@@ -1,6 +1,8 @@
 import { montserrat } from "./fonts/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "MediWave App",
@@ -14,7 +16,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} antialiased`}>{children}</body>
+      <body className={`${montserrat.className} antialiased`}>{children}
+        <ToastContainer
+        position="top-right"
+        autoClose={6000}
+        hideProgressBar
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="dark"
+      />
+      </body>
     </html>
   );
 }

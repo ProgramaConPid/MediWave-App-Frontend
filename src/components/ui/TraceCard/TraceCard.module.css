@@ -122,3 +122,8 @@
 .card__traceInfo {
   animation: slideUp 0.8s ease-out forwards;
 }
+
+.card__traceInfoAddress {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: .3rem;
+}

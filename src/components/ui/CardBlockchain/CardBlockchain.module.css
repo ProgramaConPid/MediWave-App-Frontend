@@ -8,6 +8,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .card__blockchainHeader {
@@ -68,7 +70,7 @@
 }
 
 .card__blockchainBlockId {
-  margin-top: 1rem  ;
+  margin-top: .5rem;
   text-overflow: clip;
 }
 
@@ -91,6 +93,11 @@
   transition: 400ms ease;
 }
 
+.transaction__button {
+  display: flex;
+  gap: 1rem;
+}
+
 .card__blockchainHashId:focus {
   outline: 1px solid hsl(var(--primary));
 }
@@ -107,6 +114,6 @@
   display: flex;
   gap: 1rem;
   width: 100%;
-  margin-top: 1rem;
 }
+
 

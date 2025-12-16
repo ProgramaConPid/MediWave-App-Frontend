@@ -1,14 +1,27 @@
-import { TraceCardProps } from "@/interfaces/main";
+import { TraceCardProps } from "@/interfaces/blockchain";
 import { BsCursor } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import styles from "./TraceCard.module.css";
 
 const TraceCard = ({ timeline }: TraceCardProps) => {
-  const verifyStep = (type: string) => {
+  const getIconContainerClass = (type: "origin" | "transit" | "destination") => {
     if (type === "origin") return styles.icon__containerOrigin;
     if (type === "transit") return styles.icon__containerTransit;
     if (type === "destination") return styles.icon__containerDestination;
     return "";
+  };
+
+  const getTitleByType = (type: "origin" | "transit" | "destination") => {
+    switch (type) {
+      case "origin":
+        return "Origen";
+      case "transit":
+        return "En tránsito";
+      case "destination":
+        return "Destino";
+      default:
+        return "";
+    }
   };
 
   return (
@@ -17,33 +30,51 @@ const TraceCard = ({ timeline }: TraceCardProps) => {
 
       <div className={styles.card__traceContainer}>
         {timeline.map((step, index) => (
-          <div key={index} className={styles.card__traceStep}>
-            <div className={`${styles.card__iconContainer} ${verifyStep(step.type)}`}>
-              {step.type === "origin" || step.type === "destination" ? (
-                <SlLocationPin className={styles.card__traceIcon} />
-              ) : (
+          <div key={`${step.type}-${index}`} className={styles.card__traceStep}>
+
+            <div
+              className={`${styles.card__iconContainer} ${getIconContainerClass(
+                step.type
+              )}`}
+            >
+              {step.type === "transit" ? (
                 <BsCursor className={styles.card__traceIcon} />
+              ) : (
+                <SlLocationPin className={styles.card__traceIcon} />
               )}
             </div>
+
             <div className={styles.card__traceInfo}>
               <span
-                className={`${step.type === "transit"
+                className={
+                  step.type === "transit"
                     ? styles.card__traceInfoTitleModified
                     : styles.card__traceInfoTitle
-                  }`}
+                }
               >
-                {step.type === "origin" && "Origin"}
-                {step.type === "destination" && "Destination"}
-                {step.type === "transit" && "En Tránsito"}
+                {getTitleByType(step.type)}
               </span>
 
               <h3 className={styles.card__traceInfoPlace}>
-                {step.place}, {step.country}
+                {step.place}
+                {step.country && `, ${step.country}`}
               </h3>
 
-              <p className={styles.card__traceInfoDatetime}>{step.datetime}</p>
+              {step.address && (
+                <p className={styles.card__traceInfoAddress}>
+                  {step.address}
+                </p>
+              )}
 
-              {step.temperature && <span className={styles.card__traceInfoTemp}>Temp: {step.temperature}°C</span>}
+              <p className={styles.card__traceInfoDatetime}>
+                {step.datetime || "—"}
+              </p>
+
+              {step.temperature !== undefined && (
+                <span className={styles.card__traceInfoTemp}>
+                  Temp: {step.temperature}°C
+                </span>
+              )}
             </div>
           </div>
         ))}
