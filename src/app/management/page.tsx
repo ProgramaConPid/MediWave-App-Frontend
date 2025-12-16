@@ -39,10 +39,19 @@ import {
   Database,
   BookOpen,
   UserPlus,
+  Activity,
+  User,
 } from "lucide-react";
+import {
+  createMedicine,
+  createBatch,
+  createShipment,
+} from "@/services/managementService";
 // Layout and Background
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
+import AlertToast from "@/components/ui/AlertToast/AlertToast";
+import { Loader2 } from "lucide-react";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import ParticlesBackground from "@/components/ParticlesBackground";
@@ -53,7 +62,23 @@ import styles from "./management.module.css";
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
 
 const Management = () => {
-  const [activeForm, setActiveForm] = useState<FormType>(null);
+  const [activeForm, setActiveForm] = useState<FormType | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alertState, setAlertState] = useState<{
+    show: boolean;
+    type: "alert" | "success" | "info";
+    message: string;
+  }>({ show: false, type: "info", message: "" });
+  
+  // Close alert after 3 seconds
+  useEffect(() => {
+    if (alertState.show) {
+      const timer = setTimeout(() => {
+        setAlertState((prev) => ({ ...prev, show: false }));
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [alertState.show]);
   const router = useRouter();
 
   // Handle user sign out
@@ -63,10 +88,79 @@ const Management = () => {
   };
 
   // Generic submit handler for all forms
-  const handleSubmit = (e: React.FormEvent, formType: string) => {
+  const handleSubmit = async (e: React.FormEvent, formDisplayName: string) => {
     e.preventDefault();
-    console.log(`${formType} registrado correctamente`);
-    setActiveForm(null);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+
+    setIsLoading(true);
+    setAlertState({ show: false, type: "info", message: "" });
+
+    try {
+      switch (activeForm) {
+        case "medicine":
+          await createMedicine({
+            name: data.name as string,
+            code: data.code as string,
+            manufacturer: data.manufacturer as string,
+            category: data.category as string,
+            tempMin: Number(data.tempMin),
+            tempMax: Number(data.tempMax),
+            description: data.description as string,
+          });
+          break;
+        case "batch":
+          await createBatch({
+            batchNumber: data.batchNumber as string,
+            medicineId: data.medicineId as string,
+            quantity: Number(data.quantity),
+            productionDate: data.productionDate as string,
+            expiryDate: data.expiryDate as string,
+            plant: data.plant as string,
+            notes: data.notes as string,
+          });
+          break;
+        case "shipment":
+          const batchIdsString = data.batch_ids as string;
+          const batchIds = batchIdsString
+            ? batchIdsString
+                .split(",")
+                .map((id) => Number(id.trim()))
+                .filter((id) => !isNaN(id))
+            : [];
+
+          await createShipment({
+            departure_date: new Date(
+              data.departure_date as string
+            ).toISOString(),
+            arrival_date: new Date(data.arrival_date as string).toISOString(),
+            min_temperature: Number(data.min_temperature),
+            max_temperature: Number(data.max_temperature),
+            status: data.status as string,
+            origin_location_id: Number(data.origin_location_id),
+            destination_location_id: Number(data.destination_location_id),
+            operator_id: Number(data.operator_id),
+            batch_ids: batchIds,
+          });
+          break;
+      }
+      setAlertState({
+        show: true,
+        type: "success",
+        message: `${formDisplayName} registrado correctamente`,
+      });
+      // Optional: keep form open or close it. Closing it for now as per original logic.
+      setTimeout(() => setActiveForm(null), 1500); 
+    } catch (error) {
+      console.error(`Error registering ${formDisplayName}:`, error);
+      setAlertState({
+        show: true,
+        type: "alert",
+        message: `Error al registrar ${formDisplayName}`,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const formConfigs = [
@@ -146,6 +240,17 @@ const Management = () => {
             style={{ animationDelay: "4s" }}
           />
         </div>
+
+        {/* Alert Toast */}
+        {alertState.show && (
+            <div className="fixed top-24 right-8 z-50 animate-in slide-in-from-right-full fade-in duration-300">
+                <AlertToast 
+                    type={alertState.type} 
+                    description={alertState.message} 
+                    timestamp="Justo ahora"
+                />
+            </div>
+        )}
 
         {/* Main Content */}
         <main className={styles.mainContent}>
@@ -239,7 +344,7 @@ const Management = () => {
                         Nombre del Medicamento
                       </Label>
                       <Input
-                        id="med-name"
+                        name="name"
                         placeholder="Ej: Insulina Glargina"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -254,7 +359,7 @@ const Management = () => {
                         Código NDC
                       </Label>
                       <Input
-                        id="med-code"
+                        name="code"
                         placeholder="Ej: 0002-7714-01"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -272,7 +377,7 @@ const Management = () => {
                         Fabricante
                       </Label>
                       <Input
-                        id="med-manufacturer"
+                        name="manufacturer"
                         placeholder="Ej: Laboratorios XYZ"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -286,7 +391,7 @@ const Management = () => {
                         <Layers className="w-4 h-4 text-glacier" />
                         Categoría
                       </Label>
-                      <Select required>
+                      <Select name="category" required>
                         <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                           <SelectValue placeholder="Seleccionar categoría" />
                         </SelectTrigger>
@@ -310,7 +415,7 @@ const Management = () => {
                         Temp. Mínima (°C)
                       </Label>
                       <Input
-                        id="med-temp-min"
+                        name="tempMin"
                         type="number"
                         placeholder="Ej: 2"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
@@ -326,7 +431,7 @@ const Management = () => {
                         Temp. Máxima (°C)
                       </Label>
                       <Input
-                        id="med-temp-max"
+                        name="tempMax"
                         type="number"
                         placeholder="Ej: 8"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
@@ -344,7 +449,7 @@ const Management = () => {
                       Descripción
                     </Label>
                     <Textarea
-                      id="med-description"
+                      name="description"
                       placeholder="Descripción detallada del medicamento..."
                       className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50 min-h-[100px]"
                     />
@@ -361,11 +466,21 @@ const Management = () => {
                     </Button>
                     <Button
                       type="submit"
+                      disabled={isLoading}
                       style={{ backgroundColor: "hsl(var(--primary))" }}
-                      className="flex-1 cursor-pointer text-primary-foreground"
+                      className="flex-1 cursor-pointer text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Registrar Medicamento
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Registrando...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Registrar Medicamento
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -417,7 +532,7 @@ const Management = () => {
                         Número de Lote
                       </Label>
                       <Input
-                        id="batch-number"
+                        name="batchNumber"
                         placeholder="Ej: LOT-2024-001234"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -431,7 +546,7 @@ const Management = () => {
                         <Pill className="w-4 h-4 text-glacier" />
                         Medicamento
                       </Label>
-                      <Select required>
+                      <Select name="medicineId" required>
                         <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                           <SelectValue placeholder="Seleccionar medicamento" />
                         </SelectTrigger>
@@ -463,7 +578,7 @@ const Management = () => {
                         Cantidad de Unidades
                       </Label>
                       <Input
-                        id="batch-quantity"
+                        name="quantity"
                         type="number"
                         placeholder="Ej: 5000"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
@@ -479,7 +594,7 @@ const Management = () => {
                         Fecha de Producción
                       </Label>
                       <Input
-                        id="batch-production"
+                        name="productionDate"
                         type="date"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -497,7 +612,7 @@ const Management = () => {
                         Fecha de Vencimiento
                       </Label>
                       <Input
-                        id="batch-expiry"
+                        name="expiryDate"
                         type="date"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -511,7 +626,7 @@ const Management = () => {
                         <Building className="w-4 h-4 text-glacier" />
                         Planta de Producción
                       </Label>
-                      <Select required>
+                      <Select name="plant" required>
                         <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
                           <SelectValue placeholder="Seleccionar planta" />
                         </SelectTrigger>
@@ -539,7 +654,7 @@ const Management = () => {
                       Notas de Producción
                     </Label>
                     <Textarea
-                      id="batch-notes"
+                      name="notes"
                       placeholder="Observaciones del proceso de producción..."
                       className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50 min-h-[100px]"
                     />
@@ -556,11 +671,21 @@ const Management = () => {
                     </Button>
                     <Button
                       type="submit"
+                      disabled={isLoading}
                       style={{ backgroundColor: "hsl(var(--primary))" }}
-                      className="flex-1 cursor-pointer text-primary-foreground"
+                      className="flex-1 cursor-pointer text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Crear Lote
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Creando...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Crear Lote
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -604,91 +729,15 @@ const Management = () => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label
-                        htmlFor="ship-tracking"
-                        className="flex items-center gap-2 text-white"
-                      >
-                        <Hash className="w-4 h-4 text-glacier" />
-                        Número de Tracking
-                      </Label>
-                      <Input
-                        id="ship-tracking"
-                        placeholder="Ej: TRK-2024-789456"
-                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="ship-batch"
-                        className="flex items-center gap-2 text-white"
-                      >
-                        <Layers className="w-4 h-4 text-glacier" />
-                        Lote a Enviar
-                      </Label>
-                      <Select required>
-                        <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
-                          <SelectValue placeholder="Seleccionar lote" />
-                        </SelectTrigger>
-                        <SelectContent className="glass-strong border-border/50 bg-slate-900">
-                          <SelectItem value="lot-001">
-                            LOT-2024-001234 - Insulina
-                          </SelectItem>
-                          <SelectItem value="lot-002">
-                            LOT-2024-001235 - Vacuna
-                          </SelectItem>
-                          <SelectItem value="lot-003">
-                            LOT-2024-001236 - Hormona
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="ship-origin"
-                        className="flex items-center gap-2 text-white"
-                      >
-                        <MapPin className="w-4 h-4 text-glacier" />
-                        Origen
-                      </Label>
-                      <Input
-                        id="ship-origin"
-                        placeholder="Ej: Madrid, España"
-                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="ship-destination"
-                        className="flex items-center gap-2 text-white"
-                      >
-                        <MapPin className="w-4 h-4 text-glacier" />
-                        Destino
-                      </Label>
-                      <Input
-                        id="ship-destination"
-                        placeholder="Ej: Barcelona, España"
-                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="ship-date"
+                       <Label
+                        htmlFor="departure_date"
                         className="flex items-center gap-2 text-white"
                       >
                         <Calendar className="w-4 h-4 text-glacier" />
-                        Fecha de Salida
+                        Fecha Salida
                       </Label>
                       <Input
-                        id="ship-date"
+                        name="departure_date"
                         type="datetime-local"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
@@ -696,85 +745,143 @@ const Management = () => {
                     </div>
                     <div className="space-y-2">
                       <Label
-                        htmlFor="ship-carrier"
+                        htmlFor="arrival_date"
                         className="flex items-center gap-2 text-white"
                       >
-                        <Truck className="w-4 h-4 text-glacier" />
-                        Transportista
+                        <Calendar className="w-4 h-4 text-glacier" />
+                        Fecha Llegada
                       </Label>
-                      <Select required>
-                        <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
-                          <SelectValue placeholder="Seleccionar transportista" />
-                        </SelectTrigger>
-                        <SelectContent className="glass-strong border-border/50 bg-slate-900">
-                          <SelectItem value="coldchain-express">
-                            ColdChain Express
-                          </SelectItem>
-                          <SelectItem value="pharma-logistics">
-                            Pharma Logistics
-                          </SelectItem>
-                          <SelectItem value="bio-transport">
-                            Bio Transport
-                          </SelectItem>
-                          <SelectItem value="cryo-ship">
-                            CryoShip International
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Input
+                        name="arrival_date"
+                        type="datetime-local"
+                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label
-                        htmlFor="ship-temp-set"
+                        htmlFor="min_temperature"
                         className="flex items-center gap-2 text-white"
                       >
-                        <Thermometer className="w-4 h-4 text-glacier" />
-                        Temperatura Objetivo (°C)
+                         <Thermometer className="w-4 h-4 text-glacier" />
+                        Temp. Mínima
                       </Label>
                       <Input
-                        id="ship-temp-set"
+                        name="min_temperature"
                         type="number"
-                        placeholder="Ej: 5"
+                        placeholder="Ej: -15"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
                       />
                     </div>
                     <div className="space-y-2">
                       <Label
-                        htmlFor="ship-priority"
+                        htmlFor="max_temperature"
                         className="flex items-center gap-2 text-white"
                       >
-                        <Clock className="w-4 h-4 text-glacier" />
-                        Prioridad
+                         <Thermometer className="w-4 h-4 text-glacier" />
+                        Temp. Máxima
                       </Label>
-                      <Select required>
-                        <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
-                          <SelectValue placeholder="Seleccionar prioridad" />
-                        </SelectTrigger>
-                        <SelectContent className="glass-strong border-border/50 bg-slate-900">
-                          <SelectItem value="normal">Normal</SelectItem>
-                          <SelectItem value="high">Alta</SelectItem>
-                          <SelectItem value="urgent">Urgente</SelectItem>
-                          <SelectItem value="critical">Crítica</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Input
+                        name="max_temperature"
+                        type="number"
+                        placeholder="Ej: -5"
+                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <Label
+                          htmlFor="status"
+                          className="flex items-center gap-2 text-white"
+                        >
+                          <Activity className="w-4 h-4 text-glacier" />
+                          Estado
+                        </Label>
+                        <Select name="status" defaultValue="IN_TRANSIT" required>
+                          <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
+                            <SelectValue placeholder="Seleccionar estado" />
+                          </SelectTrigger>
+                          <SelectContent className="glass-strong border-border/50 bg-slate-900">
+                            <SelectItem value="PENDING">Pendiente</SelectItem>
+                            <SelectItem value="IN_TRANSIT">En Tránsito</SelectItem>
+                            <SelectItem value="DELIVERED">Entregado</SelectItem>
+                            <SelectItem value="CANCELLED">Cancelado</SelectItem>
+                          </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="operator_id"
+                        className="flex items-center gap-2 text-white"
+                      >
+                         <User className="w-4 h-4 text-glacier" />
+                        ID Operador
+                      </Label>
+                      <Input
+                        name="operator_id"
+                        type="number"
+                        placeholder="Ej: 1"
+                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="origin_location_id"
+                        className="flex items-center gap-2 text-white"
+                      >
+                        <MapPin className="w-4 h-4 text-glacier" />
+                        ID Origen
+                      </Label>
+                      <Input
+                        name="origin_location_id"
+                        type="number"
+                        placeholder="Ej: 1"
+                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="destination_location_id"
+                        className="flex items-center gap-2 text-white"
+                      >
+                        <MapPin className="w-4 h-4 text-glacier" />
+                        ID Destino
+                      </Label>
+                      <Input
+                        name="destination_location_id"
+                        type="number"
+                        placeholder="Ej: 2"
+                        className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <Label
-                      htmlFor="ship-instructions"
+                      htmlFor="batch_ids"
                       className="flex items-center gap-2 text-white"
                     >
-                      <FileText className="w-4 h-4 text-glacier" />
-                      Instrucciones Especiales
+                      <Layers className="w-4 h-4 text-glacier" />
+                      IDs de Lotes (separados por coma)
                     </Label>
-                    <Textarea
-                      id="ship-instructions"
-                      placeholder="Instrucciones de manejo, requisitos especiales..."
-                      className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50 min-h-[100px]"
+                    <Input
+                      name="batch_ids"
+                      placeholder="Ej: 1, 2, 3"
+                      className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
+                      required
                     />
                   </div>
 
@@ -789,11 +896,21 @@ const Management = () => {
                     </Button>
                     <Button
                       type="submit"
+                      disabled={isLoading}
                       style={{ backgroundColor: "hsl(var(--primary))" }}
-                      className="flex-1 cursor-pointer text-primary-foreground"
+                      className="flex-1 cursor-pointer text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Crear Envío
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Creando...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Crear Envío
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>

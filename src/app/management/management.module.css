@@ -1,6 +1,7 @@
 /* Layout & Container */
 .container {
-  min-height: 90vh;
+  min-height: calc(100vh - 96px);
+  /* Navbar height approx 96px */
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -16,8 +17,13 @@
   max-width: 1200px;
   /* container mx-auto approximation */
   margin: 0 auto;
-  padding: 3rem 1.5rem;
-  /* py-12 px-6 */
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  flex: 1;
 }
 
 /* Loading State */
@@ -26,11 +32,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    to bottom right,
-    var(--background),
-    var(--secondary)
-  );
+  background: linear-gradient(to bottom right,
+      var(--background),
+      var(--secondary));
 }
 
 .spinner {
@@ -66,24 +70,20 @@
   line-height: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(
-    to right,
-    hsl(var(--foreground)),
-    hsl(var(--primary)),
-    hsl(var(--glacier))
-  );
+  background: linear-gradient(to right,
+      hsl(var(--foreground)),
+      hsl(var(--primary)),
+      hsl(var(--glacier)));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .textGradient {
-  background: linear-gradient(
-    to right,
-    hsl(var(--foreground)),
-    hsl(var(--primary)),
-    hsl(var(--glacier))
-  );
+  background: linear-gradient(to right,
+      hsl(var(--foreground)),
+      hsl(var(--primary)),
+      hsl(var(--glacier)));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -115,7 +115,7 @@
 
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -354,27 +354,21 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 /* Gradients */
 .gradientPrimaryGlacier {
-  background: linear-gradient(
-    to bottom right,
-    hsl(var(--primary)),
-    hsl(var(--glacier))
-  );
+  background: linear-gradient(to bottom right,
+      hsl(var(--primary)),
+      hsl(var(--glacier)));
 }
 
 .gradientGlacierAccent {
-  background: linear-gradient(
-    to bottom right,
-    hsl(var(--glacier)),
-    hsl(var(--accent))
-  );
+  background: linear-gradient(to bottom right,
+      hsl(var(--glacier)),
+      hsl(var(--accent)));
 }
 
 .gradientAccentPrimary {
-  background: linear-gradient(
-    to bottom right,
-    hsl(var(--accent)),
-    hsl(var(--primary))
-  );
+  background: linear-gradient(to bottom right,
+      hsl(var(--accent)),
+      hsl(var(--primary)));
 }
 
 /* Text Colors */
@@ -401,4 +395,3 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .textOptimal {
   color: hsl(var(--temperature-optimal));
 }
-
