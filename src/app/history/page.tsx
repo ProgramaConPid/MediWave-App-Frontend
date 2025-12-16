@@ -29,13 +29,14 @@ import { generateStructuredPDF } from "../../utils/pdfGenerator";
 import styles from "./history.module.css";
 import {
   getCompleteHistory,
-  getMedicationBatchOptions,
+  getAllShipments,
 } from "@/services/historialService";
 import {
   VaccineHeaderProps,
   StatsCardProps,
   TemperatureDataPoint,
   TimelineEvent,
+  Shipment,
 } from "@/interfaces/historial";
 
 // Mapping icons for statistics cards
@@ -48,57 +49,41 @@ const statsIcons = [
 
 export default function HistorialPage() {
   // State for different sections of the history report
-  const [vaccineData, setVaccineData] = useState<VaccineHeaderProps | null>(
-    null
-  );
-  const [statsData, setStatsData] = useState<Omit<StatsCardProps, "icon">[]>(
-    []
-  );
-  const [temperatureData, setTemperatureData] = useState<
-    TemperatureDataPoint[]
-  >([]);
+  const [vaccineData, setVaccineData] = useState<VaccineHeaderProps | null>(null);
+  const [statsData, setStatsData] = useState<Omit<StatsCardProps, "icon">[]>([]);
+  const [temperatureData, setTemperatureData] = useState<TemperatureDataPoint[]>([]);
   const [eventsData, setEventsData] = useState<TimelineEvent[]>([]);
   // UI State
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Filtering Options
-  const [medicationOptions, setMedicationOptions] = useState<
-    Array<{
-      medicationId: number | string;
-      batchId: number | string;
-      label: string;
-    }>
-  >([]);
-  const [selectedMedicationId, setSelectedMedicationId] = useState<
-    string | null
-  >(null);
-  const [selectedBatchId, setSelectedBatchId] = useState<string | null>(null);
+  const [shipments, setShipments] = useState<Shipment[]>([]);
+  const [selectedShipmentId, setSelectedShipmentId] = useState<string | null>(null);
 
-  // Fetch available medications and batches for the dropdown
-  const fetchMedicationOptions = async () => {
+  // Fetch available shipments for the dropdown
+  const fetchShipments = async () => {
     try {
-      const options = await getMedicationBatchOptions();
-      setMedicationOptions(options);
+      const shipmentsData = await getAllShipments();
+      setShipments(shipmentsData);
 
-      console.log("Medicamentos cargados:", options);
+      console.log("Envíos cargados:", shipmentsData);
 
-      // If options exist, select the first one by default
-      if (options.length > 0) {
-        setSelectedMedicationId(options[0].medicationId.toString());
-        setSelectedBatchId(options[0].batchId.toString());
+      // If shipments exist, select the first one by default
+      if (shipmentsData.length > 0) {
+        setSelectedShipmentId(shipmentsData[0].id.toString());
       }
     } catch (err) {
-      console.error("Error al cargar medicamentos:", err);
-      setError("No se pudieron cargar los medicamentos disponibles");
+      console.error("Error al cargar envíos:", err);
+      setError("No se pudieron cargar los envíos disponibles");
     }
   };
 
-  const fetchHistorial = async (medicationId: string, batchId: string) => {
+  const fetchHistorial = async (shipmentId: string) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await getCompleteHistory(medicationId, batchId);
+      const data = await getCompleteHistory(shipmentId);
       setVaccineData(data.vaccine);
       setStatsData(data.stats);
       setTemperatureData(data.temperatureData);
@@ -114,27 +99,26 @@ export default function HistorialPage() {
   };
 
   useEffect(() => {
-    fetchMedicationOptions();
+    fetchShipments();
   }, []);
 
   useEffect(() => {
-    if (selectedMedicationId && selectedBatchId) {
-      fetchHistorial(selectedMedicationId, selectedBatchId);
+    if (selectedShipmentId) {
+      fetchHistorial(selectedShipmentId);
     }
-  }, [selectedMedicationId, selectedBatchId]);
+  }, [selectedShipmentId]);
 
   // Function to generate the PDF with structured data
   const handleExportPDF = async () => {
     if (!vaccineData) return;
 
-    // Get the name of the medication from the selected label
-    const selectedOption = medicationOptions.find(
-      (opt) =>
-        opt.medicationId.toString() === selectedMedicationId &&
-        opt.batchId.toString() === selectedBatchId
+    // Get the name from the selected shipment
+    const selectedShipment = shipments.find(
+      (s) => s.id.toString() === selectedShipmentId
     );
-    const medicationName =
-      selectedOption?.label.split(" - ")[0] || "Medicamento";
+    const shipmentName = selectedShipment
+      ? `Envío ${selectedShipment.id}`
+      : "Envío";
 
     await generateStructuredPDF(
       vaccineData,
@@ -142,7 +126,7 @@ export default function HistorialPage() {
       temperatureData,
       eventsData,
       `historial-${vaccineData.vaccineId}`,
-      medicationName
+      shipmentName
     );
   };
 
@@ -209,28 +193,29 @@ export default function HistorialPage() {
       </div>
 
       <div className={`container ${styles.container}`}>
-        {/* Medication selector */}
-        {medicationOptions.length > 0 && (
+        {/* Shipment selector */}
+        {shipments.length > 0 && (
           <div className={styles.shipmentSelector}>
-            <label htmlFor="medication-select">Seleccionar Medicamento:</label>
+            <label htmlFor="shipment-select">Seleccionar Envío:</label>
             <select
-              id="medication-select"
-              value={`${selectedMedicationId}-${selectedBatchId}` || ""}
-              onChange={(e) => {
-                const [medicationId, batchId] = e.target.value.split("-");
-                setSelectedMedicationId(medicationId);
-                setSelectedBatchId(batchId);
-              }}
+              id="shipment-select"
+              value={selectedShipmentId || ""}
+              onChange={(e) => setSelectedShipmentId(e.target.value)}
               className={styles.select}
             >
-              {medicationOptions.map((option) => (
-                <option
-                  key={`${option.medicationId}-${option.batchId}`}
-                  value={`${option.medicationId}-${option.batchId}`}
-                >
-                  {option.label}
-                </option>
-              ))}
+              {shipments.map((shipment) => {
+                const batchInfo = shipment.batches && shipment.batches.length > 0
+                  ? shipment.batches.map(b => b.lot_number || `Lote ${b.id}`).join(', ')
+                  : 'Sin lotes';
+                const originName = shipment.origin_location?.name || 'Origen';
+                const destName = shipment.destination_location?.name || 'Destino';
+                
+                return (
+                  <option key={shipment.id} value={shipment.id.toString()}>
+                    Envío {shipment.id} - {batchInfo} ({originName} → {destName})
+                  </option>
+                );
+              })}
             </select>
           </div>
         )}

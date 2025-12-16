@@ -97,44 +97,50 @@ export interface Location {
   longitude?: number;
 }
 
-// Interfaces for the shipment component
+// Interfaces for the shipment component (matches API response)
 export interface Shipment {
   id: string | number;
-  batch_id?: string | number;
-  batchId?: string | number;
-  origin_location_id?: string | number;
-  originLocationId?: string | number;
-  destination_location_id?: string | number;
-  destinationLocationId?: string | number;
+  departure_date: string;
+  arrival_date: string;
+  min_temperature: number;
+  max_temperature: number;
   status: string;
-  departure_date?: string;
-  departureDate?: string;
-  arrival_date?: string;
-  arrivalDate?: string;
-  batch?: Batch;
-  originLocation?: Location;
-  origin_location?: Location;
-  destinationLocation?: Location;
-  destination_location?: Location;
+  blockchainHash?: string;
+  origin_location: Location;
+  destination_location: Location;
+  operator?: {
+    id: number;
+    name: string;
+    role: string;
+    credentials: string;
+    email: string;
+  };
+  batches?: Batch[];
+  alerts?: Array<{
+    id: number;
+    type: string;
+    description: string;
+    timestamp: string;
+  }>;
   createdAt?: string;
   updatedAt?: string;
 }
 
-// Interfaces for the state history component
+// Interfaces for the state history component (matches API response)
 export interface StateHistory {
-  id: string | number;
-  shipment_id?: string | number;
-  shipmentId?: string | number;
+  _id: string;
+  timestamp: string;
+  status: string;
   temperature?: number;
   humidity?: number;
-  location_id?: string | number;
-  locationId?: string | number;
-  status: string;
-  timestamp: string;
+  conditions?: string;
+  notes?: string;
+  operatorId?: number;
+  locationId?: number;
+  batchId?: number;
+  alertIds?: number[];
   location?: Location;
-  shipment?: Shipment;
-  createdAt?: string;
-  updatedAt?: string;
+  __v?: number;
 }
 
 // Interfaces for the API response
