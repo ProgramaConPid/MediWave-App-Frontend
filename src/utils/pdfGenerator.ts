@@ -1,5 +1,4 @@
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import {
   VaccineHeaderProps,
   StatsCardProps,
@@ -8,97 +7,21 @@ import {
 } from '../interfaces/historial';
 
 /**
- * Genera un PDF del historial completo
- * @param elementId - ID del elemento HTML a capturar
- * @param fileName - Nombre del archivo PDF (sin extensión)
- */
-export const generateHistorialPDF = async (
-  elementId: string = 'historial-content',
-  fileName: string = 'historial-vacuna'
-): Promise<void> => {
-  try {
-    const element = document.getElementById(elementId);
-    
-    if (!element) {
-      throw new Error('Elemento no encontrado');
-    }
-
-    // Mostrar mensaje de carga
-    const loadingElement = document.createElement('div');
-    loadingElement.id = 'pdf-loading';
-    loadingElement.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(15, 44, 71, 0.95);
-      padding: 30px;
-      border-radius: 12px;
-      color: white;
-      font-size: 16px;
-      z-index: 9999;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    `;
-    loadingElement.textContent = 'Generando PDF...';
-    document.body.appendChild(loadingElement);
-
-    // Capturar el elemento como imagen
-    const canvas = await html2canvas(element, {
-      scale: 2, // Mayor calidad
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#0a1929',
-    });
-
-    // Eliminar mensaje de carga
-    document.body.removeChild(loadingElement);
-
-    const imgData = canvas.toDataURL('image/png');
-    
-    // Calcular dimensiones del PDF
-    const imgWidth = 210; // A4 width in mm
-    const pageHeight = 297; // A4 height in mm
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    let heightLeft = imgHeight;
-    
-    // Crear PDF
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    let position = 0;
-
-    // Agregar primera página
-    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight;
-
-    // Agregar páginas adicionales si es necesario
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-    }
-
-    // Descargar el PDF
-    pdf.save(`${fileName}-${new Date().toISOString().split('T')[0]}.pdf`);
-  } catch (error) {
-    console.error('Error al generar PDF:', error);
-    alert('Error al generar el PDF. Por favor, intenta de nuevo.');
-  }
-};
-
-/**
  * Genera un PDF usando jsPDF con datos estructurados
  * @param vaccineData - Datos de la vacuna
  * @param stats - Estadísticas
  * @param temperatureData - Datos de temperatura
  * @param events - Eventos de la cadena de frío
  * @param fileName - Nombre del archivo
+ * @param medicationName - Nombre del medicamento
  */
 export const generateStructuredPDF = async (
   vaccineData: VaccineHeaderProps,
   stats: Omit<StatsCardProps, 'icon'>[],
   temperatureData: TemperatureDataPoint[],
   events: TimelineEvent[],
-  fileName: string = 'historial-vacuna'
+  fileName: string = 'historial-vacuna',
+  medicationName: string = 'Historial de Medicamento'
 ): Promise<void> => {
   try {
     const pdf = new jsPDF('p', 'mm', 'a4');
@@ -112,7 +35,7 @@ export const generateStructuredPDF = async (
     
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(20);
-    pdf.text('Historial de Vacuna COVID-19', pageWidth / 2, 15, { align: 'center' });
+    pdf.text(`Historial de ${medicationName}`, pageWidth / 2, 15, { align: 'center' });
     
     pdf.setFontSize(12);
     pdf.text(vaccineData.vaccineName, pageWidth / 2, 25, { align: 'center' });

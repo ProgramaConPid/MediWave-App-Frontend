@@ -12,14 +12,29 @@ import {
   HistorialResponse,
 } from '../interfaces/historial';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const getLocationById = async (locationId: string): Promise<Location | null> => {
+  try {
+    const response = await axiosInstance.get<Location>(`/locations/${locationId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error al obtener ubicación ${locationId}:`, error);
+    return null;
+  }
+};
 
-/**
- * Obtiene un medicamento por ID
- */
+export const getAllMedications = async (): Promise<Medication[]> => {
+  try {
+    const response = await axiosInstance.get<Medication[]>(`/medications`);
+    return response.data || [];
+  } catch (error) {
+    console.error('Error al obtener medicamentos:', error);
+    throw error;
+  }
+};
+
 export const getMedicationById = async (id: string): Promise<Medication> => {
   try {
-    const response = await axiosInstance.get<Medication>(`${API_URL}/medications/${id}`);
+    const response = await axiosInstance.get<Medication>(`/medications/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error al obtener medicamento:', error);
@@ -27,82 +42,65 @@ export const getMedicationById = async (id: string): Promise<Medication> => {
   }
 };
 
-/**
- * Obtiene un lote por ID con información del medicamento
- */
-export const getBatchById = async (id: string): Promise<Batch> => {
+export const getAllShipments = async (): Promise<Shipment[]> => {
   try {
-    const response = await axiosInstance.get<Batch>(`${API_URL}/batchs/${id}`);
-    return response.data;
+    const response = await axiosInstance.get<Shipment[]>(`/shipments`);
+    return response.data || [];
   } catch (error) {
-    console.error('Error al obtener lote:', error);
-    throw error;
+    console.error('Error al obtener envíos:', error);
+    return [];
   }
 };
 
-/**
- * Obtiene un envío por ID con relaciones completas
- */
-export const getShipmentById = async (id: string): Promise<Shipment> => {
+export const getStateHistoryByBatch = async (batchId: string): Promise<StateHistory[]> => {
   try {
-    const response = await axiosInstance.get<Shipment>(`${API_URL}/shipments/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error al obtener envío:', error);
-    throw error;
-  }
-};
-
-/**
- * Obtiene el historial de estados de un envío
- */
-export const getStateHistoryByShipment = async (shipmentId: string): Promise<StateHistory[]> => {
-  try {
-    const response = await axiosInstance.get<StateHistory[]>(`${API_URL}/state-history`);
-    // Filtrar por shipmentId ya que el backend retorna todos
-    return response.data.filter(state => state.shipmentId === shipmentId);
+    const response = await axiosInstance.get<StateHistory[]>(`/state-history`);
+    const batchIdStr = batchId.toString();
+    return response.data?.filter(state => {
+      const stateBatchId = (state as unknown as { batchId: string }).batchId?.toString();
+      return stateBatchId === batchIdStr;
+    }) || [];
   } catch (error) {
     console.error('Error al obtener historial de estados:', error);
-    throw error;
+    return [];
   }
 };
 
-/**
- * Transforma los datos del backend al formato del frontend
- */
-const transformBackendDataToHistorial = (
-  shipment: Shipment,
-  stateHistory: StateHistory[]
-): HistorialResponse => {
-  const medication = shipment.batch?.medication;
+const transformMedicationBatchToHistorial = async (
+  medication: Medication,
+  batch: Batch,
+  stateHistory: StateHistory[],
+  shipmentAlerts: TimelineEvent[] = []
+): Promise<HistorialResponse> => {
+  const medicationName = medication.name || 'Medicamento sin nombre';
+  const medicationId = medication.id?.toString() || '';
+  const lotNumber = batch?.lot_number || batch?.batchNumber || '';
+  const originName = 'Centro de Producción';
+  const destinationName = 'En tránsito';
+  const minTemp = medication?.min_temperature ?? medication?.temperatureMin;
+  const maxTemp = medication?.max_temperature ?? medication?.temperatureMax;
   
-  // Transformar header
+  const temperatureRange = minTemp !== undefined && maxTemp !== undefined
+    ? `Rango Óptimo: ${minTemp}°C a ${maxTemp}°C`
+    : 'Rango no especificado';
   const vaccine: VaccineHeaderProps = {
-    vaccineName: medication?.name || 'Medicamento sin nombre',
-    vaccineId: medication?.id || '',
-    lotNumber: shipment.batch?.batchNumber || '',
-    origin: shipment.originLocation?.name || 'Origen desconocido',
-    destination: shipment.destinationLocation?.name || 'Destino desconocido',
-    temperatureRange: medication?.temperatureMin && medication?.temperatureMax
-      ? `Rango Óptimo: ${medication.temperatureMin}°C a ${medication.temperatureMax}°C`
-      : 'Rango no especificado',
+    vaccineName: medicationName,
+    vaccineId: medicationId,
+    lotNumber: lotNumber,
+    origin: originName,
+    destination: destinationName,
+    temperatureRange: temperatureRange,
   };
-
-  // Filtrar registros con temperatura
   const tempRecords = stateHistory.filter(s => s.temperature !== null && s.temperature !== undefined);
-  
-  // Calcular estadísticas
   const temperatures = tempRecords.map(s => s.temperature!);
   const avgTemp = temperatures.length > 0 
     ? (temperatures.reduce((a, b) => a + b, 0) / temperatures.length).toFixed(1)
-    : '0';
-  const maxTemp = temperatures.length > 0 ? Math.max(...temperatures).toFixed(1) : '0';
-  const minTemp = temperatures.length > 0 ? Math.min(...temperatures).toFixed(1) : '0';
-  
-  // Contar violaciones de temperatura
+    : '--';
+  const maxTemp_value = temperatures.length > 0 ? Math.max(...temperatures).toFixed(1) : '--';
+  const minTemp_value = temperatures.length > 0 ? Math.min(...temperatures).toFixed(1) : '--';
   const violations = tempRecords.filter(s => {
-    if (!medication?.temperatureMin || !medication?.temperatureMax || !s.temperature) return false;
-    return s.temperature < medication.temperatureMin || s.temperature > medication.temperatureMax;
+    if (minTemp === undefined || maxTemp === undefined || !s.temperature) return false;
+    return s.temperature < minTemp || s.temperature > maxTemp;
   }).length;
 
   const stats: Omit<StatsCardProps, 'icon'>[] = [
@@ -110,33 +108,32 @@ const transformBackendDataToHistorial = (
       title: 'Temp. Promedio',
       value: avgTemp,
       unit: '°C',
-      status: 'normal',
-      subtitle: 'Dentro del rango',
+      status: tempRecords.length > 0 ? 'normal' : 'warning',
+      subtitle: tempRecords.length > 0 ? 'Dentro del rango' : 'Sin datos',
     },
     {
       title: 'Temp. Máxima',
-      value: maxTemp,
+      value: maxTemp_value,
       unit: '°C',
-      status: 'warning',
-      subtitle: 'Pico registrado',
+      status: tempRecords.length > 0 ? 'warning' : 'warning',
+      subtitle: tempRecords.length > 0 ? 'Pico registrado' : 'Sin datos',
     },
     {
       title: 'Temp. Mínima',
-      value: minTemp,
+      value: minTemp_value,
       unit: '°C',
-      status: 'danger',
-      subtitle: 'Mínimo registrado',
+      status: tempRecords.length > 0 ? 'danger' : 'warning',
+      subtitle: tempRecords.length > 0 ? 'Mínimo registrado' : 'Sin datos',
     },
     {
       title: 'Violaciones',
       value: violations.toString(),
       unit: '',
-      status: 'violations',
-      subtitle: violations === 0 ? 'Sin incidencias' : 'Revisar',
+      status: tempRecords.length > 0 ? 'violations' : 'normal',
+      subtitle: tempRecords.length > 0 ? (violations === 0 ? 'Sin incidencias' : 'Revisar') : 'Sin datos',
     },
   ];
 
-  // Transformar datos de temperatura
   const temperatureData: TemperatureDataPoint[] = tempRecords
     .map(s => ({
       time: new Date(s.timestamp).toLocaleString('es-ES', { 
@@ -148,55 +145,143 @@ const transformBackendDataToHistorial = (
       temperature: s.temperature!,
     }))
     .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
-
-  // Transformar eventos del timeline
-  const events: TimelineEvent[] = stateHistory.map((state, index) => ({
-    id: index + 1,
-    title: state.location?.name || 'Ubicación desconocida',
-    date: new Date(state.timestamp).toLocaleString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
-    description: state.status,
-    priority: state.temperature ? `${state.temperature}°C` : 'N/A',
-  }));
+  const events: TimelineEvent[] = [];
+  if (stateHistory.length === 0) {
+    events.push({
+      id: 1,
+      title: 'Sin registros disponibles',
+      date: new Date().toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      description: 'No hay datos de temperatura registrados para este lote',
+      priority: 'INFO',
+    });
+  }
+  for (let index = 0; index < stateHistory.length; index++) {
+    const state = stateHistory[index];
+    let locationName = (state.location as unknown as { name: string })?.name || 'Ubicación desconocida';
+    if (locationName === 'Ubicación desconocida' && (state as unknown as { locationId: string })?.locationId) {
+      const location = await getLocationById((state as unknown as { locationId: string }).locationId.toString());
+      if (location) {
+        locationName = location.name;
+      }
+    }
+    const statusDescription = (state as unknown as { conditions?: string })?.conditions || state.status || 'Sin descripción';
+    
+    events.push({
+      id: index + 1,
+      title: locationName,
+      date: new Date(state.timestamp).toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      description: statusDescription,
+      priority: state.temperature ? `${state.temperature.toFixed(3)}°C` : 'N/A',
+    });
+  }
+  events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return { vaccine, stats, temperatureData, events };
 };
 
-/**
- * Obtiene todo el historial completo de un envío
- * @param shipmentId - ID del envío
- * @returns Datos completos del historial formateados
- */
-export const getCompleteHistory = async (shipmentId: string): Promise<HistorialResponse> => {
+const getShipmentAlerts = async (batchId: string): Promise<TimelineEvent[]> => {
   try {
-    // Obtener datos del envío
-    const shipment = await getShipmentById(shipmentId);
-    
-    // Obtener historial de estados
-    const stateHistory = await getStateHistoryByShipment(shipmentId);
-    
-    // Transformar y retornar
-    return transformBackendDataToHistorial(shipment, stateHistory);
+    const shipments = await getAllShipments();
+    const events: TimelineEvent[] = [];
+    let eventId = 0;
+    interface ShipmentAlert {
+      timestamp: string;
+      type: string;
+      description: string;
+    }
+    interface ShipmentData {
+      batch?: Batch[];
+      alerts?: ShipmentAlert[];
+    }
+    shipments.forEach((shipment) => {
+      const shipmentTyped = shipment as unknown as ShipmentData;
+      const hasMatchingBatch = shipmentTyped.batch?.some((b: Batch) => 
+        b.id?.toString() === batchId.toString()
+      );
+      if (hasMatchingBatch && shipmentTyped.alerts && Array.isArray(shipmentTyped.alerts)) {
+        shipmentTyped.alerts.forEach((alert: ShipmentAlert) => {
+          if (alert.timestamp) {
+            events.push({
+              id: eventId++,
+              title: `🚨 ${alert.type || 'Alerta'}`,
+              date: new Date(alert.timestamp).toLocaleString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+              description: alert.description || 'Sin descripción',
+              priority: 'ALERT',
+            });
+          }
+        });
+      }
+    });
+
+    return events;
+  } catch (error) {
+    console.error('Error al obtener alertas de shipments:', error);
+    return [];
+  }
+};
+
+export const getCompleteHistory = async (medicationId: string, batchId?: string): Promise<HistorialResponse> => {
+  try {
+    const medication = await getMedicationById(medicationId);
+    let batch = medication.batches?.[0];
+    if (batchId && medication.batches) {
+      batch = medication.batches.find(b => b.id?.toString() === batchId.toString());
+    }
+    if (!batch) {
+      throw new Error('No hay batches disponibles para este medicamento');
+    }
+    const stateHistory = await getStateHistoryByBatch(batch.id?.toString() || '');
+    const shipmentAlerts = await getShipmentAlerts(batch.id?.toString() || '');
+    return await transformMedicationBatchToHistorial(medication, batch, stateHistory, shipmentAlerts);
   } catch (error) {
     console.error('Error al obtener historial completo:', error);
     throw error;
   }
 };
 
-/**
- * Obtiene todos los envíos disponibles
- */
-export const getAllShipments = async (): Promise<Shipment[]> => {
+export const getMedicationBatchOptions = async (): Promise<
+  Array<{ medicationId: number | string; batchId: number | string; label: string }>
+> => {
   try {
-    const response = await axiosInstance.get<Shipment[]>(`${API_URL}/shipments`);
-    return response.data;
+    const medications = await getAllMedications();
+    const options: Array<{ medicationId: number | string; batchId: number | string; label: string }> = [];
+    medications.forEach((medication) => {
+      if (medication.batches && medication.batches.length > 0) {
+        medication.batches.forEach((batch, batchIndex) => {
+          const batchNumber = batch.lot_number || batch.batchNumber || `Batch ${batch.id}`;
+          const batchIndicator = medication.batches!.length > 1 
+            ? ` (${batchIndex + 1}/${medication.batches!.length})`
+            : '';
+          options.push({
+            medicationId: medication.id,
+            batchId: batch.id,
+            label: `${medication.name} - Lote: ${batchNumber}${batchIndicator}`,
+          });
+        });
+      }
+    });
+
+    return options;
   } catch (error) {
-    console.error('Error al obtener envíos:', error);
+    console.error('Error al obtener opciones de medicamentos:', error);
     throw error;
   }
 };
