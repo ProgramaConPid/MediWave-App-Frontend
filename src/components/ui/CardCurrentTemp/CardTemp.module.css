@@ -1,8 +1,9 @@
+/* Layout */
 .card__temp {
   padding: 20px;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius-base);
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   backdrop-filter: blur(24px);
   margin-bottom: 2rem;
   display: flex;
@@ -11,6 +12,7 @@
   gap: 1rem;
 }
 
+/* Header */
 .card__tempHeader {
   display: flex;
   align-items: center;
@@ -27,13 +29,14 @@
   font-weight: 700;
 }
 
+/* Progress Bar */
 .progress__container {
   width: 100%;
   height: 16px;
   background: #0f2a34;
   border-radius: 999px;
   overflow: hidden;
-  box-shadow: inset 0 0 4px rgba(0,0,0,.5);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .progress__bar {
@@ -49,7 +52,7 @@
   background-size: 200% 100%;
   animation: moveBackground 2s linear infinite;
 
-  box-shadow: 0 0 8px rgba(0,255,255,.7);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
   transition: width 0.5s ease-in-out;
 }
 
@@ -62,6 +65,7 @@
   }
 }
 
+/* Temperature Info */
 .card__tempInfo {
   display: flex;
   align-items: center;
@@ -76,11 +80,15 @@
   color: hsl(var(--temp-optimal));
 }
 
-/* ===================== Animaciones ===================== */
+/* ===================== Animations ===================== */
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
@@ -95,47 +103,60 @@
 }
 
 @keyframes floatSoft {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-4px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes pulseNumber {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes fillBar {
-  from { width: 0%; }
-  to   { width: 50%; }
+  from {
+    width: 0%;
+  }
+  to {
+    width: 50%;
+  }
 }
 
-/* Animación general de la tarjeta */
+/* General Card Animation */
 .card__temp {
-  animation: fadeIn 0.4s ease-out forwards,
-             floatSoft 4s ease-in-out infinite;
+  animation: fadeIn 0.4s ease-out forwards, floatSoft 4s ease-in-out infinite;
 }
 
-/* Header y textos */
+/* Header & Texts */
 .card__tempHeader {
   animation: slideUp 0.4s ease-out forwards;
 }
 
-/* Temperatura con pulso sutil */
+/* Subtle Pulse for Temperature */
 .card__tempHeaderValue {
   animation: pulseNumber 2.8s ease-in-out infinite;
 }
 
-/* Progress bar animada */
+/* Animated Progress Bar */
 .progress__bar {
   animation: fillBar 1.2s ease-out forwards;
   animation-delay: 100ms;
 }
 
-/* Info del rango */
+/* Range Info */
 .card__tempInfo {
   animation: slideUp 0.6s ease-out forwards;
 }
-
-

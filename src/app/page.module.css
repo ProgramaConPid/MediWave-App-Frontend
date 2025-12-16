@@ -1,3 +1,9 @@
+/*
+  Landing Page Styles
+  -------------------
+  Styles for the main landing page, including hero section,
+  feature cards, and animated backgrounds.
+*/
 .container {
   min-height: 100vh;
   background: linear-gradient(
@@ -606,8 +612,7 @@
   color: hsl(var(--primary-foreground));
 
   font-size: clamp(0.95rem, 2.5vw, 1.125rem);
-  padding: clamp(0.75rem, 4vw, 1.25rem)
-           clamp(1rem, 6vw, 2.5rem);
+  padding: clamp(0.75rem, 4vw, 1.25rem) clamp(1rem, 6vw, 2.5rem);
 
   border-radius: 0.75rem;
   min-height: 48px;
@@ -632,7 +637,6 @@
 .ctaButton:hover {
   transform: translateY(-2px);
 }
-
 
 .ctaButtonIcon {
   width: 1.25rem;

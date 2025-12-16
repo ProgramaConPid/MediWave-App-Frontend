@@ -1,5 +1,6 @@
 import axiosInstance from '@/lib/axios';
 
+// Interfaces for authentication operations
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -11,7 +12,8 @@ export interface LoginResult {
   user?: unknown;
 }
 
-// You can override this per environment (e.g. "/login", "/auth/login", "/users/login")
+
+// Authentication service functions and constants
 const LOGIN_PATH = process.env.NEXT_PUBLIC_AUTH_LOGIN_PATH || '/auth/login';
 
 export const login = async (credentials: LoginCredentials): Promise<LoginResult> => {

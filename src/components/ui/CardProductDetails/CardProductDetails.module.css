@@ -1,16 +1,17 @@
+/* Layout */
 .card__product {
   padding: 16px;
   background-color: hsl(var(--card) / 0.4);
   border-radius: var(--radius-base);
   border: 1px solid hsl(var(--border));
   backdrop-filter: blur(24px);
-  animation: fadeIn 0.4s ease-out forwards,
-             floatSoft 4s ease-in-out infinite;
+  animation: fadeIn 0.4s ease-out forwards, floatSoft 4s ease-in-out infinite;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/* Header */
 .card__productHeader {
   display: flex;
   align-items: center;
@@ -19,6 +20,7 @@
   animation: slideUp 0.4s ease-out forwards;
 }
 
+/* Header ID */
 .card__headerId {
   display: flex;
   align-items: center;
@@ -63,6 +65,7 @@
   font-size: 0.75rem;
 }
 
+/* Body Info */
 .card__bodyTemp,
 .card__bodyRange {
   background-color: hsl(var(--secondary) / 0.5);
@@ -82,6 +85,7 @@
   animation: slideUp 0.6s ease-out forwards;
 }
 
+/* Temperature & Range */
 .card__tempCurrentText,
 .card__rangeText {
   display: flex;
@@ -118,7 +122,7 @@
   align-items: flex-start;
   gap: 0.6rem;
   margin-top: 0.8rem;
-  padding: 8px; 
+  padding: 8px;
   border-radius: var(--radius-base);
   background-color: hsl(var(--secondary) / 0.15);
   animation: slideUp 0.5s ease-out forwards;
@@ -141,7 +145,7 @@
 
 .card__manufacturer,
 .card__description {
-  font-size: 0.9rem; 
+  font-size: 0.9rem;
   line-height: 1.1rem;
   margin: 0;
   padding-left: 0.4rem;
@@ -162,24 +166,47 @@
   color: hsl(var(--muted-foreground) / 0.7);
 }
 
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulseSoft {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes floatSoft {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-2px); } 
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

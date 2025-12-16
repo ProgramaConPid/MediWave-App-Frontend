@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 const MOVEMENT_DAMPING = 1400;
 
+// Configuration for COBE globe
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
@@ -48,6 +49,7 @@ const GLOBE_CONFIG: COBEOptions = {
   onRender: () => {},
 };
 
+// Interactive 3D globe component
 export function Globe({
   className,
   config = GLOBE_CONFIG,
@@ -117,13 +119,8 @@ export function Globe({
         if (zoomRef.current > 1) zoomRef.current -= 0.01;
         state.zoom = zoomRef.current;
 
-        
-        const glowPulse = (Math.sin(Date.now() / 2500) + 1) / 20; 
-        state.glowColor = [
-          0.3 + glowPulse, 
-          0.85,
-          1,
-        ];
+        const glowPulse = (Math.sin(Date.now() / 2500) + 1) / 20;
+        state.glowColor = [0.3 + glowPulse, 0.85, 1];
 
         state.markers = baseMarkers.map((m, i) => {
           const beat = Math.sin(tick + i * 0.5) * 0.015;

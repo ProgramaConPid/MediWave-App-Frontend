@@ -1,5 +1,6 @@
 import styles from "./FullScreenLoader.module.css";
 
+// Full screen overlay with loading spinner
 const FullScreenLoader = () => {
   return (
     <div className={styles.overlay}>

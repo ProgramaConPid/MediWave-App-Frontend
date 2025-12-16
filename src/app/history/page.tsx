@@ -1,6 +1,8 @@
 "use client";
 
+// React Hooks
 import { useState, useEffect } from "react";
+// Icons
 import {
   FaThermometerHalf,
   FaLungs,
@@ -11,19 +13,24 @@ import {
 import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { Package } from "lucide-react";
+import { FiHome } from "react-icons/fi";
+// UI Components
 import VaccineHeader from "../../components/ui/History/VaccineHeader/VaccineHeader";
 import StatsCard from "../../components/ui/History/StatsCard/StatsCard";
 import TemperatureChart from "../../components/ui/History/TemperatureChart/TemperatureChart";
 import EventTimeline from "../../components/ui/History/EventTimeline/EventTimeline";
-import { generateStructuredPDF } from "../../utils/pdfGenerator";
-import styles from "./history.module.css";
-import { FiHome } from "react-icons/fi";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
-import { getCompleteHistory, getMedicationBatchOptions } from "@/services/historialService";
+// Utils and Services
+import { generateStructuredPDF } from "../../utils/pdfGenerator";
+import styles from "./history.module.css";
+import {
+  getCompleteHistory,
+  getMedicationBatchOptions,
+} from "@/services/historialService";
 import {
   VaccineHeaderProps,
   StatsCardProps,
@@ -31,7 +38,7 @@ import {
   TimelineEvent,
 } from "@/interfaces/historial";
 
-// Mapeo de iconos para las stats
+// Mapping icons for statistics cards
 const statsIcons = [
   <FaThermometerHalf key="temp-avg" />,
   <FaHeartbeat key="temp-max" />,
@@ -40,18 +47,34 @@ const statsIcons = [
 ];
 
 export default function HistorialPage() {
-  const [vaccineData, setVaccineData] = useState<VaccineHeaderProps | null>(null);
-  const [statsData, setStatsData] = useState<Omit<StatsCardProps, "icon">[]>([]);
-  const [temperatureData, setTemperatureData] = useState<TemperatureDataPoint[]>([]);
+  // State for different sections of the history report
+  const [vaccineData, setVaccineData] = useState<VaccineHeaderProps | null>(
+    null
+  );
+  const [statsData, setStatsData] = useState<Omit<StatsCardProps, "icon">[]>(
+    []
+  );
+  const [temperatureData, setTemperatureData] = useState<
+    TemperatureDataPoint[]
+  >([]);
   const [eventsData, setEventsData] = useState<TimelineEvent[]>([]);
+  // UI State
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Filtering Options
   const [medicationOptions, setMedicationOptions] = useState<
-    Array<{ medicationId: number | string; batchId: number | string; label: string }>
+    Array<{
+      medicationId: number | string;
+      batchId: number | string;
+      label: string;
+    }>
   >([]);
-  const [selectedMedicationId, setSelectedMedicationId] = useState<string | null>(null);
+  const [selectedMedicationId, setSelectedMedicationId] = useState<
+    string | null
+  >(null);
   const [selectedBatchId, setSelectedBatchId] = useState<string | null>(null);
 
+  // Fetch available medications and batches for the dropdown
   const fetchMedicationOptions = async () => {
     try {
       const options = await getMedicationBatchOptions();
@@ -59,7 +82,7 @@ export default function HistorialPage() {
 
       console.log("Medicamentos cargados:", options);
 
-      // Si hay opciones disponibles, seleccionar la primera
+      // If options exist, select the first one by default
       if (options.length > 0) {
         setSelectedMedicationId(options[0].medicationId.toString());
         setSelectedBatchId(options[0].batchId.toString());
@@ -100,15 +123,18 @@ export default function HistorialPage() {
     }
   }, [selectedMedicationId, selectedBatchId]);
 
-  // Función para generar el PDF con datos estructurados
+  // Function to generate the PDF with structured data
   const handleExportPDF = async () => {
     if (!vaccineData) return;
 
-    // Obtener el nombre del medicamento del label seleccionado
+    // Get the name of the medication from the selected label
     const selectedOption = medicationOptions.find(
-      opt => opt.medicationId.toString() === selectedMedicationId && opt.batchId.toString() === selectedBatchId
+      (opt) =>
+        opt.medicationId.toString() === selectedMedicationId &&
+        opt.batchId.toString() === selectedBatchId
     );
-    const medicationName = selectedOption?.label.split(' - ')[0] || 'Medicamento';
+    const medicationName =
+      selectedOption?.label.split(" - ")[0] || "Medicamento";
 
     await generateStructuredPDF(
       vaccineData,
@@ -183,22 +209,25 @@ export default function HistorialPage() {
       </div>
 
       <div className={`container ${styles.container}`}>
-        {/* Selector de medicamento */}
+        {/* Medication selector */}
         {medicationOptions.length > 0 && (
           <div className={styles.shipmentSelector}>
             <label htmlFor="medication-select">Seleccionar Medicamento:</label>
             <select
               id="medication-select"
-              value={`${selectedMedicationId}-${selectedBatchId}` || ''}
+              value={`${selectedMedicationId}-${selectedBatchId}` || ""}
               onChange={(e) => {
-                const [medicationId, batchId] = e.target.value.split('-');
+                const [medicationId, batchId] = e.target.value.split("-");
                 setSelectedMedicationId(medicationId);
                 setSelectedBatchId(batchId);
               }}
               className={styles.select}
             >
               {medicationOptions.map((option) => (
-                <option key={`${option.medicationId}-${option.batchId}`} value={`${option.medicationId}-${option.batchId}`}>
+                <option
+                  key={`${option.medicationId}-${option.batchId}`}
+                  value={`${option.medicationId}-${option.batchId}`}
+                >
                   {option.label}
                 </option>
               ))}
@@ -206,7 +235,7 @@ export default function HistorialPage() {
           </div>
         )}
 
-        {/* Contenedor principal que será capturado para el PDF */}
+        {/* Main container that will be captured for the PDF */}
         <div id="historial-content">
           {vaccineData && <VaccineHeader {...vaccineData} />}
 

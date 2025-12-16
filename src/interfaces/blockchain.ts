@@ -1,3 +1,4 @@
+// Interfaces for blockchain data
 export interface Location {
   id: number;
   name: string;
@@ -5,10 +6,12 @@ export interface Location {
   address: string;
 }
 
+// Interfaces for traceability data
 export interface TraceCardProps {
   timeline: TraceStep[];
 }
 
+// Interfaces for traceability data
 export interface TraceStep {
   type: "origin" | "transit" | "destination";
   place: string;
@@ -18,6 +21,7 @@ export interface TraceStep {
   temperature?: number;
 }
 
+// Interfaces for batch data
 export interface Batch {
   id: number;
   lot_number: string;
@@ -26,6 +30,7 @@ export interface Batch {
   expiry_date: string;
 }
 
+// Interfaces for medication data
 export interface Medication {
   id: number;
   name: string;
@@ -34,6 +39,7 @@ export interface Medication {
   description: string;
 }
 
+// Interfaces for shipment data
 export interface Shipment {
   id: number;
   departure_date: string;
@@ -46,6 +52,7 @@ export interface Shipment {
   destination_location: Location;
 }
 
+// Interfaces for state history data
 export interface StateHistory {
   _id: string;
   timestamp: string;
@@ -61,6 +68,7 @@ export interface StateHistory {
   alertIds: number[];
 }
 
+// Interfaces for verified batch data
 export interface VerifiedBatch {
   batch: Batch;
   medication: Medication;

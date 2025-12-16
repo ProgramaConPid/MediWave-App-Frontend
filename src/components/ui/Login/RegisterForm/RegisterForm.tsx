@@ -1,22 +1,31 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import styles from './RegisterForm.module.css';
-import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiBriefcase } from 'react-icons/fi';
-import Link from 'next/link';
+import React, { useState } from "react";
+import styles from "./RegisterForm.module.css";
+import {
+  FiMail,
+  FiLock,
+  FiUser,
+  FiEye,
+  FiEyeOff,
+  FiBriefcase,
+} from "react-icons/fi";
+import Link from "next/link";
 
 const RegisterForm = () => {
+  // State for registration form data
   const [formData, setFormData] = useState({
-    fullName: '',
-    position: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    fullName: "",
+    position: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -25,19 +34,21 @@ const RegisterForm = () => {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Basic validation
     if (formData.password !== formData.confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      alert("Las contraseñas no coinciden");
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     setTimeout(() => {
       setIsLoading(false);
-      console.log('Register attempt:', formData);
+      console.log("Register attempt:", formData);
     }, 1500);
   };
 
@@ -103,7 +114,7 @@ const RegisterForm = () => {
           <div className={styles.inputWrapper}>
             <input
               id="password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               name="password"
               value={formData.password}
@@ -129,7 +140,7 @@ const RegisterForm = () => {
           <div className={styles.inputWrapper}>
             <input
               id="confirmPassword"
-              type={showConfirmPassword ? 'text' : 'password'}
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="••••••••"
               name="confirmPassword"
               value={formData.confirmPassword}
@@ -147,24 +158,27 @@ const RegisterForm = () => {
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={styles.submitBtn}
-        >
-          {isLoading ? 'Registrando...' : <><FiUser /> Crear Cuenta</>}
+        <button type="submit" disabled={isLoading} className={styles.submitBtn}>
+          {isLoading ? (
+            "Registrando..."
+          ) : (
+            <>
+              <FiUser /> Crear Cuenta
+            </>
+          )}
         </button>
       </form>
 
       <div className={styles.hasAccount}>
-        ¿Ya tienes cuenta?{' '}
+        ¿Ya tienes cuenta?{" "}
         <Link href="/login" className={styles.loginLink}>
           Inicia sesión
         </Link>
       </div>
 
       <div className={styles.footer}>
-        <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro Blockchain
+        <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro
+        Blockchain
       </div>
     </>
   );

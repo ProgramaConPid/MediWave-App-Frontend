@@ -1,5 +1,6 @@
 import type { TraceStep } from "@/interfaces/blockchain";
 
+// Default timeline for vaccine traceability
 export const FALLBACK_TIMELINE: TraceStep[] = [
   {
     type: "origin",

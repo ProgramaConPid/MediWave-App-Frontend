@@ -1,5 +1,6 @@
 "use client";
 
+// React and tsParticles imports
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
@@ -8,22 +9,18 @@ import type { Container, Engine } from "@tsparticles/engine";
 const ParticlesBackground = () => {
   const [init, setInit] = useState(false);
 
-  // this should be run only once per application lifetime
+  // Initialize particles engine once
   useEffect(() => {
     initParticlesEngine(async (engine: Engine) => {
-      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-      // starting from v2 you can add only the features you need reducing the bundle size
-      //await loadAll(engine);
-      //await loadFull(engine);
+      // Load slim version for better performance
       await loadSlim(engine);
-      //await loadBasic(engine);
     }).then(() => {
       setInit(true);
     });
   }, []);
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
+    // Callback when particles are loaded
     console.log(container);
   };
 
@@ -52,7 +49,7 @@ const ParticlesBackground = () => {
               },
               resize: {
                 enable: true,
-                delay: 0.5
+                delay: 0.5,
               },
             },
             modes: {

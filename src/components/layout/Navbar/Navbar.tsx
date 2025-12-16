@@ -1,5 +1,6 @@
 "use client";
 
+// React and Next.js imports
 import { useState, ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +13,7 @@ interface NavbarProps {
   logoSubtitle?: string;
 }
 
+// Main responsive navigation bar component
 const Navbar = ({
   children,
   logoText = "MediWave",
@@ -19,6 +21,7 @@ const Navbar = ({
 }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Toggle mobile menu visibility
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 

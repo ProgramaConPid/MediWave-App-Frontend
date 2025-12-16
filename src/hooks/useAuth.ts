@@ -25,6 +25,7 @@ export const useAuth = () => {
         setLoading(false);
     }, []);
 
+    // Effect to load user from localStorage on component mount
     const signIn = (email: string) => {
         const newUser = { email, name: email.split('@')[0] };
         localStorage.setItem('mediwave_user', JSON.stringify(newUser));

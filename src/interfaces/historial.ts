@@ -1,5 +1,4 @@
-// Interfaces para los componentes del historial de vacunas
-
+// Interfaces for the history component
 export interface VaccineHeaderProps {
   vaccineName: string;
   vaccineId: string;
@@ -9,6 +8,7 @@ export interface VaccineHeaderProps {
   temperatureRange: string;
 }
 
+// Interfaces for the stats card component
 export interface StatsCardProps {
   icon: React.ReactNode;
   title: string;
@@ -18,15 +18,18 @@ export interface StatsCardProps {
   subtitle?: string;
 }
 
+// Interfaces for the temperature chart component
 export interface TemperatureDataPoint {
   time: string;
   temperature: number;
 }
 
+// Interfaces for the temperature chart component
 export interface TemperatureChartProps {
   data: TemperatureDataPoint[];
 }
 
+// Interfaces for the custom tooltip component
 export interface CustomTooltipProps {
   active?: boolean;
   payload?: Array<{
@@ -35,6 +38,7 @@ export interface CustomTooltipProps {
   }>;
 }
 
+// Interfaces for the event timeline component
 export interface TimelineEvent {
   id: number;
   title: string;
@@ -43,11 +47,12 @@ export interface TimelineEvent {
   priority: string;
 }
 
+// Interfaces for the event timeline component
 export interface EventTimelineProps {
   events: TimelineEvent[];
 }
 
-// Interfaces de la API Backend
+// Interfaces for the API Backend
 export interface Medication {
   id: number | string;
   name: string;
@@ -63,6 +68,7 @@ export interface Medication {
   updatedAt?: string;
 }
 
+// Interfaces for the batch component
 export interface Batch {
   id: number | string;
   medication_id?: number | string;
@@ -80,6 +86,7 @@ export interface Batch {
   updatedAt?: string;
 }
 
+// Interfaces for the location component
 export interface Location {
   id: string | number;
   name: string;
@@ -90,6 +97,7 @@ export interface Location {
   longitude?: number;
 }
 
+// Interfaces for the shipment component
 export interface Shipment {
   id: string | number;
   batch_id?: string | number;
@@ -112,6 +120,7 @@ export interface Shipment {
   updatedAt?: string;
 }
 
+// Interfaces for the state history component
 export interface StateHistory {
   id: string | number;
   shipment_id?: string | number;
@@ -128,7 +137,7 @@ export interface StateHistory {
   updatedAt?: string;
 }
 
-// Interfaces para las respuestas de la API
+// Interfaces for the API response
 export interface HistorialResponse {
   vaccine: VaccineHeaderProps;
   stats: Omit<StatsCardProps, 'icon'>[];

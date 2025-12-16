@@ -401,4 +401,4 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .textOptimal {
   color: hsl(var(--temperature-optimal));
 }
-/* Placeholder styling removed - handled by Tailwind CSS in components */
+

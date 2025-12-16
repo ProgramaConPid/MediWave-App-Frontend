@@ -14,6 +14,7 @@ interface MousePosition {
   y: number;
 }
 
+// Custom hook for tracking mouse position
 function MousePosition(): MousePosition {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,
@@ -47,6 +48,7 @@ interface ParticlesProps extends ComponentPropsWithoutRef<"div"> {
   vy?: number;
 }
 
+// Color conversion helper
 function hexToRgb(hex: string): number[] {
   hex = hex.replace("#", "");
 
@@ -77,6 +79,7 @@ type Circle = {
   magnetism: number;
 };
 
+// Interactive particles background component
 export const Particles: React.FC<ParticlesProps> = ({
   className = "",
   quantity = 100,
