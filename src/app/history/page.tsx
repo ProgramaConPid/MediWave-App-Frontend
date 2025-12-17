@@ -3,6 +3,7 @@
 // React Hooks
 import { useState, useEffect } from "react";
 // Icons
+import { Truck, LayoutDashboard } from "lucide-react";
 import {
   FaThermometerHalf,
   FaLungs,
@@ -10,9 +11,9 @@ import {
   FaStethoscope,
   FaFilePdf,
 } from "react-icons/fa";
+import { MdLocalShipping } from "react-icons/md";
 import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
-import { Package } from "lucide-react";
 import { FiHome } from "react-icons/fi";
 // UI Components
 import VaccineHeader from "../../components/ui/History/VaccineHeader/VaccineHeader";
@@ -166,16 +167,16 @@ export default function HistorialPage() {
             <FaFilePdf /> Exportar PDF
           </button>
         )}
-        <NavLink href="/dashboard" icon={<SlGraph />}>
+        <NavLink href="/dashboard" icon={<LayoutDashboard size={18} />}>
           Dashboard
         </NavLink>
-        <NavLink href="/history" icon={<FaClockRotateLeft />} isActive>
+        <NavLink href="/history" icon={<FaClockRotateLeft size={18} />} isActive>
           Historial
         </NavLink>
-        <NavLink href="/login" icon={<Package />}>
+        <NavLink href="/login" icon={<Truck size={18} />}>
           Gestión
         </NavLink>
-        <NavLink href="/" icon={<FiHome />}>
+        <NavLink href="/" icon={<FiHome size={18} />}>
           Inicio
         </NavLink>
       </Navbar>

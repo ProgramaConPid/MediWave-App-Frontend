@@ -42,6 +42,7 @@ import {
   Activity,
   User,
 } from "lucide-react";
+import { MdOutlineVaccines } from "react-icons/md";
 import {
   createMedicine,
   createBatch,
@@ -69,7 +70,7 @@ const Management = () => {
     type: "alert" | "success" | "info";
     message: string;
   }>({ show: false, type: "info", message: "" });
-  
+
   // Close alert after 3 seconds
   useEffect(() => {
     if (alertState.show) {
@@ -101,11 +102,11 @@ const Management = () => {
         case "medicine":
           await createMedicine({
             name: data.name as string,
-            code: data.code as string,
+            dosage: data.dosage as string,
             manufacturer: data.manufacturer as string,
             category: data.category as string,
-            tempMin: Number(data.tempMin),
-            tempMax: Number(data.tempMax),
+            min_temperature: Number(data.tempMin),
+            max_temperature: Number(data.tempMax),
             description: data.description as string,
           });
           break;
@@ -150,7 +151,7 @@ const Management = () => {
         message: `${formDisplayName} registrado correctamente`,
       });
       // Optional: keep form open or close it. Closing it for now as per original logic.
-      setTimeout(() => setActiveForm(null), 1500); 
+      setTimeout(() => setActiveForm(null), 1500);
     } catch (error) {
       console.error(`Error registering ${formDisplayName}:`, error);
       setAlertState({
@@ -243,13 +244,13 @@ const Management = () => {
 
         {/* Alert Toast */}
         {alertState.show && (
-            <div className="fixed top-24 right-8 z-50 animate-in slide-in-from-right-full fade-in duration-300">
-                <AlertToast 
-                    type={alertState.type} 
-                    description={alertState.message} 
-                    timestamp="Justo ahora"
-                />
-            </div>
+          <div className="fixed top-24 right-8 z-50 animate-in slide-in-from-right-full fade-in duration-300">
+            <AlertToast
+              type={alertState.type}
+              description={alertState.message}
+              timestamp="Justo ahora"
+            />
+          </div>
         )}
 
         {/* Main Content */}
@@ -355,12 +356,12 @@ const Management = () => {
                         htmlFor="med-code"
                         className="flex items-center gap-2 text-white"
                       >
-                        <Hash className="w-4 h-4 text-glacier" />
-                        Código NDC
+                        <MdOutlineVaccines className="w-4 h-4 text-glacier" />
+                        Dosis
                       </Label>
                       <Input
-                        name="code"
-                        placeholder="Ej: 0002-7714-01"
+                        name="dosage"
+                        placeholder="Ej: 500mg"
                         className="bg-slate-900/50 border border-glacier/60 text-white placeholder:text-white/40 focus:border-glacier focus:ring-1 focus:ring-glacier/50"
                         required
                       />
@@ -729,7 +730,7 @@ const Management = () => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                       <Label
+                      <Label
                         htmlFor="departure_date"
                         className="flex items-center gap-2 text-white"
                       >
@@ -766,7 +767,7 @@ const Management = () => {
                         htmlFor="min_temperature"
                         className="flex items-center gap-2 text-white"
                       >
-                         <Thermometer className="w-4 h-4 text-glacier" />
+                        <Thermometer className="w-4 h-4 text-glacier" />
                         Temp. Mínima
                       </Label>
                       <Input
@@ -782,7 +783,7 @@ const Management = () => {
                         htmlFor="max_temperature"
                         className="flex items-center gap-2 text-white"
                       >
-                         <Thermometer className="w-4 h-4 text-glacier" />
+                        <Thermometer className="w-4 h-4 text-glacier" />
                         Temp. Máxima
                       </Label>
                       <Input
@@ -797,31 +798,33 @@ const Management = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <Label
-                          htmlFor="status"
-                          className="flex items-center gap-2 text-white"
-                        >
-                          <Activity className="w-4 h-4 text-glacier" />
-                          Estado
-                        </Label>
-                        <Select name="status" defaultValue="IN_TRANSIT" required>
-                          <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
-                            <SelectValue placeholder="Seleccionar estado" />
-                          </SelectTrigger>
-                          <SelectContent className="glass-strong border-border/50 bg-slate-900">
-                            <SelectItem value="PENDING">Pendiente</SelectItem>
-                            <SelectItem value="IN_TRANSIT">En Tránsito</SelectItem>
-                            <SelectItem value="DELIVERED">Entregado</SelectItem>
-                            <SelectItem value="CANCELLED">Cancelado</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <Label
+                        htmlFor="status"
+                        className="flex items-center gap-2 text-white"
+                      >
+                        <Activity className="w-4 h-4 text-glacier" />
+                        Estado
+                      </Label>
+                      <Select name="status" defaultValue="IN_TRANSIT" required>
+                        <SelectTrigger className="bg-slate-900/50 border border-glacier/60 text-white focus:border-glacier focus:ring-1 focus:ring-glacier/50">
+                          <SelectValue placeholder="Seleccionar estado" />
+                        </SelectTrigger>
+                        <SelectContent className="glass-strong border-border/50 bg-slate-900">
+                          <SelectItem value="PENDING">Pendiente</SelectItem>
+                          <SelectItem value="IN_TRANSIT">
+                            En Tránsito
+                          </SelectItem>
+                          <SelectItem value="DELIVERED">Entregado</SelectItem>
+                          <SelectItem value="CANCELLED">Cancelado</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-2">
                       <Label
                         htmlFor="operator_id"
                         className="flex items-center gap-2 text-white"
                       >
-                         <User className="w-4 h-4 text-glacier" />
+                        <User className="w-4 h-4 text-glacier" />
                         ID Operador
                       </Label>
                       <Input
