@@ -1,6 +1,7 @@
+/* Layout */
 .card {
   padding: 20px;
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   border-radius: var(--radius-base);
   border: 1px solid hsl(var(--border));
   backdrop-filter: blur(24px);
@@ -15,6 +16,7 @@
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* State Variants */
 .card.normal {
   border-color: rgba(0, 188, 212, 0.3);
 }
@@ -31,6 +33,7 @@
   border-color: rgba(255, 193, 7, 0.5);
 }
 
+/* Icon Container */
 .iconContainer {
   display: flex;
   align-items: center;
@@ -48,6 +51,7 @@
   color: #00bcd4;
 }
 
+/* State Icons */
 .icon_normal {
   background: rgba(0, 188, 212, 0.15) !important;
 }
@@ -84,6 +88,7 @@
   color: #ffc107 !important;
 }
 
+/* Content */
 .content {
   flex: 1;
   display: flex;
@@ -91,6 +96,7 @@
   gap: 4px;
 }
 
+/* Text Styles */
 .title {
   font-size: 14px;
   color: #00bcd4;
@@ -125,7 +131,7 @@
   font-weight: 400;
 }
 
-/* Estilos de color según estado */
+/* Color Styles by State */
 .normal .title,
 .normal .value,
 .normal .unit {
@@ -150,6 +156,7 @@
   color: #ffc107;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .card {
     padding: 16px;

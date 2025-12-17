@@ -1,6 +1,7 @@
+/* Layout */
 .chartContainer {
   padding: 20px;
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   border-radius: var(--radius-base);
   border: 1px solid hsl(var(--border));
   backdrop-filter: blur(24px);
@@ -8,6 +9,7 @@
   margin-top: 2rem;
 }
 
+/* Header */
 .header {
   margin-bottom: 24px;
 }
@@ -26,12 +28,14 @@
   font-style: italic;
 }
 
+/* Chart Area */
 .chartWrapper {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 16px;
 }
 
+/* Tooltip */
 .tooltip {
   background: rgba(15, 44, 71, 0.95);
   border: 2px solid #00bcd4;
@@ -57,6 +61,25 @@
   font-weight: 700;
 }
 
+/* Empty State */
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px dashed rgba(0, 188, 212, 0.3);
+}
+
+.emptyMessage {
+  color: #8ab4d5;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .chartContainer {
     padding: 16px;

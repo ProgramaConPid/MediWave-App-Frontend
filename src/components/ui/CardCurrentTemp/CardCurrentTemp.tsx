@@ -1,6 +1,19 @@
 import styles from "./CardTemp.module.css";
 
-const CardCurrentTemp = ({currentTemp}: {currentTemp: string}) => {
+const CardCurrentTemp = ({ currentTemp }: { currentTemp: string }) => {
+  // Define temperature thresholds
+  const minTemp = -30;
+  const maxTemp = -10;
+
+  const temp = parseFloat(currentTemp);
+
+  // Calculate percentage for progress bar
+  let percent = 0;
+  if (!isNaN(temp)) {
+    percent = ((temp - minTemp) / (maxTemp - minTemp)) * 100;
+    percent = Math.max(0, Math.min(100, percent));
+  }
+
   return (
     <div className={styles.card__temp}>
       <div className={styles.card__tempHeader}>
@@ -9,15 +22,18 @@ const CardCurrentTemp = ({currentTemp}: {currentTemp: string}) => {
       </div>
 
       <div className={styles.progress__container}>
-        <div className={styles.progress__bar}></div>
+        <div
+          className={styles.progress__bar}
+          style={{ width: `${percent}%` }}
+        ></div>
       </div>
 
       <div className={styles.card__tempInfo}>
-        <span className={styles.card__tempSpan}>-30°C</span>
+        <span className={styles.card__tempSpan}>{minTemp}°C</span>
         <span className={styles.card__recommendedTemp}>
           Óptimo: -25°C - -15°C
         </span>
-        <span className={styles.card__tempSpan}>-10°C</span>
+        <span className={styles.card__tempSpan}>{maxTemp}°C</span>
       </div>
     </div>
   );

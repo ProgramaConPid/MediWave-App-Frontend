@@ -1,6 +1,7 @@
+/* Base Card Styles */
 .card {
   width: 100%;
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   border-radius: var(--radius-base);
   padding: 25px;
   flex: 1;
@@ -8,6 +9,7 @@
   backdrop-filter: blur(24px);
 }
 
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -56,12 +58,14 @@
   animation: pulseSoft 2.5s ease-in-out infinite;
 }
 
+/* Header Styles */
 .card__header {
   display: flex;
   align-items: center;
-  gap: .6rem;
+  gap: 0.6rem;
 }
 
+/* Icon Variants */
 .card__headerIcon {
   padding: 10px;
   font-size: 1.2rem;
@@ -69,21 +73,22 @@
 }
 
 .icon__green {
-  background-color: hsl(var(--temp-optimal) / .2);
+  background-color: hsl(var(--temp-optimal) / 0.2);
 }
 
 .icon__blue {
-  background-color: hsl(var(--primary) / .2);
+  background-color: hsl(var(--primary) / 0.2);
 }
 
 .icon__glacier {
-  background-color: hsl(var(--glacier) / .2);
+  background-color: hsl(var(--glacier) / 0.2);
 }
 
 .card__headerTitle {
   color: hsl(var(--muted-foreground));
 }
 
+/* Body & Text Styles */
 .card__body {
   display: flex;
   flex-direction: column;
@@ -97,9 +102,10 @@
 }
 
 .card__details {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
+/* Detail Text Variants */
 .card__details.temp {
   color: hsl(var(--temp-optimal));
 }

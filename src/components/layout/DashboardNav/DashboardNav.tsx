@@ -1,12 +1,15 @@
 "use client";
 
+// UI and layout imports
 import Navbar from "../Navbar/Navbar";
 import NavLink from "../Navbar/NavLink";
+// Icons
 import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { MdLocalShipping } from "react-icons/md";
 import { FiHome } from "react-icons/fi";
 
+// Navigation bar specifically for the dashboard area
 const DashboardNav = () => {
   return (
     <Navbar>

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   LineChart,
   Line,
@@ -10,17 +10,26 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-} from 'recharts';
-import { TemperatureChartProps, CustomTooltipProps } from '../../../../interfaces/historial';
-import styles from './TemperatureChart.module.css';
+} from "recharts";
+import {
+  TemperatureChartProps,
+  CustomTooltipProps,
+} from "../../../../interfaces/historial";
+import styles from "./TemperatureChart.module.css";
 
+// Custom tooltip for chart interactions
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
+    const tempValue = payload[0].value;
+    // Format temperature to 3 decimal places
+    const formattedTemp =
+      typeof tempValue === "number" ? tempValue.toFixed(3) : tempValue;
+
     return (
       <div className={styles.tooltip}>
         <p className={styles.tooltipTime}>{payload[0].payload.time}</p>
         <p className={styles.tooltipValue}>
-          Temperatura: <strong>{payload[0].value}°C</strong>
+          Temperatura: <strong>{formattedTemp}°C</strong>
         </p>
       </div>
     );
@@ -29,6 +38,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
 };
 
 const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
+  const hasData = data && data.length > 0;
 
   return (
     <div className={styles.chartContainer}>
@@ -40,53 +50,64 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
       </div>
 
       <div className={styles.chartWrapper}>
-        <ResponsiveContainer width="100%" height={450}>
-          <LineChart
-            data={data}
-            margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
-          >
-            <defs>
-              <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#00bcd4" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#00bcd4" stopOpacity={0.1} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(138, 180, 213, 0.1)" />
-            <XAxis
-              dataKey="time"
-              stroke="#8ab4d5"
-              tick={{ fill: '#8ab4d5', fontSize: 12 }}
-              angle={-45}
-              textAnchor="end"
-              height={80}
-            />
-            <YAxis
-              stroke="#8ab4d5"
-              tick={{ fill: '#8ab4d5', fontSize: 12 }}
-              domain={[-25, -5]}
-              label={{
-                value: 'Temperatura (°C)',
-                angle: -90,
-                position: 'insideLeft',
-                style: { fill: '#8ab4d5', fontSize: 14 },
-              }}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Legend
-              wrapperStyle={{ color: '#8ab4d5', paddingTop: '20px' }}
-              iconType="line"
-            />
-            <Line
-              type="monotone"
-              dataKey="temperature"
-              stroke="#00bcd4"
-              strokeWidth={3}
-              dot={{ fill: '#00bcd4', r: 5 }}
-              activeDot={{ r: 8, fill: '#00acc1' }}
-              name="Temperatura (°C)"
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        {!hasData ? (
+          <div className={styles.emptyState}>
+            <p className={styles.emptyMessage}>
+              No hay datos de temperatura disponibles
+            </p>
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height={450}>
+            <LineChart
+              data={data}
+              margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
+            >
+              <defs>
+                <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#00bcd4" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#00bcd4" stopOpacity={0.1} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="rgba(138, 180, 213, 0.1)"
+              />
+              <XAxis
+                dataKey="time"
+                stroke="#8ab4d5"
+                tick={{ fill: "#8ab4d5", fontSize: 12 }}
+                angle={-45}
+                textAnchor="end"
+                height={80}
+              />
+              <YAxis
+                stroke="#8ab4d5"
+                tick={{ fill: "#8ab4d5", fontSize: 12 }}
+                domain={[-25, -5]}
+                label={{
+                  value: "Temperatura (°C)",
+                  angle: -90,
+                  position: "insideLeft",
+                  style: { fill: "#8ab4d5", fontSize: 14 },
+                }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend
+                wrapperStyle={{ color: "#8ab4d5", paddingTop: "20px" }}
+                iconType="line"
+              />
+              <Line
+                type="monotone"
+                dataKey="temperature"
+                stroke="#00bcd4"
+                strokeWidth={3}
+                dot={{ fill: "#00bcd4", r: 5 }}
+                activeDot={{ r: 8, fill: "#00acc1" }}
+                name="Temperatura (°C)"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </div>
   );

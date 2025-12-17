@@ -1,5 +1,6 @@
 "use client";
 
+// React imports
 import { useEffect, useState } from "react";
 
 interface HexagonPos {
@@ -9,9 +10,11 @@ interface HexagonPos {
   duration: string;
 }
 
+// Component for animated floating background hexagons
 const FloatingHexagons = () => {
   const [hexagons, setHexagons] = useState<HexagonPos[]>([]);
 
+  // Generate random positions and animations on mount
   useEffect(() => {
     const generated = Array.from({ length: 6 }).map((_, i) => ({
       top: `${Math.random() * 100}%`,

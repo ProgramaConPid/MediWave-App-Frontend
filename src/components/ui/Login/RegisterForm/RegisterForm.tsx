@@ -1,25 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import styles from './RegisterForm.module.css';
-import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiPhone, FiBriefcase } from 'react-icons/fi';
-import Link from 'next/link';
+import React, { useState } from "react";
+import styles from "./RegisterForm.module.css";
+import {
+  FiMail,
+  FiLock,
+  FiUser,
+  FiEye,
+  FiEyeOff,
+  FiBriefcase,
+} from "react-icons/fi";
+import Link from "next/link";
+import { registerUser } from "@/services/managementService";
 
 const RegisterForm = () => {
+  // State for registration form data
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    company: '',
-    position: '',
-    phone: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    fullName: "",
+    position: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -28,112 +35,67 @@ const RegisterForm = () => {
     }));
   };
 
+
+
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Basic validation
     if (formData.password !== formData.confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      alert("Las contraseñas no coinciden");
       return;
     }
 
     setIsLoading(true);
-    
-    setTimeout(() => {
+
+    try {
+      await registerUser(formData);
+      alert("Usuario registrado correctamente");
+      // Optional: Redirect or clear form
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Error al registrar usuario");
+    } finally {
       setIsLoading(false);
-      console.log('Register attempt:', formData);
-    }, 1500);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="firstName" className={styles.label}>
-              <FiUser className={styles.labelIcon} />
-              Nombre
-            </label>
-            <input
-              id="firstName"
-              type="text"
-              placeholder="Juan"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="lastName" className={styles.label}>
-              <FiUser className={styles.labelIcon} />
-              Apellido
-            </label>
-            <input
-              id="lastName"
-              type="text"
-              placeholder="Pérez"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-        </div>
-
         <div className={styles.formGroup}>
-          <label htmlFor="company" className={styles.label}>
-            <FiBriefcase className={styles.labelIcon} />
-            Empresa / Organización
+          <label htmlFor="fullName" className={styles.label}>
+            <FiUser className={styles.labelIcon} />
+            Nombre Completo
           </label>
           <input
-            id="company"
+            id="fullName"
             type="text"
-            placeholder="Farmacéutica ABC S.A."
-            name="company"
-            value={formData.company}
+            placeholder="Juan Pérez"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleChange}
             className={styles.input}
             required
           />
         </div>
 
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="position" className={styles.label}>
-              <FiBriefcase className={styles.labelIcon} />
-              Cargo
-            </label>
-            <input
-              id="position"
-              type="text"
-              placeholder="Gerente de Logística"
-              name="position"
-              value={formData.position}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="phone" className={styles.label}>
-              <FiPhone className={styles.labelIcon} />
-              Teléfono
-            </label>
-            <input
-              id="phone"
-              type="tel"
-              placeholder="+52 55 1234 5678"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="position" className={styles.label}>
+            <FiBriefcase className={styles.labelIcon} />
+            Cargo
+          </label>
+          <input
+            id="position"
+            type="text"
+            placeholder="Gerente de Logística"
+            name="position"
+            value={formData.position}
+            onChange={handleChange}
+            className={styles.input}
+            required
+          />
         </div>
 
         <div className={styles.formGroup}>
@@ -161,7 +123,7 @@ const RegisterForm = () => {
           <div className={styles.inputWrapper}>
             <input
               id="password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               name="password"
               value={formData.password}
@@ -187,7 +149,7 @@ const RegisterForm = () => {
           <div className={styles.inputWrapper}>
             <input
               id="confirmPassword"
-              type={showConfirmPassword ? 'text' : 'password'}
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="••••••••"
               name="confirmPassword"
               value={formData.confirmPassword}
@@ -205,36 +167,27 @@ const RegisterForm = () => {
           </div>
         </div>
 
-        <div className={styles.terms}>
-          <input
-            id="terms"
-            type="checkbox"
-            className={styles.checkbox}
-            required
-          />
-          <label htmlFor="terms" className={styles.checkboxLabel}>
-            Acepto los términos y condiciones
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={styles.submitBtn}
-        >
-          {isLoading ? 'Registrando...' : <><FiUser /> Crear Cuenta</>}
+        <button type="submit" disabled={isLoading} className={styles.submitBtn}>
+          {isLoading ? (
+            "Registrando..."
+          ) : (
+            <>
+              <FiUser /> Crear Cuenta
+            </>
+          )}
         </button>
       </form>
 
       <div className={styles.hasAccount}>
-        ¿Ya tienes cuenta?{' '}
+        ¿Ya tienes cuenta?{" "}
         <Link href="/login" className={styles.loginLink}>
           Inicia sesión
         </Link>
       </div>
 
       <div className={styles.footer}>
-        <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro Blockchain
+        <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro
+        Blockchain
       </div>
     </>
   );

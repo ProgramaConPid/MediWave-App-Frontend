@@ -1,3 +1,9 @@
+/*
+  Global Stylesheet
+  -----------------
+  Contains Tailwind CSS directives, theme configuration (colors, animations),
+  and utility classes used throughout the application.
+*/
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -46,29 +52,61 @@
   --animate-fade-in: fade-in 0.5s ease-out forwards;
 
   @keyframes accordion-down {
-    from { height: 0 }
-    to { height: var(--radix-accordion-content-height) }
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
   }
   @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height) }
-    to { height: 0 }
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
   }
   @keyframes pulse-glow {
-    0%, 100% { opacity: 0.2; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.1); }
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
   }
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
   }
   @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
   @keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -114,34 +152,34 @@
   :root {
     --background: 220 30% 8%;
     --foreground: 200 20% 98%;
-    
+
     --card: 220 25% 12%;
     --card-foreground: 200 20% 98%;
-    
+
     --popover: 220 25% 12%;
     --popover-foreground: 200 20% 98%;
-    
+
     --primary: 190 95% 55%;
     --primary-foreground: 220 30% 8%;
-    
+
     --secondary: 220 40% 18%;
     --secondary-foreground: 200 20% 98%;
-    
+
     --muted: 220 25% 15%;
     --muted-foreground: 200 15% 65%;
-    
+
     --accent: 180 100% 60%;
     --accent-foreground: 220 30% 8%;
-    
+
     --destructive: 0 70% 55%;
     --destructive-foreground: 200 20% 98%;
-    
+
     --border: 220 25% 20%;
     --input: 220 25% 20%;
     --ring: 190 95% 55%;
-    
+
     --radius: 0.75rem;
-    
+
     --glacier: 200 80% 85%;
     --temperature-optimal: 150 80% 50%;
   }
@@ -156,80 +194,80 @@
   }
 }
 :root {
-    /* Deep space blue background */
-    --background: 220 30% 8%;
-    --foreground: 200 20% 98%;
+  /* Deep space blue background */
+  --background: 220 30% 8%;
+  --foreground: 200 20% 98%;
 
-    /* Frosted glass cards */
-    --card: 220 25% 12%;
-    --card-foreground: 200 20% 98%;
+  /* Frosted glass cards */
+  --card: 220 25% 12%;
+  --card-foreground: 200 20% 98%;
 
-    --popover: 220 25% 12%;
-    --popover-foreground: 200 20% 98%;
+  --popover: 220 25% 12%;
+  --popover-foreground: 200 20% 98%;
 
-    /* Cyan accent as primary */
-    --primary: 190 95% 55%;
-    --primary-foreground: 220 30% 8%;
+  /* Cyan accent as primary */
+  --primary: 190 95% 55%;
+  --primary-foreground: 220 30% 8%;
 
-    /* Deep blue secondary */
-    --secondary: 220 40% 18%;
-    --secondary-foreground: 200 20% 98%;
+  /* Deep blue secondary */
+  --secondary: 220 40% 18%;
+  --secondary-foreground: 200 20% 98%;
 
-    /* Muted ice blue */
-    --muted: 220 25% 15%;
-    --muted-foreground: 200 15% 65%;
+  /* Muted ice blue */
+  --muted: 220 25% 15%;
+  --muted-foreground: 200 15% 65%;
 
-    /* Electric cyan accent */
-    --accent: 180 100% 60%;
-    --accent-foreground: 220 30% 8%;
+  /* Electric cyan accent */
+  --accent: 180 100% 60%;
+  --accent-foreground: 220 30% 8%;
 
-    /* Cold red for warnings */
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 200 20% 98%;
+  /* Cold red for warnings */
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 200 20% 98%;
 
-    /* Subtle borders */
-    --border: 220 25% 20%;
-    --input: 220 25% 20%;
-    --ring: 190 95% 55%;
+  /* Subtle borders */
+  --border: 220 25% 20%;
+  --input: 220 25% 20%;
+  --ring: 190 95% 55%;
 
-    --radius-base: 0.75rem;
+  --radius-base: 0.75rem;
 
-    /* Custom theme tokens */
-    --ice-blue: 200 100% 85%;
-    --glacier: 195 80% 45%;
-    --frost: 200 60% 95%;
-    --cold-gradient-start: 220 30% 8%;
-    --cold-gradient-end: 195 80% 20%;
+  /* Custom theme tokens */
+  --ice-blue: 200 100% 85%;
+  --glacier: 195 80% 45%;
+  --frost: 200 60% 95%;
+  --cold-gradient-start: 220 30% 8%;
+  --cold-gradient-end: 195 80% 20%;
 
-    /* Temperature colors */
-    --temp-cold: 200 100% 50%;
-    --temp-optimal: 170 80% 50%;
-    --temp-warm: 40 100% 60%;
-    --temp-hot: 0 85% 55%;
+  /* Temperature colors */
+  --temp-cold: 200 100% 50%;
+  --temp-optimal: 170 80% 50%;
+  --temp-warm: 40 100% 60%;
+  --temp-hot: 0 85% 55%;
 
-    --sidebar-background: 220 30% 10%;
-    --sidebar-foreground: 200 20% 95%;
-    --sidebar-primary: 190 95% 55%;
-    --sidebar-primary-foreground: 220 30% 8%;
-    --sidebar-accent: 220 35% 15%;
-    --sidebar-accent-foreground: 200 20% 95%;
-    --sidebar-border: 220 25% 18%;
-    --sidebar-ring: 190 95% 55%;
-  }
+  --sidebar-background: 220 30% 10%;
+  --sidebar-foreground: 200 20% 95%;
+  --sidebar-primary: 190 95% 55%;
+  --sidebar-primary-foreground: 220 30% 8%;
+  --sidebar-accent: 220 35% 15%;
+  --sidebar-accent-foreground: 200 20% 95%;
+  --sidebar-border: 220 25% 18%;
+  --sidebar-ring: 190 95% 55%;
+}
 
 @layer utilities {
   .glass {
     @apply bg-white/5 backdrop-blur-lg border border-white/10;
   }
-  
+
   .glass-strong {
     @apply bg-background/80 backdrop-blur-xl border border-white/10;
   }
-  
+
   .gradient-ice {
     @apply bg-gradient-to-br from-primary/20 to-glacier/20;
   }
-  
+
   .gradient-cold {
     @apply bg-gradient-to-br from-background to-secondary;
   }
@@ -277,40 +315,43 @@ body {
   --color-sidebar-ring: var(--sidebar-ring);
   --animate-meteor: meteor 5s linear infinite;
   @keyframes meteor {
-  0% {
-    transform: rotate(var(--angle)) translateX(0);
-    opacity: 1;
+    0% {
+      transform: rotate(var(--angle)) translateX(0);
+      opacity: 1;
     }
-  70% {
-    opacity: 1;
+    70% {
+      opacity: 1;
     }
-  100% {
-    transform: rotate(var(--angle)) translateX(-500px);
-    opacity: 0;
+    100% {
+      transform: rotate(var(--angle)) translateX(-500px);
+      opacity: 0;
     }
   }
-  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
-  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear
-;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
+    alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   @keyframes shimmer-slide {
-  to {
-    transform: translate(calc(100cqw - 100%), 0);
-        }
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
     }
+  }
   @keyframes spin-around {
-  0% {
-    transform: translateZ(0) rotate(0);
-        }
-  15%, 35% {
-    transform: translateZ(0) rotate(90deg);
-        }
-  65%, 85% {
-    transform: translateZ(0) rotate(270deg);
-        }
-  100% {
-    transform: translateZ(0) rotate(360deg);
-        }
-    }}
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%,
+    35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%,
+    85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+}
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -356,7 +397,5 @@ body {
 }
 
 #tsparticles canvas {
-  filter: drop-shadow(0 0 12px #06b6d4) 
-          drop-shadow(0 0 24px #06b6d4)
-          blur(2px);
+  filter: drop-shadow(0 0 12px #06b6d4) drop-shadow(0 0 24px #06b6d4) blur(2px);
 }

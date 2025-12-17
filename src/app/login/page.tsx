@@ -1,13 +1,16 @@
 "use client";
 
+// React and Next.js imports
 import React from "react";
+import Link from "next/link";
+// Styles and Icons
 import styles from "./login.module.css";
+import { FiArrowLeft } from "react-icons/fi";
+// Visual components
 import ParticlesBackground from "@/components/ParticlesBackground";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import LoginForm from "@/components/ui/Login/LoginForm/LoginForm";
-import Link from "next/link";
-import { FiArrowLeft } from "react-icons/fi";
 
 export default function LoginPage() {
   return (

@@ -1,25 +1,30 @@
+/* Layout */
 .card__blockchain {
   padding: 20px;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius-base);
-  background-color: hsl(var(--card) / .4);
+  background-color: hsl(var(--card) / 0.4);
   backdrop-filter: blur(24px);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
+/* Header */
 .card__blockchainHeader {
   display: flex;
   align-items: center;
-  gap: .7rem;
+  gap: 0.7rem;
 }
 
+/* Icons */
 .card__blockchainIconContainer {
   padding: 10px;
   border-radius: var(--radius-base);
-  background-color: hsl(var(--primary) / .2);
+  background-color: hsl(var(--primary) / 0.2);
 }
 
 .card__blockchainIcon {
@@ -27,10 +32,11 @@
   font-size: 1.2rem;
 }
 
+/* Content Info */
 .card__blockchainTextsInfo {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .card__blockchainTextsTitle {
@@ -40,10 +46,11 @@
 }
 
 .card__blockchainTextsInfo {
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: hsl(var(--temp-optimal));
 }
 
+/* Hash & Block ID */
 .card__blockchainHash,
 .card__blockchainBlockId {
   background-color: hsl(var(--secondary));
@@ -53,7 +60,11 @@
 }
 
 .card__blockchainHash {
-  gap: .5rem;
+  gap: 0.5rem;
+}
+
+.card__blockchainHashTexts {
+  width: 100%;
 }
 
 .card__blockchainHashIcon {
@@ -64,7 +75,7 @@
 }
 
 .card__blockchainBlockId {
-  margin-top: 1rem  ;
+  margin-top: 0.5rem;
   text-overflow: clip;
 }
 
@@ -79,6 +90,22 @@
 .card__blockchainHashId {
   color: hsl(var(--foreground));
   word-break: break-all;
+  width: 100%;
+  background-color: hsl(var(--card));
+  margin-top: 0.5rem;
+  padding: 15px;
+  border-radius: var(--radius-base);
+  transition: 400ms ease;
+}
+
+/* Buttons */
+.transaction__button {
+  display: flex;
+  gap: 1rem;
+}
+
+.card__blockchainHashId:focus {
+  outline: 1px solid hsl(var(--primary));
 }
 
 .card__blockchainBlockIdTitle {
@@ -93,5 +120,4 @@
   display: flex;
   gap: 1rem;
   width: 100%;
-  margin-top: 1rem;
 }

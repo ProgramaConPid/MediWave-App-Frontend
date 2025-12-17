@@ -1,6 +1,8 @@
 "use client";
 
-import Image from "next/image";
+// React Hooks
+import { useState, useEffect } from "react";
+// Icons
 import {
   FaThermometerHalf,
   FaLungs,
@@ -10,161 +12,160 @@ import {
 } from "react-icons/fa";
 import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
-import { MdSettingsInputSvideo } from "react-icons/md";
 import { Package } from "lucide-react";
+import { FiHome } from "react-icons/fi";
+// UI Components
 import VaccineHeader from "../../components/ui/History/VaccineHeader/VaccineHeader";
 import StatsCard from "../../components/ui/History/StatsCard/StatsCard";
 import TemperatureChart from "../../components/ui/History/TemperatureChart/TemperatureChart";
 import EventTimeline from "../../components/ui/History/EventTimeline/EventTimeline";
-import { generateStructuredPDF } from "../../utils/pdfGenerator";
-import styles from "./history.module.css";
-// import { FaHandHoldingMedical } from "react-icons/fa6";
-import { FiHome } from "react-icons/fi";
-import Link from "next/link";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
+// Utils and Services
+import { generateStructuredPDF } from "../../utils/pdfGenerator";
+import styles from "./history.module.css";
+import {
+  getCompleteHistory,
+  getAllShipments,
+} from "@/services/historialService";
+import {
+  VaccineHeaderProps,
+  StatsCardProps,
+  TemperatureDataPoint,
+  TimelineEvent,
+  Shipment,
+} from "@/interfaces/historial";
 
-// Datos de ejemplo - estos pueden venir de una API o base de datos
-const vaccineData = {
-  vaccineName: "Vacuna COVID-19",
-  vaccineId: "MED-2024-001",
-  lotNumber: "BTC-2024-001",
-  origin: "Laboratorio Pfizer, Bélgica",
-  destination: "Hospital Central, Madrid",
-  temperatureRange: "Rango Óptimo: -25°C a -15°C",
-};
-
-const statsData = [
-  {
-    icon: <FaThermometerHalf />,
-    title: "Temp. Promedio",
-    value: "-19.6",
-    unit: "°C",
-    status: "normal" as const,
-    subtitle: "Dentro del rango",
-  },
-  {
-    icon: <FaHeartbeat />,
-    title: "Temp. Máxima",
-    value: "-18.2",
-    unit: "°C",
-    status: "warning" as const,
-    subtitle: "Pico registrado",
-  },
-  {
-    icon: <FaLungs />,
-    title: "Temp. Mínima",
-    value: "-21.0",
-    unit: "°C",
-    status: "danger" as const,
-    subtitle: "Mínimo registrado",
-  },
-  {
-    icon: <FaStethoscope />,
-    title: "Violaciones",
-    value: "0",
-    unit: "",
-    status: "violations" as const,
-    subtitle: "Sin incidencias",
-  },
-];
-
-const temperatureData = [
-  { time: "07:00 12/02", temperature: -18.5 },
-  { time: "08:00 12/02", temperature: -17.2 },
-  { time: "11:00 12/02", temperature: -15.8 },
-  { time: "14:00 12/02", temperature: -16.5 },
-  { time: "16:00 12/02", temperature: -11.2 },
-  { time: "18:00 12/02", temperature: -14.8 },
-  { time: "22:00 12/02", temperature: -21.5 },
-  { time: "02:00 13/02", temperature: -19.8 },
-  { time: "06:00 13/02", temperature: -17.5 },
-  { time: "10:00 13/02", temperature: -16.2 },
-  { time: "14:00 13/02", temperature: -13.5 },
-  { time: "18:00 13/02", temperature: -15.8 },
-  { time: "22:00 13/02", temperature: -18.2 },
-  { time: "02:00 14/02", temperature: -19.5 },
-  { time: "06:00 14/02", temperature: -17.8 },
-  { time: "10:00 14/02", temperature: -15.2 },
-  { time: "14:00 14/02", temperature: -12.8 },
-  { time: "18:00 14/02", temperature: -14.5 },
-  { time: "22:00 14/02", temperature: -16.8 },
-];
-
-const eventsData = [
-  {
-    id: 1,
-    title: "Fabricación Pfizer-Biotech",
-    date: "24/01/2023 16:24",
-    description:
-      "Inicio del almacenaje: Vacunas específicas deben ser congeladas",
-    priority: "+98.4%",
-  },
-  {
-    id: 2,
-    title: "Transporte Inteligente A1",
-    date: "24/01/2023 16:24",
-    description:
-      "En tránsito hacia el puerto marítimo desde planta de distribución.",
-    priority: "+87.4%",
-  },
-  {
-    id: 3,
-    title: "Ruta Cargo Internacional",
-    date: "24/01/2023 16:24",
-    description: "Llegó al Punto de acopio. Transporte eficiente y oportuno.",
-    priority: "+98.4%",
-  },
-  {
-    id: 4,
-    title: "Centro de Distribución, Italia",
-    date: "24/01/2023 16:24",
-    description:
-      "Se tránsito hacia el puerto marítimo desde planta de distribución.",
-    priority: "+98.4%",
-  },
-  {
-    id: 5,
-    title: "Hub Logístico Regional",
-    date: "24/01/2023 16:24",
-    description:
-      "Salida desde el HUB hacia los puntos de origen para su refrigeración",
-    priority: "+84.3%",
-  },
-  {
-    id: 6,
-    title: "Hospital Central, Madrid",
-    date: "24/01/2023 16:24",
-    description: "Continúa Base principal para transporte por el continente.",
-    priority: "+98.3%",
-  },
+// Mapping icons for statistics cards
+const statsIcons = [
+  <FaThermometerHalf key="temp-avg" />,
+  <FaHeartbeat key="temp-max" />,
+  <FaLungs key="temp-min" />,
+  <FaStethoscope key="violations" />,
 ];
 
 export default function HistorialPage() {
-  // Función para generar el PDF con datos estructurados
+  // State for different sections of the history report
+  const [vaccineData, setVaccineData] = useState<VaccineHeaderProps | null>(null);
+  const [statsData, setStatsData] = useState<Omit<StatsCardProps, "icon">[]>([]);
+  const [temperatureData, setTemperatureData] = useState<TemperatureDataPoint[]>([]);
+  const [eventsData, setEventsData] = useState<TimelineEvent[]>([]);
+  // UI State
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  // Filtering Options
+  const [shipments, setShipments] = useState<Shipment[]>([]);
+  const [selectedShipmentId, setSelectedShipmentId] = useState<string | null>(null);
+
+  // Fetch available shipments for the dropdown
+  const fetchShipments = async () => {
+    try {
+      const shipmentsData = await getAllShipments();
+      setShipments(shipmentsData);
+
+      console.log("Envíos cargados:", shipmentsData);
+
+      // If shipments exist, select the first one by default
+      if (shipmentsData.length > 0) {
+        setSelectedShipmentId(shipmentsData[0].id.toString());
+      }
+    } catch (err) {
+      console.error("Error al cargar envíos:", err);
+      setError("No se pudieron cargar los envíos disponibles");
+    }
+  };
+
+  const fetchHistorial = async (shipmentId: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await getCompleteHistory(shipmentId);
+      setVaccineData(data.vaccine);
+      setStatsData(data.stats);
+      setTemperatureData(data.temperatureData);
+      setEventsData(data.events);
+    } catch (err) {
+      console.error("Error al cargar historial:", err);
+      setError(
+        err instanceof Error ? err.message : "Error al cargar el historial"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchShipments();
+  }, []);
+
+  useEffect(() => {
+    if (selectedShipmentId) {
+      fetchHistorial(selectedShipmentId);
+    }
+  }, [selectedShipmentId]);
+
+  // Function to generate the PDF with structured data
   const handleExportPDF = async () => {
-    // Preparar stats sin el icono para el PDF
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const statsForPDF = statsData.map(({ icon, ...rest }) => rest);
+    if (!vaccineData) return;
+
+    // Get the name from the selected shipment
+    const selectedShipment = shipments.find(
+      (s) => s.id.toString() === selectedShipmentId
+    );
+    const shipmentName = selectedShipment
+      ? `Envío ${selectedShipment.id}`
+      : "Envío";
 
     await generateStructuredPDF(
       vaccineData,
-      statsForPDF,
+      statsData,
       temperatureData,
       eventsData,
-      "historial-vacuna-covid19"
+      `historial-${vaccineData.vaccineId}`,
+      shipmentName
     );
   };
+
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <ParticlesBackground />
+        <BlockchainNetwork />
+        <FloatingHexagons />
+        <div className={styles.loader}>
+          <div className={styles.spinner}></div>
+          <p>Cargando historial...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <ParticlesBackground />
+        <BlockchainNetwork />
+        <FloatingHexagons />
+        <div className={styles.errorMessage}>
+          <h2>Error al cargar el historial</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <Navbar logoText="MediWave" logoSubtitle="Historial Detallado">
-        <button onClick={handleExportPDF} className={styles.exportBtn}>
-          <FaFilePdf /> Exportar PDF
-        </button>
+        {vaccineData && (
+          <button onClick={handleExportPDF} className={styles.exportBtn}>
+            <FaFilePdf /> Exportar PDF
+          </button>
+        )}
         <NavLink href="/dashboard" icon={<SlGraph />}>
           Dashboard
         </NavLink>
@@ -192,19 +193,56 @@ export default function HistorialPage() {
       </div>
 
       <div className={`container ${styles.container}`}>
-        {/* Contenedor principal que será capturado para el PDF */}
+        {/* Shipment selector */}
+        {shipments.length > 0 && (
+          <div className={styles.shipmentSelector}>
+            <label htmlFor="shipment-select">Seleccionar Envío:</label>
+            <select
+              id="shipment-select"
+              value={selectedShipmentId || ""}
+              onChange={(e) => setSelectedShipmentId(e.target.value)}
+              className={styles.select}
+            >
+              {shipments.map((shipment) => {
+                const batchInfo = shipment.batches && shipment.batches.length > 0
+                  ? shipment.batches.map(b => b.lot_number || `Lote ${b.id}`).join(', ')
+                  : 'Sin lotes';
+                const originName = shipment.origin_location?.name || 'Origen';
+                const destName = shipment.destination_location?.name || 'Destino';
+                
+                return (
+                  <option key={shipment.id} value={shipment.id.toString()}>
+                    Envío {shipment.id} - {batchInfo} ({originName} → {destName})
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
+
+        {/* Main container that will be captured for the PDF */}
         <div id="historial-content">
-          <VaccineHeader {...vaccineData} />
+          {vaccineData && <VaccineHeader {...vaccineData} />}
 
           <div className={styles.statsGrid}>
             {statsData.map((stat, index) => (
-              <StatsCard key={index} {...stat} />
+              <StatsCard
+                key={index}
+                {...stat}
+                icon={statsIcons[index % statsIcons.length]}
+              />
             ))}
           </div>
 
           <TemperatureChart data={temperatureData} />
 
           <EventTimeline events={eventsData} />
+
+          {!vaccineData && !loading && (
+            <div className={styles.noData}>
+              <p>No hay datos de historial disponibles</p>
+            </div>
+          )}
         </div>
       </div>
 

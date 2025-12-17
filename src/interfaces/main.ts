@@ -1,5 +1,6 @@
 import { JSX } from "react";
 
+// Interfaces for the main component
 export interface CardItemInfoProps {
   icon: JSX.Element;
   iconBg: "green" | "blue" | "glacier";
@@ -16,19 +17,8 @@ export interface CardProductDetailsProps {
 }
 
 export interface CardBlockchainProps {
-  transactionId: string;
-  blockId: string;
+  onVerify: (value: string) => void;
+  loading: boolean;
+  blockId?: string;
 }
 
-export interface TraceCardProps {
-  timeline: TraceStep[];
-}
-
-export interface TraceStep {
-  type: "origin" | "transit" | "destination";
-  place: string;     
-  city?: string;
-  country: string;
-  datetime: string;
-  temperature?: number;
-}

@@ -1,3 +1,8 @@
+/*
+  NavLink Styles
+  --------------
+  Styles for individual navigation links, including hover and active states.
+*/
 .navLink {
   display: flex;
   align-items: center;

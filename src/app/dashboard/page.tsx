@@ -1,108 +1,234 @@
-"use client"
+"use client";
 
-import DashboardNav from "@/components/layout/DashboardNav/DashboardNav";
+// React and Next.js hooks
+import { useState, useEffect } from "react";
+// CSS Modules for dashboard styling
 import styles from "./dashboard.module.css";
+
+// Layout and UI Component imports
+import DashboardNav from "@/components/layout/DashboardNav/DashboardNav";
 import CardItemInfo from "@/components/ui/CardItemInfo/CardItemInfo";
-import { LuPackage } from "react-icons/lu";
-import { FaTemperatureArrowUp } from "react-icons/fa6";
-import { SlGraph } from "react-icons/sl";
 import CardBlockchain from "@/components/ui/CardBlockchain/CardBlockchain";
-import TraceCard from "@/components/ui/TraceCard/TraceCard";
 import CardCurrentTemp from "@/components/ui/CardCurrentTemp/CardCurrentTemp";
 import CardProductDetails from "@/components/ui/CardProductDetails/CardProductDetails";
+import TraceCard from "@/components/ui/TraceCard/TraceCard";
 import { Globe } from "@/components/ui/globe";
+
+// Background and Visual Effect components
 import ParticlesBackground from "@/components/ParticlesBackground";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import FloatingHexagons from "@/components/FloatingHexagons";
 
+// Icons
+import { LuPackage } from "react-icons/lu";
+import { FaTemperatureArrowUp } from "react-icons/fa6";
+import { SlGraph } from "react-icons/sl";
+
+// Services and Types
+import { verifyBatch } from "@/services/dashboardServices";
+import type { VerifiedBatch, TraceStep } from "@/interfaces/blockchain";
+import { FALLBACK_TIMELINE } from "@/const/defualtTimeline";
+
+// Toast notifications and Loaders
+import AlertToast from "@/components/ui/AlertToast/AlertToast";
+import { toast } from "react-toastify";
+import FullScreenLoader from "@/components/ui/FullScreenLoader/FullScreenLoader";
+
 const DashboardPage = () => {
+  // State for storing verified batch data
+  const [data, setData] = useState<VerifiedBatch | null>(null);
+  // State for loading status during API calls
+  const [loading, setLoading] = useState(false);
+  // State for error messages
+  const [error, setError] = useState<string | null>(null);
+
+  // Effect to load persisted data from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("dashboardData");
+    if (savedData) {
+      setData(JSON.parse(savedData));
+    }
+  }, []);
+
+  // Effect to save data to localStorage whenever it changes
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("dashboardData", JSON.stringify(data));
+    }
+  }, [data]);
+
+  // Handle verification logic when user submits a hash or lot number
+  const handleVerify = async (value: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await verifyBatch(value);
+
+      if (!result) {
+        // Show alert if batch is not found
+        toast(
+          <AlertToast
+            type="alert"
+            description={`Batch o hash "${value}" no encontrado`}
+          />,
+          {
+            autoClose: 5000,
+            style: {
+              background: "transparent",
+              boxShadow: "none",
+              padding: 0,
+            },
+          }
+        );
+        setData(null);
+        setError(`Batch o hash "${value}" no encontrado`);
+        return;
+      }
+
+      // If batch exists, update data and persistence
+      setData(result);
+      localStorage.setItem("dashboardData", JSON.stringify(result));
+    } catch {
+      toast(
+        <AlertToast
+          type="alert"
+          description="Ocurrió un error verificando el lote"
+        />,
+        {
+          autoClose: 5000,
+          style: {
+            background: "transparent",
+            boxShadow: "none",
+            padding: 0,
+          },
+        }
+      );
+      setData(null);
+      setError("Batch o hash no encontrado");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Determine formatted block ID for display
+  const blockId = data?.batch?.blockchain_hash
+    ? `#${data.batch.blockchain_hash.slice(-6).toUpperCase()}`
+    : "#000000";
+
+  // Use timeline from data or fallback to default
+  const timeline: TraceStep[] =
+    data?.timeline && data.timeline.length > 0
+      ? data.timeline
+      : FALLBACK_TIMELINE;
+
+  // Effect to show toast notifications based on alerts in the data
+  useEffect(() => {
+    if (data) {
+      if (data.alerts && data.alerts.length > 0) {
+        data.alerts.forEach((alert) => {
+          toast(
+            <AlertToast
+              type="alert"
+              description={alert.description}
+              timestamp={new Date(alert.timestamp ?? "").toLocaleString()}
+            />,
+            {
+              autoClose: 6000,
+              style: {
+                background: "transparent",
+                boxShadow: "none",
+                padding: 0,
+              },
+            }
+          );
+        });
+      } else {
+        toast(
+          <AlertToast
+            type="success"
+            description="Todos los lotes están dentro del rango óptimo"
+          />,
+          {
+            autoClose: 5000,
+            style: {
+              background: "transparent",
+              boxShadow: "none",
+              padding: 0,
+            },
+          }
+        );
+      }
+    }
+  }, [data]);
+
   return (
-    <div className={`${styles.dashboard__section}`}>
+    <div className={styles.dashboard__section}>
+      {loading && <FullScreenLoader />}
+
       <DashboardNav />
 
       <ParticlesBackground />
       <BlockchainNetwork />
       <FloatingHexagons />
 
-      <div className={styles.gradientOrbs}>
-        <div className={styles.orb1} />
-        <div className={styles.orb2} style={{ animationDelay: "2s" }} />
-        <div className={styles.orb3} style={{ animationDelay: "4s" }} />
-      </div>
-
       <div className={`container ${styles.dashboard__itemsContainer}`}>
         <CardItemInfo
           icon={<LuPackage className={styles.icon__package} />}
           iconBg="green"
           title="Lotes Activos"
-          productInfo={24}
+          productInfo={data ? 1 : 24}
           productDetails="↑ 12% vs. mes anterior"
         />
+
         <CardItemInfo
           icon={<FaTemperatureArrowUp className={styles.icon__temperature} />}
           iconBg="blue"
           title="Temp. Promedio"
-          productInfo={"-19.2°C"}
-          productDetails="Dentro del rango óptimo"
+          productInfo={
+            data?.shipment ? `${data.shipment.min_temperature}°C` : "--"
+          }
+          productDetails={
+            data ? "Dentro del rango óptimo" : "Esperando verificación"
+          }
         />
+
         <CardItemInfo
           icon={<SlGraph className={styles.icon__graph} />}
           iconBg="blue"
           title="Verificaciones"
-          productInfo={156}
-          productDetails="Blockchain confirmado"
+          productInfo={data ? 1 : 0}
+          productDetails={data ? "Blockchain confirmado" : "Sin verificar"}
         />
       </div>
 
       <div className={`container ${styles.dashboard__cardsContainer}`}>
         <div className={styles.dashboard__cardsContainerLeft}>
-          <CardCurrentTemp currentTemp="-18.5" />
+          <CardCurrentTemp
+            currentTemp={data?.shipment?.min_temperature?.toString() ?? "--"}
+          />
 
           <CardProductDetails
-            currentTemp="-18.5"
-            productId="MED-2024-001"
-            productName="Vacuna COVID-19"
-            productTag="Óptimo"
+            currentTemp={data?.shipment?.min_temperature?.toString() ?? "--"}
+            productId={data?.batch.lot_number ?? "—"}
+            productName={data?.medication.name ?? "Seleccione un lote"}
+            productTag={data ? "Óptimo" : "No verificado"}
+            manufacturer={data?.medication.manufacturer}
+            description={data?.medication.description}
           />
         </div>
 
         <div className={styles.dashboard__cardsContainerAside}>
-          <TraceCard
-            timeline={[
-              {
-                type: "origin",
-                place: "Laboratorio Pfizer",
-                city: "Puurs",
-                country: "Bélgica",
-                datetime: "2024-01-15T08:00:00Z",
-                temperature: -20.2,
-              },
-              {
-                type: "transit",
-                place: "Centro de Distribución",
-                city: "París",
-                country: "Francia",
-                datetime: "2024-01-16T16:45:00Z",
-                temperature: -18.5,
-              },
-              {
-                type: "destination",
-                place: "Hospital Central",
-                city: "Madrid",
-                country: "España",
-                datetime: "2024-01-18T14:00:00Z",
-              },
-            ]}
-          />
+          <TraceCard timeline={timeline} />
         </div>
       </div>
 
       <div className={`container ${styles.dashboard__cardBlockchainContainer}`}>
         <CardBlockchain
-          transactionId="0x8f7a3b2c4e1d6a9b5c8f2e7d4a1b6c9e3f8a2b5c7d4e1a6b9c2f5e8d1a4b7c"
-          blockId="18942156"
+          onVerify={handleVerify}
+          loading={loading}
+          blockId={blockId}
         />
-
         <Globe className={styles.globe} />
       </div>
 

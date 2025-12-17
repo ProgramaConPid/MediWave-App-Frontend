@@ -1,3 +1,4 @@
+/* Dashboard items container layout */
 .dashboard__itemsContainer {
   display: flex;
   align-items: center;
@@ -7,18 +8,22 @@
   gap: 1.8rem;
 }
 
+/* Package icon color */
 .icon__package {
   color: hsl(var(--temp-optimal));
 }
 
+/* Temperature icon color */
 .icon__temperature {
   color: hsl(var(--primary));
 }
 
+/* Graph icon color */
 .icon__graph {
   color: hsl(var(--glacier));
 }
 
+/* Background gradient orbs container */
 .gradientOrbs {
   position: fixed;
   inset: 0;
@@ -26,6 +31,7 @@
   pointer-events: none;
 }
 
+/* Primary gradient orb */
 .orb1 {
   position: absolute;
   top: -10rem;
@@ -38,6 +44,7 @@
   animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Secondary gradient orb */
 .orb2 {
   position: absolute;
   top: 33.333333%;
@@ -50,6 +57,7 @@
   animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Tertiary gradient orb */
 .orb3 {
   position: absolute;
   bottom: -10rem;
@@ -62,6 +70,7 @@
   animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Pulse glow animation keyframes */
 @keyframes pulse-glow {
   0%,
   100% {
@@ -75,6 +84,7 @@
   }
 }
 
+/* Float animation keyframes */
 @keyframes float {
   0%,
   100% {
@@ -86,26 +96,31 @@
   }
 }
 
+/* Main dashboard cards container */
 .dashboard__cardsContainer {
   display: flex;
   gap: 2rem;
   justify-content: center;
 }
 
+/* Left cards container */
 .dashboard__cardsContainerLeft {
   display: flex;
   flex-direction: column;
   flex: 2;
 }
 
+/* Left container child elements */
 .dashboard__cardsContainerLeft > * {
   flex: 1;
 }
 
+/* Sidebar container */
 .dashboard__cardsContainerAside {
   flex: .96;
 }
 
+/* Blockchain cards container */
 .dashboard__cardBlockchainContainer {
   margin-block: 2rem;
   display: flex;
@@ -113,12 +128,14 @@
   flex-wrap: wrap;
 }
 
+/* First blockchain card styling */
 .dashboard__cardBlockchainContainer > :first-child {
   flex: 1;
   min-width: 380px; 
   max-width: 61em;
 }
 
+/* Footer text styling */
 .footer__text {
   text-align: center;
   color: hsl(var(--muted-foreground));
@@ -126,6 +143,7 @@
   padding: 1rem 0 2rem 0;
 }
 
+/* Tablet responsive styles */
 @media (max-width: 1024px) {
   .dashboard__cardsContainer {
     flex-direction: column;
@@ -146,12 +164,15 @@
     flex-wrap: wrap;
   }
 
+  /* Hide globe on tablet */
   .globe {
     display: none;
   }
 }
 
+/* Mobile responsive styles */
 @media (max-width: 768px) {
+  /* Hide globe on mobile */
   .globe {
     display: none;
   }
@@ -176,11 +197,13 @@
     margin-block: 1.5rem;
   }
 
+  /* Adjust glow effect */
   .glow {
     filter: blur(80px);
   }
 }
 
+/* Small mobile responsive styles */
 @media (max-width: 480px) {
   .dashboard__cardsContainer {
     padding-inline: 0.75rem;
@@ -198,6 +221,7 @@
     font-size: 0.85rem;
   }
 
+  /* Further adjust glow effect */
   .glow {
     filter: blur(70px);
     opacity: 0.28;

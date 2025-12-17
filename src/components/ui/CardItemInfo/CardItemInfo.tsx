@@ -1,6 +1,7 @@
 import styles from "./CardItemInfo.module.css";
 import { CardItemInfoProps } from "@/interfaces/main";
 
+// Component for displaying various item statuses
 const CardItemInfo = ({
   icon,
   iconBg,
@@ -8,17 +9,28 @@ const CardItemInfo = ({
   productInfo,
   productDetails,
 }: CardItemInfoProps) => {
+  // Determine background color class for icon
   const iconBgColor = () => {
-    if (iconBg === "blue") {
-      return styles.icon__blue;
-    }
+    if (iconBg === "blue") return styles.icon__blue;
+    if (iconBg === "green") return styles.icon__green;
+    if (iconBg === "glacier") return styles.icon__glacier;
+    return "";
+  };
 
-    if (iconBg === "green") {
-      return styles.icon__green;
-    }
+  // Determine text color class based on title
+  const detailsColor = () => {
+    switch (title) {
+      case "Lotes Activos":
+        return styles.temp;
 
-    if (iconBg === "glacier") {
-      return styles.icon__glacier;
+      case "Temp. Promedio":
+        return styles.muted;
+
+      case "Verificaciones":
+        return styles.glacier;
+
+      default:
+        return "";
     }
   };
 
@@ -34,15 +46,7 @@ const CardItemInfo = ({
       <div className={styles.card__body}>
         <span className={styles.card__infoValue}>{productInfo}</span>
 
-        <span
-          className={`${styles.card__details} ${
-            productDetails === "↑ 12% vs. mes anterior" ? styles.temp : ""
-          } ${
-            productDetails === "Dentro del rango óptimo" ? styles.muted : ""
-          } ${
-            productDetails === "Blockchain confirmado" ? styles.glacier : ""
-          }`}
-        >
+        <span className={`${styles.card__details} ${detailsColor()}`}>
           {productDetails}
         </span>
       </div>

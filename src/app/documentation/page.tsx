@@ -1,8 +1,10 @@
 "use client";
 
+// Next.js and React imports
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+// Icon imports from Lucide
 import {
   Home,
   Database,
@@ -24,6 +26,7 @@ import {
   Globe,
   Workflow,
 } from "lucide-react";
+// UI Components
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import NavLink from "@/components/layout/Navbar/NavLink";
@@ -34,11 +37,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// Visual Effects
 import FloatingHexagons from "@/components/FloatingHexagons";
 import BlockchainNetwork from "@/components/BlockchainNetwork";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import styles from "./documentation.module.css";
 
+// Helper component to display code snippets with copy functionality
 const CodeBlock = ({ code, language }: { code: string; language: string }) => {
   const [copied, setCopied] = useState(false);
 
@@ -65,6 +70,7 @@ const CodeBlock = ({ code, language }: { code: string; language: string }) => {
   );
 };
 
+// Helper component for documentation sections
 const FeatureSection = ({
   icon: Icon,
   title,
@@ -90,6 +96,7 @@ const FeatureSection = ({
   </div>
 );
 
+// Sidebar navigation item component
 const DocNavItem = ({
   icon: Icon,
   label,
@@ -113,9 +120,12 @@ const DocNavItem = ({
   </button>
 );
 
+// Main Documentation Page Component
 const Documentation = () => {
+  // State to track currently active documentation section
   const [activeSection, setActiveSection] = useState("overview");
 
+  // Navigation items config
   const navItems = [
     { id: "overview", icon: BookOpen, label: "Visión General" },
     { id: "architecture", icon: Layers, label: "Arquitectura" },

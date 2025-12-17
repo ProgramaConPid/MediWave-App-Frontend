@@ -1,5 +1,6 @@
 "use client";
 
+// React and Next.js imports
 import Link from "next/link";
 import styles from "./NavLink.module.css";
 import { ReactNode } from "react";
@@ -12,6 +13,7 @@ interface NavLinkProps {
   className?: string; // Allow custom styles overrides
 }
 
+// Reusable navigation link component with active state support
 const NavLink = ({
   href,
   icon,
