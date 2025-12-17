@@ -138,28 +138,78 @@ const Documentation = () => {
   const apiEndpoints = [
     {
       method: "GET",
-      endpoint: "/api/v1/shipments",
-      description: "Obtener todos los envíos activos",
+      endpoint: "/shipments",
+      description: "Obtener todos los envíos",
     },
     {
       method: "GET",
-      endpoint: "/api/v1/shipments/:id",
-      description: "Obtener detalles de un envío específico",
+      endpoint: "/shipments/{id}",
+      description: "Obtener un envío por ID",
     },
     {
       method: "POST",
-      endpoint: "/api/v1/shipments",
-      description: "Crear nuevo envío con registro blockchain",
+      endpoint: "/shipments",
+      description: "Crear un nuevo envío",
     },
     {
-      method: "PUT",
-      endpoint: "/api/v1/temperature/:id",
-      description: "Actualizar lectura de temperatura",
+      method: "PATCH",
+      endpoint: "/shipments/{id}",
+      description: "Actualizar un envío",
+    },
+    {
+      method: "DELETE",
+      endpoint: "/shipments/{id}",
+      description: "Eliminar un envío",
     },
     {
       method: "GET",
-      endpoint: "/api/v1/blockchain/verify/:hash",
-      description: "Verificar transacción en blockchain",
+      endpoint: "/batchs",
+      description: "Obtener todos los lotes",
+    },
+    {
+      method: "GET",
+      endpoint: "/batchs/{id}",
+      description: "Obtener un lote por ID",
+    },
+    {
+      method: "POST",
+      endpoint: "/batchs",
+      description: "Crear un nuevo lote",
+    },
+    {
+      method: "PATCH",
+      endpoint: "/batchs/{id}",
+      description: "Actualizar un lote",
+    },
+    {
+      method: "DELETE",
+      endpoint: "/batchs/{id}",
+      description: "Eliminar un lote",
+    },
+    {
+      method: "GET",
+      endpoint: "/state-history",
+      description: "Obtener todos los registros de historial de estado",
+    },
+    {
+      method: "GET",
+      endpoint: "/state-history/{id}",
+      description: "Obtener un registro de historial de estado por ID",
+    },
+    {
+      method: "POST",
+      endpoint: "/state-history",
+      description: "Crear un nuevo registro de historial de estado",
+    },
+    {
+      method: "PATCH",
+      endpoint: "/state-history/{id}",
+      description: "Actualizar un registro de historial de estado",
+    },
+    {
+      method: "DELETE",
+      endpoint: "/state-history/{id}",
+      description: "Eliminar un registro de historial de estado",
     },
   ];
 
@@ -177,17 +227,7 @@ const Documentation = () => {
     {
       question: "¿Qué blockchain utiliza el sistema?",
       answer:
-        "Utilizamos una arquitectura híbrida con Ethereum para registros públicos verificables y una red privada para datos sensibles, garantizando transparencia sin comprometer la confidencialidad.",
-    },
-    {
-      question: "¿Cómo se integra con sistemas existentes?",
-      answer:
-        "Ofrecemos APIs RESTful y webhooks para integración con ERPs, WMS y otros sistemas. También soportamos protocolos estándar de la industria farmacéutica como GS1 EPCIS.",
-    },
-    {
-      question: "¿Cuál es la latencia del sistema de monitoreo?",
-      answer:
-        "Las lecturas de temperatura se procesan en menos de 500ms. Las alertas críticas se disparan en tiempo real con latencia máxima de 2 segundos desde la detección hasta la notificación.",
+        "Utilizamos Ethereum para registros públicos verificables y una red publica, garantizando transparencia.",
     },
   ];
 
@@ -235,17 +275,19 @@ const Documentation = () => {
             <div className={styles.quickLinksContainer}>
               <h3 className={styles.sidebarTitle}>Enlaces Rápidos</h3>
               <div className={styles.sidebarNav}>
-                <a href="#" className={styles.quickLink}>
+                <a
+                  href="https://github.com/ProgramaConPid/MediWave-App-Frontend"
+                  className={styles.quickLink}
+                >
                   <ExternalLink className={styles.navLinkIcon} />
                   GitHub Repository
                 </a>
-                <a href="#" className={styles.quickLink}>
+                <a
+                  href="https://mediwave-backend-production.up.railway.app/api-doc"
+                  className={styles.quickLink}
+                >
                   <ExternalLink className={styles.navLinkIcon} />
                   API Playground
-                </a>
-                <a href="#" className={styles.quickLink}>
-                  <ExternalLink className={styles.navLinkIcon} />
-                  Status Page
                 </a>
               </div>
             </div>
@@ -292,38 +334,44 @@ const Documentation = () => {
                     </p>
                   </div>
                 </div>
-
-                {/* Installation */}
                 <FeatureSection
                   icon={Code}
-                  title="Instalación"
-                  description="Instala el SDK de MediWave en tu proyecto"
+                  title="Acerca de ColdChain"
+                  description="Plataforma integral de trazabilidad farmacéutica"
                 >
-                  <Tabs defaultValue="npm" className="mt-4">
-                    <TabsList className={styles.tabsList}>
-                      <TabsTrigger value="npm">npm</TabsTrigger>
-                      <TabsTrigger value="yarn">yarn</TabsTrigger>
-                      <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="npm">
-                      <CodeBlock
-                        language="bash"
-                        code="npm install @MediWave/sdk @MediWave/blockchain"
-                      />
-                    </TabsContent>
-                    <TabsContent value="yarn">
-                      <CodeBlock
-                        language="bash"
-                        code="yarn add @MediWave/sdk @MediWave/blockchain"
-                      />
-                    </TabsContent>
-                    <TabsContent value="pnpm">
-                      <CodeBlock
-                        language="bash"
-                        code="pnpm add @MediWave/sdk @MediWave/blockchain"
-                      />
-                    </TabsContent>
-                  </Tabs>
+                  <div className={styles.aboutContentContainer}>
+                    <p className={styles.aboutDescription}>
+                      MediWave es una solución empresarial de vanguardia
+                      diseñada para garantizar la integridad y trazabilidad
+                      completa de productos farmacéuticos sensibles a la
+                      temperatura durante toda la cadena de suministro. Nuestra
+                      plataforma combina tecnología blockchain para registro
+                      inmutable de eventos, sensores IoT de alta precisión para
+                      monitoreo continuo de temperatura, y análisis predictivo
+                      basado en inteligencia artificial para prevención de
+                      incidentes.
+                    </p>
+                    <div className={styles.infoCardsContainer}>
+                      <div className={styles.infoCard}>
+                        <h4 className={styles.infoCardTitle}>Industrias</h4>
+                        <ul className={styles.infoCardList}>
+                          <li>Farmacéutica</li>
+                          <li>Biotecnología</li>
+                          <li>Distribución médica</li>
+                          <li>Hospitales y clínicas</li>
+                        </ul>
+                      </div>
+                      <div className={styles.infoCard}>
+                        <h4 className={styles.infoCardTitle}>Cumplimiento</h4>
+                        <ul className={styles.infoCardList}>
+                          <li>GDP/GMP</li>
+                          <li>FDA 21 CFR Part 11</li>
+                          <li>ISO 9001:2015</li>
+                          <li>DSCSA Ready</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </FeatureSection>
               </div>
             )}
@@ -358,10 +406,10 @@ const Documentation = () => {
                       {/* Processing Layer */}
                       <div className={styles.diagramNode}>
                         <div className={styles.diagramCardGlacier}>
-                          <Database className={styles.diagramIconGlacier} />
-                          <h4 className={styles.diagramTitle}>Procesamiento</h4>
+                          <Bell className={styles.diagramIconGlacier} />
+                          <h4 className={styles.diagramTitle}>Alertas</h4>
                           <p className={styles.diagramSubtitle}>
-                            Edge computing & APIs
+                            Notificaciones Inteligentes
                           </p>
                         </div>
                         <div className={styles.diagramLineGlacier} />
@@ -384,22 +432,22 @@ const Documentation = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <FeatureSection
-                    icon={Cpu}
-                    title="Edge Computing"
-                    description="Procesamiento local para latencia mínima y operación offline."
+                    icon={Bell}
+                    title="Sistema de Alertas"
+                    description="Notificaciones inteligentes y respuesta automática ante incidentes."
                   >
                     <ul className={styles.featureList}>
                       <li className={styles.featureListItem}>
                         <div className={styles.featureDotPrimary} />
-                        Procesamiento en tiempo real {"<"}100ms
+                        Alertas multicanal (SMS, Email, Push) {"<"}100ms
                       </li>
                       <li className={styles.featureListItem}>
                         <div className={styles.featureDotPrimary} />
-                        Buffer local para operación sin conexión
+                        Escalamiento automático configurable
                       </li>
                       <li className={styles.featureListItem}>
                         <div className={styles.featureDotPrimary} />
-                        Sincronización automática
+                        Protocolos de contingencia predefinidos
                       </li>
                     </ul>
                   </FeatureSection>
@@ -444,7 +492,7 @@ const Documentation = () => {
                   <h3 className={styles.baseUrlTitle}>Base URL</h3>
                   <CodeBlock
                     language="text"
-                    code="https://api.MediWave.io/v1"
+                    code="https://mediwave-backend-production.up.railway.app/api-doc"
                   />
                 </div>
 
@@ -717,7 +765,7 @@ contract MediWaveRegistry {
                     <div className={styles.sensorIconContainerGlacier}>
                       <MapPin className={styles.sensorIconGlacier} />
                     </div>
-                    <h4 className={styles.sensorTitle}>GPS Integrado</h4>
+                    <h4 className={styles.sensorTitle}>Rutas Dinamicas</h4>
                     <p className={styles.sensorDescription}>
                       Ubicación en tiempo real
                     </p>
@@ -726,7 +774,9 @@ contract MediWaveRegistry {
                     <div className={styles.sensorIconContainerAccent}>
                       <Zap className={styles.sensorIconAccent} />
                     </div>
-                    <h4 className={styles.sensorTitle}>Batería 5 años</h4>
+                    <h4 className={styles.sensorTitle}>
+                      Monitoreo en Tiempo Real
+                    </h4>
                     <p className={styles.sensorDescription}>
                       Sin mantenimiento
                     </p>
@@ -774,11 +824,15 @@ contract MediWaveRegistry {
                     Nuestro equipo está disponible para ayudarte
                   </p>
                   <div className="flex justify-center flex-wrap gap-4">
-                    <Button className="bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--glacier))] hover:opacity-90 cursor-pointer">
-                      Contactar Soporte
+                    <Button asChild className="bg-linear-to-r from-[hsl(var(--primary))] to-[hsl(var(--glacier))] hover:opacity-90 cursor-pointer">
+                      <Link href={"https://wa.me/3174859328"} target="_blank">
+                        Contactar Soporte
+                      </Link>
                     </Button>
-                    <Button className="border order-border/50 bg-[hsl(var(--background))] text-[hsl(var(--foreground))] cursor-pointer">
-                      Unirse a Discord
+                    <Button asChild className="border order-border/50 bg-[hsl(var(--background))] text-[hsl(var(--foreground))] cursor-pointer">
+                      <Link href={"https://discord.gg/rNsrgSq"} target="_blank">
+                        Unete a Discord
+                      </Link>
                     </Button>
                   </div>
                 </div>
