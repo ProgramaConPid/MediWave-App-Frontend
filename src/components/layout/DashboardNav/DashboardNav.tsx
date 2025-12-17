@@ -8,6 +8,7 @@ import { SlGraph } from "react-icons/sl";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { MdLocalShipping } from "react-icons/md";
 import { FiHome } from "react-icons/fi";
+import { Truck } from "lucide-react";
 
 // Navigation bar specifically for the dashboard area
 const DashboardNav = () => {
@@ -31,15 +32,15 @@ const DashboardNav = () => {
         <span>Sistema Activo</span>
       </div>
 
-      <NavLink href="/history" icon={<FaClockRotateLeft />}>
+      <NavLink href="/history" icon={<FaClockRotateLeft size={18} />}>
         Historial
       </NavLink>
 
-      <NavLink href="/login" icon={<MdLocalShipping />}>
+      <NavLink href="/login" icon={<Truck size={18} />}>
         Gestión
       </NavLink>
 
-      <NavLink href="/" icon={<FiHome />}>
+      <NavLink href="/" icon={<FiHome size={18} />}>
         Inicio
       </NavLink>
     </Navbar>

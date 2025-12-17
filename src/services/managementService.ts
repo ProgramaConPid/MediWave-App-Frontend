@@ -7,7 +7,7 @@ import {
 } from "@/interfaces/management";
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const createMedicine = async (data: MedicinePayload) => {
-  const response = await axiosInstance.post(`/medications`, data);
+  const response = await axiosInstance.post(`${NEXT_PUBLIC_API_URL}/medications`, data);
   return response.data;
 };
 

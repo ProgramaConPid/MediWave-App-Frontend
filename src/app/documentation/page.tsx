@@ -25,7 +25,9 @@ import {
   Lock,
   Globe,
   Workflow,
+  LayoutDashboard
 } from "lucide-react";
+import { FaClockRotateLeft } from "react-icons/fa6";
 // UI Components
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/layout/Navbar/Navbar";
@@ -203,13 +205,13 @@ const Documentation = () => {
 
       {/* Header */}
       <Navbar logoText="MediWave" logoSubtitle="Docs">
-        <NavLink href="/" icon={<Home />}>
+        <NavLink href="/" icon={<Home size={18} />}>
           Inicio
         </NavLink>
-        <NavLink href="/dashboard" icon={<Database />}>
+        <NavLink href="/dashboard" icon={<LayoutDashboard size={18} />}>
           Dashboard
         </NavLink>
-        <NavLink href="/history" icon={<BookOpen />}>
+        <NavLink href="/history" icon={<FaClockRotateLeft size={18} />}>
           Historial
         </NavLink>
       </Navbar>
