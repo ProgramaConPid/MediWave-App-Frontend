@@ -60,6 +60,7 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 import RegisterForm from "@/components/ui/Login/RegisterForm/RegisterForm";
 import styles from "./management.module.css";
 import { FaClockRotateLeft } from "react-icons/fa6";
+import { useAuth } from "@/hooks/useAuth";
 
 // Defines which form is currently active in the management view
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
@@ -83,11 +84,11 @@ const Management = () => {
     }
   }, [alertState.show]);
   const router = useRouter();
+  const { signOut } = useAuth();
 
   // Handle user sign out
   const handleSignOut = () => {
-    // Simplified sign out logic
-    router.push("/");
+    signOut();
   };
 
   // Generic submit handler for all forms
