@@ -105,8 +105,42 @@
 }
 
 /* Buttons */
-.submitBtn {
+.buttonGroup {
+  display: flex;
+  gap: 12px;
   width: 100%;
+  margin-top: 8px;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: 12px;
+  background: hsl(var(--background) / 0.8);
+  backdrop-filter: blur(24px);
+  color: hsl(var(--foreground));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cancelBtn:hover {
+  background: hsl(var(--secondary) / 0.7);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cancelBtn:active {
+  transform: translateY(0);
+}
+
+.submitBtn {
+  flex: 1;
   padding: 12px;
   background: linear-gradient(135deg, #00bcd4 0%, #00acc1 100%);
   color: hsl(var(--background));
@@ -115,7 +149,7 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 188, 212, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -197,6 +231,18 @@
 
   .input {
     padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cancelBtn,
+  .submitBtn {
+    width: 100%;
+    padding: 11px;
     font-size: 13px;
   }
 }

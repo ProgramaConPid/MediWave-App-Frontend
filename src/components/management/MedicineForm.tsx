@@ -36,7 +36,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
       <div className="glass-strong p-8 rounded-2xl">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-glacier flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary to-glacier flex items-center justify-center">
               <Pill className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
@@ -70,6 +70,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
               </Label>
               <Input
                 id="med-name"
+                name="name"
                 placeholder="Ej: Insulina Glargina"
                 className="glass border-border/50 focus:border-primary"
                 required
@@ -85,6 +86,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
               </Label>
               <Input
                 id="med-code"
+                name="dosage"
                 placeholder="Ej: 0002-7714-01"
                 className="glass border-border/50 focus:border-primary"
                 required
@@ -103,6 +105,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
               </Label>
               <Input
                 id="med-manufacturer"
+                name="manufacturer"
                 placeholder="Ej: Laboratorios XYZ"
                 className="glass border-border/50 focus:border-primary"
                 required
@@ -116,7 +119,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
                 <Layers className="w-4 h-4 text-primary" />
                 Categoría
               </Label>
-              <Select required>
+              <Select name="category" required>
                 <SelectTrigger className="glass border-border/50 focus:border-primary">
                   <SelectValue placeholder="Seleccionar categoría" />
                 </SelectTrigger>
@@ -141,6 +144,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
               </Label>
               <Input
                 id="med-temp-min"
+                name="tempMin"
                 type="number"
                 placeholder="Ej: 2"
                 className="glass border-border/50 focus:border-primary"
@@ -157,6 +161,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
               </Label>
               <Input
                 id="med-temp-max"
+                name="tempMax"
                 type="number"
                 placeholder="Ej: 8"
                 className="glass border-border/50 focus:border-primary"
@@ -175,6 +180,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
             </Label>
             <Textarea
               id="med-description"
+              name="description"
               placeholder="Descripción detallada del medicamento..."
               className="glass border-border/50 focus:border-primary min-h-[100px]"
             />
@@ -191,7 +197,7 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
             </Button>
             <Button
               type="submit"
-              className="flex-1 bg-gradient-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground"
+              className="flex-1 bg-linear-to-r from-primary to-glacier hover:opacity-90 text-primary-foreground"
             >
               <Plus className="w-4 h-4 mr-2" />
               Registrar Medicamento

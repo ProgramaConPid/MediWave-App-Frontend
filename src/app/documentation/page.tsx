@@ -1,13 +1,11 @@
 "use client";
 
 // Next.js and React imports
-import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 // Icon imports from Lucide
 import {
   Home,
-  Database,
   Shield,
   Thermometer,
   MapPin,
@@ -24,7 +22,6 @@ import {
   Cpu,
   Lock,
   Globe,
-  Workflow,
   LayoutDashboard
 } from "lucide-react";
 import { FaClockRotateLeft } from "react-icons/fa6";
@@ -73,7 +70,7 @@ const CodeBlock = ({ code, language }: { code: string; language: string }) => {
 };
 
 // Helper component for documentation sections
-const FeatureSection = ({
+export const FeatureSection = ({
   icon: Icon,
   title,
   description,
@@ -261,7 +258,7 @@ const Documentation = () => {
           {/* Sidebar Navigation */}
           <aside className={styles.sidebar}>
             <h2 className={styles.sidebarTitle}>Documentación</h2>
-            <nav className={styles.sidebarNav}>
+            <nav className={styles.sidebarNav}>   
               {navItems.map((item) => (
                 <DocNavItem
                   key={item.id}
@@ -866,7 +863,7 @@ contract MediWaveRegistry {
                 Privacidad
               </a>
               <a
-                href="#"
+                href="/security"
                 className="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] transition-colors"
               >
                 Seguridad

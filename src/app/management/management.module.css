@@ -32,9 +32,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom right,
-      var(--background),
-      var(--secondary));
+  background: linear-gradient(
+    to bottom right,
+    var(--background),
+    var(--secondary)
+  );
 }
 
 .spinner {
@@ -70,20 +72,24 @@
   line-height: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(to right,
-      hsl(var(--foreground)),
-      hsl(var(--primary)),
-      hsl(var(--glacier)));
+  background: linear-gradient(
+    to right,
+    hsl(var(--foreground)),
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .textGradient {
-  background: linear-gradient(to right,
-      hsl(var(--foreground)),
-      hsl(var(--primary)),
-      hsl(var(--glacier)));
+  background: linear-gradient(
+    to right,
+    hsl(var(--foreground)),
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -222,11 +228,20 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 .formCard {
-  background-color: hsl(var(--background) / 0.8);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.7) 0%,
+    rgba(15, 23, 42, 0.8) 100%
+  );
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness)
+    var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale)
+    var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert)
+    var(--tw-backdrop-opacity) var(--tw-backdrop-saturate)
+    var(--tw-backdrop-sepia);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 2rem;
   border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .formHeader {
@@ -264,11 +279,12 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .closeButton {
   color: hsl(var(--muted-foreground));
-  transition: color 0.2s;
+  transition: all 0.3s ease;
 }
 
 .closeButton:hover {
   color: hsl(var(--foreground));
+  transform: scale(1.1);
 }
 
 .formGrid {
@@ -329,10 +345,14 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: hsl(var(--foreground));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cancelButton:hover {
-  background-color: hsl(var(--secondary) / 0.5);
+  background-color: hsl(var(--secondary) / 0.7);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .submitButton {
@@ -346,29 +366,44 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
 }
 
 .submitButton:hover {
-  opacity: 0.9;
+  background-color: hsl(var(--primary) / 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px hsl(var(--primary) / 0.4);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
 }
 
 /* Gradients */
 .gradientPrimaryGlacier {
-  background: linear-gradient(to bottom right,
-      hsl(var(--primary)),
-      hsl(var(--glacier)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--primary)),
+    hsl(var(--glacier))
+  );
 }
 
 .gradientGlacierAccent {
-  background: linear-gradient(to bottom right,
-      hsl(var(--glacier)),
-      hsl(var(--accent)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--glacier)),
+    hsl(var(--accent))
+  );
 }
 
 .gradientAccentPrimary {
-  background: linear-gradient(to bottom right,
-      hsl(var(--accent)),
-      hsl(var(--primary)));
+  background: linear-gradient(
+    to bottom right,
+    hsl(var(--accent)),
+    hsl(var(--primary))
+  );
 }
 
 /* Text Colors */

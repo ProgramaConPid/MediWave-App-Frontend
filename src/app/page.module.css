@@ -648,7 +648,8 @@
   position: relative;
   z-index: 10;
   border-top: 1px solid hsl(var(--border) / 0.5);
-  backdrop-filter: blur(24px);
+  background-color: hsl(var(--background) / 0.6);
+  backdrop-filter: blur(24px) saturate(180%);
 }
 
 .footerContainer {
@@ -676,8 +677,8 @@
 }
 
 .footerIcon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 2rem;
+  height: 2rem;
   color: hsl(var(--primary));
 }
 
