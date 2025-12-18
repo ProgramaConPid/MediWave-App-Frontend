@@ -10,10 +10,13 @@ import {
   FiEyeOff,
   FiBriefcase,
 } from "react-icons/fi";
-import Link from "next/link";
 import { registerUser } from "@/services/managementService";
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  onCancel?: () => void;
+}
+
+const RegisterForm = ({ onCancel }: RegisterFormProps) => {
   // State for registration form data
   const [formData, setFormData] = useState({
     fullName: "",
@@ -34,8 +37,6 @@ const RegisterForm = () => {
       [name]: value,
     }));
   };
-
-
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -167,23 +168,41 @@ const RegisterForm = () => {
           </div>
         </div>
 
-        <button type="submit" disabled={isLoading} className={styles.submitBtn}>
-          {isLoading ? (
-            "Registrando..."
-          ) : (
-            <>
-              <FiUser /> Crear Cuenta
-            </>
-          )}
-        </button>
+        <div className={styles.buttonGroup}>
+          <button
+            type="button"
+            className={styles.cancelBtn}
+            onClick={() => {
+              if (onCancel) {
+                onCancel();
+              } else {
+                setFormData({
+                  fullName: "",
+                  position: "",
+                  email: "",
+                  password: "",
+                  confirmPassword: "",
+                });
+              }
+            }}
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={styles.submitBtn}
+          >
+            {isLoading ? (
+              "Registrando..."
+            ) : (
+              <>
+                <FiUser /> Crear Usuario
+              </>
+            )}
+          </button>
+        </div>
       </form>
-
-      <div className={styles.hasAccount}>
-        ¿Ya tienes cuenta?{" "}
-        <Link href="/login" className={styles.loginLink}>
-          Inicia sesión
-        </Link>
-      </div>
 
       <div className={styles.footer}>
         <FiLock className={styles.footerIcon} /> MediWave - Acceso Seguro

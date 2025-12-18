@@ -41,6 +41,7 @@ import {
   UserPlus,
   Activity,
   User,
+  LayoutDashboard,
 } from "lucide-react";
 import { MdOutlineVaccines } from "react-icons/md";
 import {
@@ -58,6 +59,7 @@ import FloatingHexagons from "@/components/FloatingHexagons";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import RegisterForm from "@/components/ui/Login/RegisterForm/RegisterForm";
 import styles from "./management.module.css";
+import { FaClockRotateLeft } from "react-icons/fa6";
 
 // Defines which form is currently active in the management view
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
@@ -100,13 +102,39 @@ const Management = () => {
     try {
       switch (activeForm) {
         case "medicine":
+          const tempMin = Number(data.tempMin);
+          const tempMax = Number(data.tempMax);
+
+          // Validation: Only negative or zero temperatures allowed
+          if (tempMin > 0 || tempMax > 0) {
+            setAlertState({
+              show: true,
+              type: "alert",
+              message: "Las temperaturas deben ser negativas o cero (<= 0°C).",
+            });
+            setIsLoading(false);
+            return;
+          }
+
+          // Validation: Min temperature cannot be greater than Max temperature
+          if (tempMin > tempMax) {
+            setAlertState({
+              show: true,
+              type: "alert",
+              message:
+                "La temperatura mínima no puede ser mayor que la máxima.",
+            });
+            setIsLoading(false);
+            return;
+          }
+
           await createMedicine({
             name: data.name as string,
             dosage: data.dosage as string,
             manufacturer: data.manufacturer as string,
             category: data.category as string,
-            min_temperature: Number(data.tempMin),
-            max_temperature: Number(data.tempMax),
+            min_temperature: tempMin,
+            max_temperature: tempMax,
             description: data.description as string,
           });
           break;
@@ -199,13 +227,13 @@ const Management = () => {
     <>
       {/* Header */}
       <Navbar logoText="MediWave" logoSubtitle="Gestión">
-        <NavLink href="/" icon={<Home />}>
+        <NavLink href="/" icon={<Home size={18} />}>
           Inicio
         </NavLink>
-        <NavLink href="/dashboard" icon={<Database />}>
+        <NavLink href="/dashboard" icon={<LayoutDashboard size={18} />}>
           Dashboard
         </NavLink>
-        <NavLink href="/history" icon={<BookOpen />}>
+        <NavLink href="/history" icon={<FaClockRotateLeft size={18} />}>
           Historial
         </NavLink>
         <Button
@@ -923,7 +951,7 @@ const Management = () => {
 
           {/* User Form */}
           {activeForm === "user" && (
-            <div className="max-w-2xl mx-auto animate-fade-in">
+            <div className="md:w-[90%] w-full px-4 sm:px-6 lg:px-0 max-w-xl mx-auto animate-fade-in">
               <div
                 className={`glass-strong p-8 rounded-2xl ${styles.formCard}`}
               >
@@ -951,7 +979,7 @@ const Management = () => {
                   </Button>
                 </div>
 
-                <RegisterForm />
+                <RegisterForm onCancel={() => setActiveForm(null)} />
               </div>
             </div>
           )}
