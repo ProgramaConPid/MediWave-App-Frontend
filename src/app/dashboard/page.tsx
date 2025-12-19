@@ -112,9 +112,9 @@ const DashboardPage = () => {
   };
 
   // Determine formatted block ID for display
-  const blockId = data?.batch?.blockchain_hash
-    ? `#${data.batch.blockchain_hash.slice(-6).toUpperCase()}`
-    : "#000000";
+  const blockId = data?.shipment?.blockchainHash
+    ? `#${data.shipment.blockchainHash.slice(-6).toUpperCase()}`
+    : "#-------";
 
   // Use timeline from data or fallback to default
   const timeline: TraceStep[] =
@@ -177,8 +177,8 @@ const DashboardPage = () => {
           icon={<LuPackage className={styles.icon__package} />}
           iconBg="green"
           title="Lotes Activos"
-          productInfo={data ? 1 : 24}
-          productDetails="↑ 12% vs. mes anterior"
+          productInfo={data?.medicationBatches?.length ?? 0}
+          productDetails="Lotes activos del medicamento"
         />
 
         <CardItemInfo
@@ -206,6 +206,14 @@ const DashboardPage = () => {
         <div className={styles.dashboard__cardsContainerLeft}>
           <CardCurrentTemp
             currentTemp={data?.shipment?.min_temperature?.toString() ?? "--"}
+            optimalRange={
+              data?.medication
+                ? {
+                    min: data.medication.min_temperature,
+                    max: data.medication.max_temperature,
+                  }
+                : undefined
+            }
           />
 
           <CardProductDetails
@@ -213,6 +221,14 @@ const DashboardPage = () => {
             productId={data?.batch.lot_number ?? "—"}
             productName={data?.medication.name ?? "Seleccione un lote"}
             productTag={data ? "Óptimo" : "No verificado"}
+            optimalRange={
+              data?.medication
+                ? {
+                    min: data.medication.min_temperature,
+                    max: data.medication.max_temperature,
+                  }
+                : undefined
+            }
             manufacturer={data?.medication.manufacturer}
             description={data?.medication.description}
           />

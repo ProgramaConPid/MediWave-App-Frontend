@@ -11,11 +11,15 @@ export const verifyBatch = async (value: string): Promise<VerifiedBatch> => {
 
   // Find the batch that matches the provided value
   const batch = batches.find(
-    (b: any) =>
-      b.lot_number === value || b.blockchain_hash === value
+    (b: any) => b.lot_number === value || b.shipment?.blockchainHash === value
   );
 
   if (!batch) throw new Error("Batch not found");
+
+  // 🔹 NEW: get all batches of the same medication
+  const medicationBatches = batches.filter(
+    (b: any) => b.medication?.id === batch.medication?.id
+  );
 
   // Fetch all shipments from API
   const { data: shipments } = await axios.get(`${API_URL}/shipments`);
@@ -67,5 +71,6 @@ export const verifyBatch = async (value: string): Promise<VerifiedBatch> => {
       : [],
     timeline,
     alerts: shipment?.alerts ?? [],
+    medicationBatches,
   };
 };

@@ -117,17 +117,19 @@ const MedicineForm = ({ onCancel, onSubmit }: MedicineFormProps) => {
                 className="text-foreground flex items-center gap-2"
               >
                 <Layers className="w-4 h-4 text-primary" />
-                Categoría
+                Tipo
               </Label>
-              <Select name="category" required>
+              <Select name="type" required>
                 <SelectTrigger className="glass border-border/50 focus:border-primary">
-                  <SelectValue placeholder="Seleccionar categoría" />
+                  <SelectValue placeholder="Seleccionar tipo" />
                 </SelectTrigger>
                 <SelectContent className="glass-strong border-border/50">
-                  <SelectItem value="biologico">Biológico</SelectItem>
-                  <SelectItem value="quimico">Químico</SelectItem>
-                  <SelectItem value="vacuna">Vacuna</SelectItem>
-                  <SelectItem value="hormonal">Hormonal</SelectItem>
+                  <SelectItem value="TABLET">Tableta</SelectItem>
+                  <SelectItem value="CAPSULE">Cápsula</SelectItem>
+                  <SelectItem value="LIQUID">Líquido</SelectItem>
+                  <SelectItem value="INJECTION">Inyección</SelectItem>
+                  <SelectItem value="VACCINE">Vacuna</SelectItem>
+                  <SelectItem value="OTHER">Otro</SelectItem>
                 </SelectContent>
               </Select>
             </div>

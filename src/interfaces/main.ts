@@ -14,6 +14,10 @@ export interface CardProductDetailsProps {
   productName: string;
   productTag: string;
   currentTemp: string;
+  optimalRange?: {
+    min: number;
+    max: number;
+  };
 }
 
 export interface CardBlockchainProps {

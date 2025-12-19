@@ -12,10 +12,20 @@ const CardProductDetails = ({
   currentTemp,
   manufacturer,
   description,
+  optimalRange,
 }: CardProductDetailsProps & {
   manufacturer?: string;
   description?: string;
 }) => {
+  const temp = Number(currentTemp);
+
+  const isOutOfRange =
+    optimalRange &&
+    !isNaN(temp) &&
+    (temp < optimalRange.min || temp > optimalRange.max);
+
+  const badgeText = isOutOfRange ? "Fuera de rango" : productTag;
+
   return (
     <div className={styles.card__product}>
       <div className={styles.card__productHeader}>
@@ -29,7 +39,13 @@ const CardProductDetails = ({
           </div>
         </div>
 
-        <span className={styles.card__headerTag}>{productTag}</span>
+        <span
+          className={`${styles.card__headerTag} ${
+            isOutOfRange ? styles.badge__alert : styles.badge__ok
+          }`}
+        >
+          {badgeText}
+        </span>
       </div>
 
       <div className={styles.card__bodyTemp}>
@@ -45,7 +61,9 @@ const CardProductDetails = ({
           <LuShield className={styles.card__rangeIcon} />
           <span className={styles.card__rangeTextSpan}>Rango Óptimo</span>
         </div>
-        <span className={styles.card__rangeSpan}>-25°C - -15°C</span>
+        <span className={styles.card__rangeSpan}>
+          {optimalRange ? `${optimalRange.min}°C - ${optimalRange.max}°C` : "—"}
+        </span>
       </div>
 
       {(manufacturer || description) && (
