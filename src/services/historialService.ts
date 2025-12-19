@@ -171,21 +171,12 @@ const transformShipmentToHistorial = async (
   } else {
     for (let index = 0; index < stateHistory.length; index++) {
       const state = stateHistory[index];
-      let locationName = 'Ubicación desconocida';
-      
-      // Try to get location from embedded data or fetch it
-      if (state.location?.name) {
-        locationName = state.location.name;
-      } else if (state.locationId) {
-        const location = await getLocationById(state.locationId);
-        if (location) locationName = location.name;
-      }
-
+      const temperatureValue = state.temperature ? state.temperature.toFixed(1) : 'N/A';
       const statusDescription = state.conditions || state.notes || state.status || 'Sin descripción';
 
       events.push({
         id: index + 1,
-        title: locationName,
+        title: `${temperatureValue}°C`,
         date: new Date(state.timestamp).toLocaleString('es-ES', { 
           day: '2-digit', 
           month: '2-digit', 
@@ -194,7 +185,7 @@ const transformShipmentToHistorial = async (
           minute: '2-digit' 
         }),
         description: statusDescription,
-        priority: state.temperature ? `${state.temperature.toFixed(1)}°C` : 'N/A',
+        priority: state.temperature && (state.temperature < shipment.min_temperature || state.temperature > shipment.max_temperature) ? 'ALERT' : 'NORMAL',
       });
     }
   }
