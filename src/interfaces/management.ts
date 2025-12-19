@@ -9,11 +9,11 @@ export interface MedicinePayload {
 }
 
 export interface BatchPayload {
-  batchNumber: string;
-  medicineId: string; // or code, depending on API
+  lot_number: string;
+  medicationId: number;
   quantity: number;
-  productionDate: string;
-  expiryDate: string;
+  production_date: string;
+  expiry_date: string;
   plant: string;
   notes: string;
 }
