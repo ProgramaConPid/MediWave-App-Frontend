@@ -61,6 +61,7 @@ import RegisterForm from "@/components/ui/Login/RegisterForm/RegisterForm";
 import styles from "./management.module.css";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { useAuth } from "@/hooks/useAuth";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 // Defines which form is currently active in the management view
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
@@ -249,9 +250,10 @@ const Management = () => {
   ];
 
   return (
-    <>
-      {/* Header */}
-      <Navbar logoText="MediWave" logoSubtitle="Gestión">
+    <AuthGuard>
+      <>
+        {/* Header */}
+        <Navbar logoText="MediWave" logoSubtitle="Gestión">
         <NavLink href="/" icon={<Home size={18} />}>
           Inicio
         </NavLink>
@@ -1003,6 +1005,7 @@ const Management = () => {
         </main>
       </div>
     </>
+    </AuthGuard>
   );
 };
 
