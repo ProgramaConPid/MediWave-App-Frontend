@@ -65,9 +65,20 @@ import { useAuth } from "@/hooks/useAuth";
 // Defines which form is currently active in the management view
 type FormType = "medicine" | "batch" | "shipment" | "user" | null;
 
+interface Medication {
+  id: number;
+  name: string;
+  dosage: string;
+  manufacturer: string;
+  min_temperature: number;
+  max_temperature: number;
+  description: string;
+}
+
 const Management = () => {
   const [activeForm, setActiveForm] = useState<FormType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [medications, setMedications] = useState<Medication[]>([]);
   const [alertState, setAlertState] = useState<{
     show: boolean;
     type: "alert" | "success" | "info";
@@ -83,6 +94,20 @@ const Management = () => {
       return () => clearTimeout(timer);
     }
   }, [alertState.show]);
+
+  useEffect(() => {
+    const fetchMedications = async () => {
+      try {
+        const response = await fetch("https://mediwave-backend-production.up.railway.app/medications");
+        const data: Medication[] = await response.json();
+        setMedications(data);
+      } catch (error) {
+        console.error("Error fetching medications:", error);
+      }
+    };
+    fetchMedications();
+  }, []);
+
   const router = useRouter();
   const { signOut } = useAuth();
 
@@ -141,11 +166,11 @@ const Management = () => {
           break;
         case "batch":
           await createBatch({
-            batchNumber: data.batchNumber as string,
-            medicineId: data.medicineId as string,
+            lot_number: data.batchNumber as string,
+            medicationId: Number(data.medicineId),
             quantity: Number(data.quantity),
-            productionDate: data.productionDate as string,
-            expiryDate: data.expiryDate as string,
+            production_date: new Date(data.productionDate as string).toISOString(),
+            expiry_date: new Date(data.expiryDate as string).toISOString(),
             plant: data.plant as string,
             notes: data.notes as string,
           });
@@ -179,8 +204,7 @@ const Management = () => {
         type: "success",
         message: `${formDisplayName} registrado correctamente`,
       });
-      // Optional: keep form open or close it. Closing it for now as per original logic.
-      setTimeout(() => setActiveForm(null), 1500);
+      (e.target as HTMLFormElement).reset();
     } catch (error) {
       console.error(`Error registering ${formDisplayName}:`, error);
       setAlertState({
@@ -547,7 +571,6 @@ const Management = () => {
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-
                 <form
                   onSubmit={(e) => handleSubmit(e, "Lote")}
                   className="space-y-6"
@@ -581,18 +604,11 @@ const Management = () => {
                           <SelectValue placeholder="Seleccionar medicamento" />
                         </SelectTrigger>
                         <SelectContent className="glass-strong border-border/50 bg-slate-900">
-                          <SelectItem value="insulina">
-                            Insulina Glargina
-                          </SelectItem>
-                          <SelectItem value="vacuna-covid">
-                            Vacuna COVID-19
-                          </SelectItem>
-                          <SelectItem value="hormona">
-                            Hormona de Crecimiento
-                          </SelectItem>
-                          <SelectItem value="antibiotico">
-                            Antibiótico Beta
-                          </SelectItem>
+                          {medications.map((med) => (
+                            <SelectItem key={med.id} value={med.id.toString()}>
+                              {med.name}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
