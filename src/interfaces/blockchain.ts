@@ -25,7 +25,7 @@ export interface TraceStep {
 export interface Batch {
   id: number;
   lot_number: string;
-  blockchain_hash: string;
+  blockchainHash: string;
   production_date: string;
   expiry_date: string;
 }
@@ -37,6 +37,8 @@ export interface Medication {
   dosage: string;
   manufacturer: string;
   description: string;
+  min_temperature: number;
+  max_temperature: number;
 }
 
 // Interfaces for shipment data
@@ -76,4 +78,6 @@ export interface VerifiedBatch {
   locations: Location[];
   timeline: TraceStep[];
   alerts: any[];
+
+  medicationBatches: Batch[];
 }

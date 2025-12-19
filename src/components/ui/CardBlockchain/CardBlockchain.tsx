@@ -55,7 +55,7 @@ const CardBlockchain = ({
         <FaHashtag className={styles.card__blockchainHashIcon} />
         <div className={styles.card__blockchainHashTexts}>
           <h4 className={styles.card__blockchainHashTitle}>
-            Batch / Blockchain Transaction ID
+            Identificador del Lote
           </h4>
           <input
             value={value}

@@ -57,12 +57,22 @@
 }
 
 .card__headerTag {
-  background-color: hsl(var(--temp-optimal) / 0.2);
   padding: 1px 8px;
   border-radius: calc(var(--radius-base) + 0.2rem);
   border: 1px solid hsl(var(--temp-optimal));
-  color: hsl(var(--temp-optimal));
   font-size: 0.75rem;
+}
+
+.badge__alert {
+  background-color: rgba(239, 68, 68, 0.15); 
+  color: rgb(239, 68, 68);                  
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.badge__ok {
+  background-color: rgba(34, 197, 94, 0.15); 
+  color: rgb(34, 197, 94);
+  border: 1px solid rgba(34, 197, 94, 0.5);
 }
 
 /* Body Info */

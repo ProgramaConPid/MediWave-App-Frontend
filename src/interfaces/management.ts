@@ -2,7 +2,7 @@ export interface MedicinePayload {
   name: string;
   dosage: string;
   manufacturer: string;
-  category: string;
+  type: string;
   min_temperature: number;
   max_temperature: number;
   description: string;
